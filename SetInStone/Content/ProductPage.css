@@ -1,0 +1,68 @@
+﻿body {
+    background: url("Images/back5.JPG");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#divTitle {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    color: white;
+    font-family: Papyrus;
+    font-size: 50px;
+}
+#MainGraphic {
+    margin: 30px;
+    margin-top: 100px;
+    
+   
+}
+
+/*.Title {
+  float: right;
+    margin: 10px;
+}*/
+
+.Labels {
+    height: 40px;
+    font-size: 30px;
+    color: white;
+    background-color: transparent;
+    font-family: Book Antiqua;
+}
+#costControls {
+    
+    margin: 10px;
+    width: 400px;
+    border: 1px solid white;
+    -moz-border-radius:  2px;
+    border-radius: 5px;
+    height: 220px;
+    text-align: center;
+    float: right;
+
+     margin-top: -300px;
+}
+.Buttons {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 20px;
+    
+}
+.TextBoxes {
+    border: none;
+    height: 40px;
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    font-family: Book Antiqua;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+::-webkit-input-placeholder {
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 20px;
+}

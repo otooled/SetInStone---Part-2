@@ -1,0 +1,59 @@
+﻿body {
+    background: url("Images/back5.JPG");
+    background-repeat: no-repeat;
+   background-size: 1400px 650px;
+}
+.TextBoxes {
+    border: none;
+    height: 40px;
+    font-size: 30px;
+    color: white;
+    background-color: transparent;
+    font-family: Book Antiqua;
+}
+::-webkit-input-placeholder {
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 30px;
+}
+input:focus {
+    outline: none
+}
+
+.bars {
+    background-color: white;
+    width: 300px;
+    color: white;
+    height: 2px;
+    font-size: 4px;
+}
+.LoginButtons {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 30px;
+    
+}
+#divTitle {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    color: white;
+    font-family: Papyrus;
+    font-size: 50px;
+}
+#LoginDiv {
+    margin-left: 100px;
+    top: 30%;
+    bottom: auto;
+    width: 300px;
+    position: fixed;
+}
+#divNewEmployee {
+     right: 100px;
+    top: 30%;
+    width: 300px;
+    position: fixed;
+}
+

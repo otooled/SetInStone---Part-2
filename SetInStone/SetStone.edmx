@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SetStone2Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="SetStone2ModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="SetStone2Model.Store.Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Employee" EntityType="SetStone2Model.Store.Employee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Order" EntityType="SetStone2Model.Store.Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="SetStone2Model.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductOption" EntityType="SetStone2Model.Store.ProductOption" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Quote" EntityType="SetStone2Model.Store.Quote" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Slab" EntityType="SetStone2Model.Store.Slab" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Stone" EntityType="SetStone2Model.Store.Stone" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="sysdiagrams" EntityType="SetStone2Model.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Order_Quote" Association="SetStone2Model.Store.FK_Order_Quote">
+            <End Role="Quote" EntitySet="Quote" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductOption" Association="SetStone2Model.Store.FK_Product_ProductOption">
+            <End Role="ProductOption" EntitySet="ProductOption" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Stone" Association="SetStone2Model.Store.FK_Product_Stone">
+            <End Role="Stone" EntitySet="Stone" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quote_Customer" Association="SetStone2Model.Store.FK_Quote_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Quote" EntitySet="Quote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quote_Employee" Association="SetStone2Model.Store.FK_Quote_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Quote" EntitySet="Quote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quote_Product1" Association="SetStone2Model.Store.FK_Quote_Product1">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Quote" EntitySet="Quote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Slab_Stone" Association="SetStone2Model.Store.FK_Slab_Stone">
+            <End Role="Stone" EntitySet="Stone" />
+            <End Role="Slab" EntitySet="Slab" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="nchar" MaxLength="20" />
+          <Property Name="First_name" Type="nvarchar" MaxLength="20" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Quoteid" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Height" Type="float" />
+          <Property Name="Width" Type="float" />
+          <Property Name="Length" Type="float" />
+          <Property Name="PyrHeight" Type="float" />
+          <Property Name="StoneId" Type="int" />
+          <Property Name="ProductOptionID" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductOption">
+          <Key>
+            <PropertyRef Name="ProductOptionID" />
+          </Key>
+          <Property Name="ProductOptionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductOption" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="QuoteId" />
+          </Key>
+          <Property Name="QuoteId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Quote_Ref" Type="nvarchar" MaxLength="10" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="14" Scale="2" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+        </EntityType>
+        <EntityType Name="Slab">
+          <Key>
+            <PropertyRef Name="SlabId" />
+          </Key>
+          <Property Name="SlabId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StoneId" Type="int" />
+          <Property Name="Length" Type="float" />
+          <Property Name="Width" Type="float" />
+          <Property Name="Thickness" Type="float" />
+        </EntityType>
+        <EntityType Name="Stone">
+          <Key>
+            <PropertyRef Name="StoneId" />
+          </Key>
+          <Property Name="StoneId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StoneType" Type="nvarchar" MaxLength="20" />
+          <Property Name="CostPerCube" Type="float" />
+          <Property Name="CutCost" Type="float" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Order_Quote">
+          <End Role="Quote" Type="SetStone2Model.Store.Quote" Multiplicity="0..1" />
+          <End Role="Order" Type="SetStone2Model.Store.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quote">
+              <PropertyRef Name="QuoteId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Quoteid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductOption">
+          <End Role="ProductOption" Type="SetStone2Model.Store.ProductOption" Multiplicity="0..1" />
+          <End Role="Product" Type="SetStone2Model.Store.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOption">
+              <PropertyRef Name="ProductOptionID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductOptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Stone">
+          <End Role="Stone" Type="SetStone2Model.Store.Stone" Multiplicity="0..1" />
+          <End Role="Product" Type="SetStone2Model.Store.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone">
+              <PropertyRef Name="StoneId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quote_Customer">
+          <End Role="Customer" Type="SetStone2Model.Store.Customer" Multiplicity="0..1" />
+          <End Role="Quote" Type="SetStone2Model.Store.Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quote_Employee">
+          <End Role="Employee" Type="SetStone2Model.Store.Employee" Multiplicity="0..1" />
+          <End Role="Quote" Type="SetStone2Model.Store.Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quote_Product1">
+          <End Role="Product" Type="SetStone2Model.Store.Product" Multiplicity="0..1" />
+          <End Role="Quote" Type="SetStone2Model.Store.Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Slab_Stone">
+          <End Role="Stone" Type="SetStone2Model.Store.Stone" Multiplicity="0..1" />
+          <End Role="Slab" Type="SetStone2Model.Store.Slab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone">
+              <PropertyRef Name="StoneId" />
+            </Principal>
+            <Dependent Role="Slab">
+              <PropertyRef Name="StoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SetStone2Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SetStone" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Employees" EntityType="SetStone2Model.Employee" />
+          <EntitySet Name="Orders" EntityType="SetStone2Model.Order" />
+          <EntitySet Name="Products" EntityType="SetStone2Model.Product" />
+          <EntitySet Name="Slabs" EntityType="SetStone2Model.Slab" />
+          <EntitySet Name="Stones" EntityType="SetStone2Model.Stone" />
+          <EntitySet Name="sysdiagrams" EntityType="SetStone2Model.sysdiagram" />
+          <AssociationSet Name="FK_Slab_Stone" Association="SetStone2Model.FK_Slab_Stone">
+            <End Role="Stone" EntitySet="Stones" />
+            <End Role="Slab" EntitySet="Slabs" />
+          </AssociationSet>
+          <EntitySet Name="ProductOptions" EntityType="SetStone2Model.ProductOption" />
+          <AssociationSet Name="FK_Product_ProductOption" Association="SetStone2Model.FK_Product_ProductOption">
+            <End Role="ProductOption" EntitySet="ProductOptions" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Stone" Association="SetStone2Model.FK_Product_Stone">
+            <End Role="Stone" EntitySet="Stones" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="SetStone2Model.Customer" />
+          <EntitySet Name="Quotes" EntityType="SetStone2Model.Quote" />
+          <AssociationSet Name="FK_Quote_Customer" Association="SetStone2Model.FK_Quote_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Quote" EntitySet="Quotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quote_Employee" Association="SetStone2Model.FK_Quote_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Quote" EntitySet="Quotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Quote" Association="SetStone2Model.FK_Order_Quote">
+            <End Role="Quote" EntitySet="Quotes" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quote_Product1" Association="SetStone2Model.FK_Quote_Product1">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Quote" EntitySet="Quotes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="First_name" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Surname" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Quotes" Relationship="SetStone2Model.FK_Quote_Employee" FromRole="Employee" ToRole="Quote" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderId" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Quoteid" Type="Int32" />
+          <NavigationProperty Name="Quote" Relationship="SetStone2Model.FK_Order_Quote" FromRole="Order" ToRole="Quote" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="Width" Type="Double" />
+          <Property Name="Length" Type="Double" />
+          <Property Name="PyrHeight" Type="Double" />
+          <Property Type="Int32" Name="ProductOptionID" />
+          <NavigationProperty Name="ProductOption" Relationship="SetStone2Model.FK_Product_ProductOption" FromRole="Product" ToRole="ProductOption" />
+          <Property Type="Int32" Name="StoneId" />
+          <NavigationProperty Name="Stone" Relationship="SetStone2Model.FK_Product_Stone" FromRole="Product" ToRole="Stone" />
+          <NavigationProperty Name="Quotes" Relationship="SetStone2Model.FK_Quote_Product1" FromRole="Product" ToRole="Quote" />
+        </EntityType>
+        <EntityType Name="Slab">
+          <Key>
+            <PropertyRef Name="SlabId" />
+          </Key>
+          <Property Name="SlabId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StoneId" Type="Int32" />
+          <Property Name="Length" Type="Double" />
+          <Property Name="Width" Type="Double" />
+          <Property Name="Thickness" Type="Double" />
+          <NavigationProperty Name="Stone" Relationship="SetStone2Model.FK_Slab_Stone" FromRole="Slab" ToRole="Stone" />
+        </EntityType>
+        <EntityType Name="Stone">
+          <Key>
+            <PropertyRef Name="StoneId" />
+          </Key>
+          <Property Name="StoneId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="StoneType" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="CostPerCube" Type="Double" />
+          <Property Name="CutCost" Type="Double" />
+          <NavigationProperty Name="Slabs" Relationship="SetStone2Model.FK_Slab_Stone" FromRole="Stone" ToRole="Slab" />
+          <NavigationProperty Name="Products" Relationship="SetStone2Model.FK_Product_Stone" FromRole="Stone" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Slab_Stone">
+          <End Role="Stone" Type="SetStone2Model.Stone" Multiplicity="0..1" />
+          <End Role="Slab" Type="SetStone2Model.Slab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone">
+              <PropertyRef Name="StoneId" />
+            </Principal>
+            <Dependent Role="Slab">
+              <PropertyRef Name="StoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductOption">
+          <Key>
+            <PropertyRef Name="ProductOptionID" />
+          </Key>
+          <Property Type="Int32" Name="ProductOptionID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ProductOption1" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Products" Relationship="SetStone2Model.FK_Product_ProductOption" FromRole="ProductOption" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Product_ProductOption">
+          <End Type="SetStone2Model.ProductOption" Role="ProductOption" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOption">
+              <PropertyRef Name="ProductOptionID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductOptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Stone">
+          <End Type="SetStone2Model.Stone" Role="Stone" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone">
+              <PropertyRef Name="StoneId" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StoneId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Type="Int32" Name="CustomerID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="First_Name" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Surname" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Quotes" Relationship="SetStone2Model.FK_Quote_Customer" FromRole="Customer" ToRole="Quote" />
+        </EntityType>
+        <EntityType Name="Quote">
+          <Key>
+            <PropertyRef Name="QuoteId" />
+          </Key>
+          <Property Type="Int32" Name="QuoteId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Quote_Ref" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Quantity" />
+          <Property Type="Int32" Name="CustomerId" />
+          <Property Type="Decimal" Name="Price" Precision="14" Scale="2" />
+          <Property Type="Int32" Name="EmployeeId" />
+          <Property Type="Int32" Name="ProductId" />
+          <NavigationProperty Name="Customer" Relationship="SetStone2Model.FK_Quote_Customer" FromRole="Quote" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="SetStone2Model.FK_Quote_Employee" FromRole="Quote" ToRole="Employee" />
+          <NavigationProperty Name="Orders" Relationship="SetStone2Model.FK_Order_Quote" FromRole="Quote" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="SetStone2Model.FK_Quote_Product1" FromRole="Quote" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Quote_Customer">
+          <End Type="SetStone2Model.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Quote" Role="Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quote_Employee">
+          <End Type="SetStone2Model.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Quote" Role="Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Quote">
+          <End Type="SetStone2Model.Quote" Role="Quote" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quote">
+              <PropertyRef Name="QuoteId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Quoteid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quote_Product1">
+          <End Type="SetStone2Model.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="SetStone2Model.Quote" Role="Quote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Quote">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SetStone2ModelStoreContainer" CdmEntityContainer="SetStone">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="SetStone2Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="First_name" ColumnName="First_name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="SetStone2Model.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Quoteid" ColumnName="Quoteid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="SetStone2Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="StoneId" ColumnName="StoneId" />
+                <ScalarProperty Name="ProductOptionID" ColumnName="ProductOptionID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="PyrHeight" ColumnName="PyrHeight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Slabs">
+            <EntityTypeMapping TypeName="SetStone2Model.Slab">
+              <MappingFragment StoreEntitySet="Slab">
+                <ScalarProperty Name="SlabId" ColumnName="SlabId" />
+                <ScalarProperty Name="StoneId" ColumnName="StoneId" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Thickness" ColumnName="Thickness" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stones">
+            <EntityTypeMapping TypeName="SetStone2Model.Stone">
+              <MappingFragment StoreEntitySet="Stone">
+                <ScalarProperty Name="StoneId" ColumnName="StoneId" />
+                <ScalarProperty Name="StoneType" ColumnName="StoneType" />
+                <ScalarProperty Name="CostPerCube" ColumnName="CostPerCube" />
+                <ScalarProperty Name="CutCost" ColumnName="CutCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SetStone2Model.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductOptions">
+            <EntityTypeMapping TypeName="SetStone2Model.ProductOption">
+              <MappingFragment StoreEntitySet="ProductOption">
+                <ScalarProperty Name="ProductOption1" ColumnName="ProductOption" />
+                <ScalarProperty Name="ProductOptionID" ColumnName="ProductOptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SetStone2Model.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotes">
+            <EntityTypeMapping TypeName="SetStone2Model.Quote">
+              <MappingFragment StoreEntitySet="Quote">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Quote_Ref" ColumnName="Quote_Ref" />
+                <ScalarProperty Name="QuoteId" ColumnName="QuoteId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

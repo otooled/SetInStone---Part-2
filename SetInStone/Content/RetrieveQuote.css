@@ -1,0 +1,58 @@
+﻿body {
+    background: url("Images/intro-bg.jpg");
+    background-repeat: no-repeat;
+   background-size: 1400px 650px;
+}
+
+.Labels {
+    height: 40px;
+    font-size: 30px;
+    color: lightgrey;
+    opacity: 100;
+    background-color: transparent;
+    font-family: Book Antiqua;
+}
+.Buttons {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 30px;
+     
+    border-width: 10px;
+    
+}
+.TextBoxes {
+   
+    height: 40px;
+    font-size: 30px;
+    color: white;
+    background-color: transparent;
+    font-family: Book Antiqua;
+    width: 150px;
+     border: black;
+    
+}
+::-webkit-input-placeholder {
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 30px;
+}
+input:focus {
+    outline: none
+}
+#divTitle {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    color: white;
+    font-family: Papyrus;
+    font-size: 50px;
+}
+#divRetrieve {
+    
+    margin-left: auto;
+    
+    width: 1000px;
+    
+}

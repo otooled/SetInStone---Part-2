@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c312646f58142329ea97bbff5d49732" Name="Diagram1">
+        <EntityTypeShape EntityType="SetInStoneModel.Customer" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Cut_Cost" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Order" Width="1.5" PointX="1.5" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Order_Details" Width="1.5" PointX="6.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Product" Width="1.5" PointX="4.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Quote" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Slab" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStoneModel.Stone_Type" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="SetInStoneModel.FK_Customer_Table_Order_Table" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Quote_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Cut_Cost_Stone_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Order_Details_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Order_Details_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Quote_Stone_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStoneModel.FK_Slab_Stone_Type" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SetInStoneModel.sysdiagram" Width="1.5" PointX="7.1611346617160061" PointY="31.607815921123986" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
