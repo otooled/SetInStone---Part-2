@@ -110,7 +110,7 @@
 
                 //Create the slab
                 slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
-                slabMaterial = new THREE.MeshPhongMaterial({ map: stoneTex, side: THREE.DoubleSide, transparent: false, opacity: 100 });
+                slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
                 slab = new THREE.Mesh(slabGeometry, slabMaterial);
                 slab.castShadow = true;
@@ -119,7 +119,10 @@
                 scene.add(slab);
 
                 //Create pyramid shape
-                var pyramidGeom = new THREE.Geometry();
+                var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
+                var pyramidMaterial = new THREE.MeshLambertMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
+                
+                
                 pyramidGeom.vertices = [  // array of Vector3 giving vertex coordinates
                     new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / 2),    // vertex number 0
                     new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / -2),   // vertex number 1
@@ -127,23 +130,23 @@
                     new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / 2),   // vertex number 3
                     new THREE.Vector3(0, PYRAMID_HEIGHT, 0)     // vertex number 4
                 ];
-
+                
+                //var meshFaceMaterial = new THREE.MeshFaceMaterial(pyramidMaterial);
                 pyramidGeom.faces = [
-
                     new THREE.Face3(3, 0, 4), // faces are triangles
                     new THREE.Face3(0, 1, 4),
                     new THREE.Face3(1, 2, 4),
                     new THREE.Face3(2, 3, 4)
+                    
                 ];
+                
                 pyramidGeom.dynamic = true;
                 pyramidGeom.computeFaceNormals();
                 pyramidGeom.computeVertexNormals();
                 pyramidGeom.computeBoundingSphere();
-
-
-                var pyramidMaterial = new THREE.MeshLambertMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });// new THREE.LineBasicMaterial({ color: 0xffffff, opacity: 0.2 });
-                pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial, new THREE.MeshFaceMaterial());
-                //pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
+                
+                pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
+                
                 pyramid.position.set(0, SLAB_HEIGHT, 0);
                 pyramid.overdraw = true;
                 pyramid.castShadow = true;
@@ -157,7 +160,7 @@
                 parameters =
                     {
                         Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10),    //these will be read from the DB for previous quotes!
-                        stone: "Granite",
+                        stone: "Wireframe",
                         reset: function () { resetPier() }
                     };
 
@@ -169,7 +172,7 @@
                 pyramidY = folder1.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
                 folder1.open();
 
-                var productMaterial = gui.add(parameters, 'stone', ["Granite", "Sandstone", "Limestone", "Wireframe"]).name
+                var productMaterial = gui.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
                 ('Stone Type').listen();
                 
                 
@@ -210,13 +213,13 @@
                     var value = parameters.stone;
                     var newMaterial;
                     if (value == "Granite") {
-                        newMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });//new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite.jpg"), shading: THREE.FlatShading, overdraw: true });
+                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/granite2.jpg') });
                     }
                     else if (value == "Sandstone") {
-                        newMaterial = new THREE.MeshBasicMaterial({ color: 0xF4A460 });
+                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/sandstone2.jpg') });
                     }
                     else if (value == "Limestone") {
-                        newMaterial = new THREE.MeshBasicMaterial({ color: 0x7C7062 });//new THREE.MeshBasicMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Limestone.jpg")});
+                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/limestone2.jpg') });
                     }
                     else // (value == "Wireframe")
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
@@ -389,8 +392,8 @@
                 </Triggers>
                 <ContentTemplate>
                     <%--                        <asp:DropDownList ID="ddlProductType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"/>--%>
-                    <asp:DropDownList ID="ddlStoneType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                        OnSelectedIndexChanged="ddlStoneType_SelectedIndexChanged" AutoPostBack="True" />
+                    <%--<asp:DropDownList ID="ddlStoneType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                        OnSelectedIndexChanged="ddlStoneType_SelectedIndexChanged" AutoPostBack="True" />--%>
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Enter quantity here"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Please enter no of products required" EnableClientScript="False"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>

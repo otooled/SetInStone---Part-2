@@ -152,11 +152,11 @@ namespace SetInStone
             btnCalculate.ToolTip = "Calculate";
 
             //attempt at controlling Three.js texture with server side dropdown menu
-            if (ddlStoneType.SelectedIndex == 1)
-            {
-                //stoneTextureHF.Value = "Textures/Granite.jpg";
+            //if (ddlStoneType.SelectedIndex == 1)
+            //{
+            //    //stoneTextureHF.Value = "Textures/Granite.jpg";
                 
-            }
+            //}
                      
         }
 
