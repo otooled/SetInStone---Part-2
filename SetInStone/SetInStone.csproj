@@ -107,6 +107,7 @@
     <Content Include="Content\RetrieveQuote.css" />
     <Content Include="Quote.aspx" />
     <Content Include="RetrieveQuote.aspx" />
+    <Content Include="RoundCap.aspx" />
     <Content Include="Scripts\grayscale.js" />
     <Content Include="Content\LandingPage\js\jquery.easing.min.js" />
     <Content Include="Content\LandingPage\js\jquery.js" />
@@ -258,6 +259,13 @@
     </Compile>
     <Compile Include="RetrieveQuote.aspx.designer.cs">
       <DependentUpon>RetrieveQuote.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RoundCap.aspx.cs">
+      <DependentUpon>RoundCap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RoundCap.aspx.designer.cs">
+      <DependentUpon>RoundCap.aspx</DependentUpon>
     </Compile>
     <Compile Include="SetInStone.Context.cs">
       <AutoGen>True</AutoGen>

@@ -142,24 +142,6 @@ namespace SetInStone
             return cutCost;
         }
         
-
-        
-     
-
-        protected void ddlStoneType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            btnCalculate.Enabled = true;
-            btnCalculate.ToolTip = "Calculate";
-
-            //attempt at controlling Three.js texture with server side dropdown menu
-            //if (ddlStoneType.SelectedIndex == 1)
-            //{
-            //    //stoneTextureHF.Value = "Textures/Granite.jpg";
-                
-            //}
-                     
-        }
-
         //Save user inputs
         protected void btnSaveConfirm_Click(object sender, EventArgs e)
         {

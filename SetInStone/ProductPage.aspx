@@ -108,6 +108,8 @@
                 light.castShadow = true;
                 scene.add(light);
 
+                
+                
                 //Create the slab
                 slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
                 slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
@@ -395,8 +397,8 @@
                     <%--<asp:DropDownList ID="ddlStoneType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
                         OnSelectedIndexChanged="ddlStoneType_SelectedIndexChanged" AutoPostBack="True" />--%>
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Enter quantity here"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Please enter no of products required" EnableClientScript="False"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
                     <div id="ProvisionalCosts">
                         <asp:Label ID="lblStoneType" runat="server" Text="Stone Type"></asp:Label>
                         <asp:Label ID="lblDisplayStone" runat="server" ClientIDMode="Static" ></asp:Label>
