@@ -24,7 +24,7 @@
 
          var Slab_Width = 1;
          var Slab_Length = 1;
-         var Slab_Height = 1;
+         var Sphere_Height = 1;
 
          var sphere;
 
@@ -38,10 +38,10 @@
          var sphereY;
          var sphereZ;
          
-         var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 150; MIN_PYRAMID_HEIGHT = 0;
-         var MAX_SLAB_WIDTH = 1200; MAX_SLAB_LENGTH = 1200; MAX_SLAB_HEIGHT = 350; MAX_PYRAMID_HEIGHT = 300;
+         var MIN_SPHERE_WIDTH = 400; MIN_SPHERE_LENGTH = 400; MIN_SPHERE_HEIGHT = 150;
+         var MAX_SPHERE_WIDTH = 1200; MAX_SPHERE_LENGTH = 1200; MAX_SPHERE_HEIGHT = 350; 
          
-         var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 25; PYRAMID_HEIGHT = 20;
+         var SPHERE_WIDTH = 80; SPHERE_LENGTH = 100; SPHERE_HEIGHT = 25;
          
          </script>
 
@@ -57,8 +57,7 @@
 
             function init() {
                 mainGraphic = document.getElementById('MainGraphic');
-                // d = document.body;
-                // console.log('hi ', d);
+            
 
                 renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setSize(740, 320);
@@ -90,20 +89,75 @@
                 sphere = new THREE.Mesh(sphereGeo, sphereMaterial);
                 sphere.material.side = THREE.DoubleSide;
                 scene.add(sphere);
+                
+
+                //var sphereGeo = new THREE.CircleGeometry (radius, segments, thetaStart, thetaLength) {
+
+                //    THREE.Geometry.call(this);
+
+                //    radius = radius || 50;
+
+                //    thetaStart = thetaStart !== undefined ? thetaStart : 0;
+                //    thetaLength = thetaLength !== undefined ? thetaLength : Math.PI * 2;
+                //    segments = segments !== undefined ? Math.max(3, segments) : 8;
+
+                //    var i, uvs = [],
+                //    center = new THREE.Vector3(), centerUV = new THREE.Vector2(0.5, 0.5);
+
+                //    this.vertices.push(center);
+                //    uvs.push(centerUV);
+
+                //    for (i = 0; i <= segments; i++) {
+
+                //        var vertex = new THREE.Vector3();
+                //        var segment = thetaStart + i / segments * thetaLength;
+
+                //        vertex.x = radius * Math.cos(segment);
+                //        vertex.y = radius * Math.sin(segment);
+
+                //        this.vertices.push(vertex);
+                //        uvs.push(new THREE.Vector2((vertex.x / radius + 1) / 2, (vertex.y / radius + 1) / 2));
+
+                //    }
+
+                //    var n = new THREE.Vector3(0, 0, 1);
+
+                //    for (i = 1; i <= segments; i++) {
+
+                //        var v1 = i;
+                //        var v2 = i + 1;
+                //        var v3 = 0;
+
+                //        this.faces.push(new THREE.Face3(v1, v2, v3, [n, n, n]));
+                //        this.faceVertexUvs[0].push([uvs[i], uvs[i + 1], centerUV]);
+
+                //    }
+
+                //    this.computeCentroids();
+                //    this.computeFaceNormals();
+
+                //    this.boundingSphere = new THREE.Sphere(new THREE.Vector3(), radius);
+
+                //};
+
+                //THREE.CircleGeometry.prototype = Object.create(THREE.Geometry.prototype);
+
+
+
 
                 gui = new dat.GUI();
                 
                 parameters =
                     {
-                        Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10)
+                        Length: (SPHERE_LENGTH * 10), Width: (SPHERE_WIDTH * 10), Sphere_Height: (SPHERE_HEIGHT * 10)
                        // reset: function () { resetPier() }
                     };
 
                 //Slider UI
                 folder1 = gui.addFolder('Pier Cap Dimensions (mm)');
-                sphereX = folder1.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                sphereZ = folder1.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                sphereY = folder1.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
+                sphereX = folder1.add(parameters, 'Width').min(MIN_SPHERE_LENGTH).max(MAX_SPHERE_LENGTH).step(1).listen();
+                sphereZ = folder1.add(parameters, 'Length').min(MIN_SPHERE_WIDTH).max(MAX_SPHERE_WIDTH).step(1).listen();
+                sphereY = folder1.add(parameters, 'Sphere_Height').min(MIN_SPHERE_HEIGHT).max(MAX_SPHERE_HEIGHT).step(1).listen();
                 //pyramidY = folder1.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
                 folder1.open();
 
@@ -149,7 +203,7 @@
                 //};
                 //functions to alter shape with sliders
                 sphereX.onChange(function(value) {
-                    sphere.scale.x = value / (SLAB_WIDTH * 10);
+                    sphere.scale.x = value / (SPHERE_WIDTH * 10);
                     //pyramid.scale.x = slab.scale.x;
                     //pyramid.scale.z = slab.scale.x;
 
@@ -158,7 +212,7 @@
                 });
 
                 sphereY.onChange(function(value) {
-                    sphere.scale.y = value / (SLAB_HEIGHT * 10);
+                    sphere.scale.y = value / (SPHERE_HEIGHT * 10);
                     //sphere.position.y = (sphere.scale.y * 25) / 2;
                     //pyramid.position.y = (slab.scale.y * 25);
 
@@ -167,7 +221,7 @@
                 });
 
                 sphereZ.onChange(function(value) {
-                    sphere.scale.z = value / (SLAB_LENGTH * 10);
+                    sphere.scale.z = value / (SPHERE_LENGTH * 10);
                     //pyramid.scale.x = slab.scale.z;
                     //pyramid.scale.z = slab.scale.z;
 

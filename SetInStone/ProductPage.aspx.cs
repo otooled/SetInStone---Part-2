@@ -103,7 +103,7 @@ namespace SetInStone
                 sType = 2;
             }
 
-            else
+            else if (lblDisplayStone.Text == "Limestone")
             {
                 sType = 3;
             }
@@ -191,6 +191,30 @@ namespace SetInStone
         {
             Response.Redirect("LandingPage.aspx");
         }
+
+        protected void chkWithCap_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkWithCap.Checked == false)
+            {
+                Page.ClientScript.RegisterStartupScript(
+                    GetType(),
+                    "MyKey",
+                    "Clear();",
+                    true);
+            }
+
+            //else
+            //{
+            //    Page.ClientScript.RegisterStartupScript(
+            //        GetType(),
+            //        "MyKey",
+            //        "init();",
+            //        false);
+            //}
+            }
+        
+
+        
 
     }
 }

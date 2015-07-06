@@ -174,13 +174,16 @@
     <Content Include="Scripts\TGALoader.js" />
     <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TrackballControls.js" />
+    <Content Include="SquarePillar.aspx" />
+    <Content Include="Textures\Granite Flashing.jpg" />
     <Content Include="Textures\Granite.jpg" />
     <Content Include="Textures\granite2.jpg" />
     <Content Include="Textures\gridcomb.gif" />
+    <Content Include="Textures\Limestone flashing.jpg" />
     <Content Include="Textures\Limestone.jpg" />
     <Content Include="Textures\limestone2.jpg" />
+    <Content Include="Textures\Sandstone flashing.jpg" />
     <Content Include="Textures\sandstone2.jpg" />
-    <Content Include="Textures\sstone.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -304,6 +307,13 @@
     </Compile>
     <Compile Include="Slab.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SquarePillar.aspx.cs">
+      <DependentUpon>SquarePillar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SquarePillar.aspx.designer.cs">
+      <DependentUpon>SquarePillar.aspx</DependentUpon>
     </Compile>
     <Compile Include="Stone.cs">
       <DependentUpon>SetStone.tt</DependentUpon>

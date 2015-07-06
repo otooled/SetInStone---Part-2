@@ -35,7 +35,7 @@
 
         var parameters;
         var gui;
-        var folder1;
+        var deminsions;
         var slabX;
         var slabY;
         var slabZ;
@@ -61,64 +61,66 @@
     <div id="divTitle">
         <label>Set In Stone</label>
     </div>
-    <div id='MainGraphic'>
+            <div id='MainGraphic'>
 
 
-        <script type='text/javascript'>
-            // var controls, stats;
-            init();
+                <script type='text/javascript'>
+                    // var controls, stats;
+                    init();
 
-            function init() {
-                mainGraphic = document.getElementById('MainGraphic');
-                // d = document.body;
-                // console.log('hi ', d);
+            
+                    function init() {
+                        var mainGraphic = document.getElementById('MainGraphic');
+                        // d = document.body;
+                        // console.log('hi ', d);
 
-                renderer = new THREE.WebGLRenderer({ antialias: true });
-                renderer.setSize(740, 320);
-                renderer.shadowMapEnabled = true;
-                renderer.shadowMapSoft = true;
-                renderer.domElement.style.border = '5px solid white';
+                        renderer = new THREE.WebGLRenderer({ antialias: true });
+                        renderer.setSize(740, 320);
+                        renderer.shadowMapEnabled = true;
+                        renderer.shadowMapSoft = true;
+                        renderer.domElement.style.border = '5px solid white';
 
-                mainGraphic.appendChild(renderer.domElement);
+                        mainGraphic.appendChild(renderer.domElement);
 
-                color = new THREE.Color(0xffffff);
+                        color = new THREE.Color(0xffffff);
+                
 
-                //Load textures
-                var stoneTex = new THREE.ImageUtils.loadTexture("Textures/gridcomb.gif");
-                stoneTex.wrapS = THREE.RepeatWrapping;
-                stoneTex.anisotropy = 16;
-                stoneTex.minFilter = THREE.LinearFilter;
-                stoneTex.magFilter = THREE.LinearFilter;
+                        //Load textures
+                        var stoneTex = new THREE.ImageUtils.loadTexture("Textures/gridcomb.gif");
+                        stoneTex.wrapS = THREE.RepeatWrapping;
+                        stoneTex.anisotropy = 16;
+                        stoneTex.minFilter = THREE.LinearFilter;
+                        stoneTex.magFilter = THREE.LinearFilter;
 
-                stoneTex.repeat.x = 1;
-                stoneTex.repeat.y = 1;
+                        stoneTex.repeat.x = 1;
+                        stoneTex.repeat.y = 1;
 
-                scene = new THREE.Scene();
+                        scene = new THREE.Scene();
 
-                camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-                camera.position.set(100, 100, 200);
+                        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
+                        camera.position.set(100, 100, 200);
 
-                controls = new THREE.TrackballControls(camera, renderer.domElement);
+                        controls = new THREE.TrackballControls(camera, renderer.domElement);
 
-                light = new THREE.AmbientLight(0xffffff);
-                scene.add(light);
+                        light = new THREE.AmbientLight(0xffffff);
+                        scene.add(light);
 
-                light = new THREE.SpotLight(0xffffff);
-                light.position.set(-100, 100, -100);
-                light.castShadow = true;
-                scene.add(light);
+                        light = new THREE.SpotLight(0xffffff);
+                        light.position.set(-100, 100, -100);
+                        light.castShadow = true;
+                        scene.add(light);
 
                 
                 
-                //Create the slab
-                slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
-                slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
+                        //Create the slab
+                        slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
+                        slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
-                slab = new THREE.Mesh(slabGeometry, slabMaterial);
-                slab.castShadow = true;
-                slab.position.set(0, SLAB_HEIGHT / 2, 0); //(0, 12, 0);
+                        slab = new THREE.Mesh(slabGeometry, slabMaterial);
+                        slab.castShadow = true;
+                        slab.position.set(0, SLAB_HEIGHT / 2, 0); //(0, 12, 0);
 
-                scene.add(slab);
+                        scene.add(slab);
 
                 //Create pyramid shape
                 var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
@@ -167,12 +169,12 @@
                     };
 
                 //Slider UI
-                folder1 = gui.addFolder('Pier Cap Dimensions (mm)');
-                slabX = folder1.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                slabZ = folder1.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                slabY = folder1.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
-                pyramidY = folder1.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-                folder1.open();
+                deminsions = gui.addFolder('Pier Cap Dimensions (mm)');
+                slabX = deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
+                slabZ = deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
+                slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
+                pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
+                deminsions.open();
 
                 var productMaterial = gui.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
                 ('Stone Type').listen();
@@ -397,7 +399,7 @@
                     <%--<asp:DropDownList ID="ddlStoneType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
                         OnSelectedIndexChanged="ddlStoneType_SelectedIndexChanged" AutoPostBack="True" />--%>
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Enter quantity here"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegNumberOnly" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
                     <div id="ProvisionalCosts">
                         <asp:Label ID="lblStoneType" runat="server" Text="Stone Type"></asp:Label>
@@ -415,6 +417,7 @@
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
                         OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" />
+                    <asp:CheckBox ID="chkWithCap" runat="server" Text="Include Cap" OnCheckedChanged="chkWithCap_CheckedChanged" />
                     <br />
 
 
