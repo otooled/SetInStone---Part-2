@@ -26,9 +26,7 @@
         var Pyramid_Height = 1;
 
         //This will act as width & length as slab
-        var Slab_Width = 1;
-        var Slab_Length = 1;
-        var Slab_Height = 1;
+        var Slab_Width = 1, Slab_Length = 1, Slab_Height = 1;
 
         //Global variables
         var slab;
@@ -36,9 +34,7 @@
         var parameters;
         var gui;
         var deminsions;
-        var slabX;
-        var slabY;
-        var slabZ;
+        var slabX, slabY, slabZ;
         var pyramidY;
         var light, slabGeometry, slabMaterial, color, pyramid, assignUVs;
 
@@ -71,9 +67,7 @@
             
                     function init() {
                         var mainGraphic = document.getElementById('MainGraphic');
-                        // d = document.body;
-                        // console.log('hi ', d);
-
+                        
                         renderer = new THREE.WebGLRenderer({ antialias: true });
                         renderer.setSize(740, 320);
                         renderer.shadowMapEnabled = true;
@@ -83,17 +77,7 @@
                         mainGraphic.appendChild(renderer.domElement);
 
                         color = new THREE.Color(0xffffff);
-                
-
-                        //Load textures
-                        var stoneTex = new THREE.ImageUtils.loadTexture("Textures/gridcomb.gif");
-                        stoneTex.wrapS = THREE.RepeatWrapping;
-                        stoneTex.anisotropy = 16;
-                        stoneTex.minFilter = THREE.LinearFilter;
-                        stoneTex.magFilter = THREE.LinearFilter;
-
-                        stoneTex.repeat.x = 1;
-                        stoneTex.repeat.y = 1;
+                        
 
                         scene = new THREE.Scene();
 
@@ -109,8 +93,6 @@
                         light.position.set(-100, 100, -100);
                         light.castShadow = true;
                         scene.add(light);
-
-                
                 
                         //Create the slab
                         slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
@@ -234,47 +216,7 @@
 
                 }
 
-                //funtion to manipulated slab shape
-                var slabConfigData = function () {
-                    //slabDiv = document.getElementById('slabControls');
-                    this.scaleX = 1.0;
-                    this.scaleY = 1.0;
-                    this.scaleZ = 1.0;
-                    this.wireframe = false;
-                    this.opacity = 'full';
-
-                    this.doScale = function () {
-                        callback = function () {
-                            var tim = clock.getElapsedTime() * 0.7;
-                            slab.scale.x = 1 + Math.sin(tim);
-                            slab.scale.y = 1 + Math.cos(1.5798 + tim);
-                            slab.scale.z = 1 + Math.cos(1.5798 + tim) * Math.cos(tim);
-                        }
-                        //slabDiv.appendChild(renderer.domElement);
-                    };
-
-                };
-
-                //funtion to manipulated pryimed shape
-                var pyrimidConfigData = function () {
-
-                    //this.scaleX = 1.0;
-                    this.scaleY = 1.0;
-                    //this.scaleZ = 1.0;
-
-                    this.wireframe = false;
-                    this.opacity = 'full';
-
-                    this.doScale = function () {
-                        callback = function () {
-                            var tim = clock.getElapsedTime() * 0.7;
-                            //pyrimid.scale.x = 1 + Math.sin(tim);
-                            pyramid.scale.y = 1 + Math.cos(1.5798 + tim);
-                            //pyrimid.scale.z = 1 + Math.cos(1.5798 + tim) * Math.cos(tim);
-                        }
-
-                    };
-                };
+                
 
                 //functions to alter shape with sliders
                 slabX.onChange(function (value) {
@@ -322,30 +264,26 @@
 
             //Functions to send co-ordinates of pryamid and slab to code behind
             function DisplaySlabHeight() {
-                var GetSlabHeight = Slab_Height;
-                document.getElementById('<%= SlabHeight.ClientID %>').value = GetSlabHeight;
+                var getSlabHeight = Slab_Height;
+                document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
             }
 
             function DisplaySlabWidth() {
-                var GetSlabWidth = Slab_Width;
-                document.getElementById('<%= SlabWidth.ClientID %>').value = GetSlabWidth;
+                var getSlabWidth = Slab_Width;
+                document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
             }
 
             function DisplaySlabLength() {
-                var GetSlabLength = Slab_Length;
-                document.getElementById('<%=SlabLength.ClientID %>').value = GetSlabLength;
+                var getSlabLength = Slab_Length;
+                document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
             }
 
             function DisplayPryHeight() {
-                var GetPryHeight = Pyramid_Height;
-                document.getElementById('<%= PryHeight.ClientID %>').value = GetPryHeight;
+                var getPryHeight = Pyramid_Height;
+                document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
             }
 
-            //Stone texture
-            // function stoneTexture() {
-            //      var getStoneTexture = stoneTex;
-            //    
-            // }
+           
 
         </script>
 

@@ -13,5 +13,10 @@ namespace SetInStone
         {
 
         }
+
+        protected void btnCalculate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
