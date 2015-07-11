@@ -21,7 +21,7 @@
         var light, geometry, material, mesh, np;
         var clock = new THREE.Clock();
         var renderers = [];
-
+        
         //Height of pyramid
         var Pyramid_Height = 1;
 
@@ -103,6 +103,7 @@
                         slab.position.set(0, SLAB_HEIGHT / 2, 0); //(0, 12, 0);
 
                         scene.add(slab);
+                        
 
                 //Create pyramid shape
                 var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);

@@ -84,6 +84,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Start\test2.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -108,6 +109,8 @@
     <Content Include="Quote.aspx" />
     <Content Include="RetrieveQuote.aspx" />
     <Content Include="RoundCap.aspx" />
+    <Content Include="Scripts\ammo.js" />
+    <Content Include="Scripts\csg.js" />
     <Content Include="Scripts\grayscale.js" />
     <Content Include="Content\LandingPage\js\jquery.easing.min.js" />
     <Content Include="Content\LandingPage\js\jquery.js" />
@@ -170,11 +173,16 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\physi.js" />
+    <Content Include="Scripts\physijs_worker.js" />
     <Content Include="Scripts\stats.min.js" />
+    <Content Include="Scripts\threex.oimo.js" />
+    <Content Include="Test1.aspx" />
     <Content Include="Scripts\TGALoader.js" />
     <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TrackballControls.js" />
     <Content Include="SquarePillar.aspx" />
+    <Content Include="Test2.aspx" />
     <Content Include="Textures\Granite Flashing.jpg" />
     <Content Include="Textures\Granite.jpg" />
     <Content Include="Textures\granite2.jpg" />
@@ -191,6 +199,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\test2.aspx.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Start\test2.aspx.designer.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CalcClasses\CutCost.cs" />
     <Compile Include="Customer.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
@@ -270,6 +285,13 @@
     <Compile Include="RoundCap.aspx.designer.cs">
       <DependentUpon>RoundCap.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Test1.aspx.cs">
+      <DependentUpon>Test1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test1.aspx.designer.cs">
+      <DependentUpon>Test1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SetInStone.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -323,6 +345,13 @@
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Test2.aspx.cs">
+      <DependentUpon>Test2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test2.aspx.designer.cs">
+      <DependentUpon>Test2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

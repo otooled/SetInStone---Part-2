@@ -6,6 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    
     <%--<link href="HomeSS.css" rel="stylesheet" />--%>
     <meta content='IE=EmulateIE7' http-equiv='X-UA-Compatible' />
     <meta content='width=1100' name='viewport' />
@@ -37,11 +38,11 @@
         var light, pillarGeometry, pillarMaterial, color, assignUVs;
 
         //default size for new pier cap
-        var PILLAR_WIDTH = 80; PILLAR_LENGTH = 100; PILLAR_HEIGHT = 150;
+        var PILLAR_WIDTH = 80; PILLAR_LENGTH = 100; PILLAR_HEIGHT = 125;
 
         //max dimensions for pier caps
         var MIN_PILLAR_WIDTH = 400; MIN_PILLAR_LENGTH = 400; MIN_PILLAR_HEIGHT = 500;
-        var MAX_PILLAR_WIDTH = 1200; MAX_PILLAR_LENGTH = 1200; MAX_PILLAR_HEIGHT = 2000;
+        var MAX_PILLAR_WIDTH = 1200; MAX_PILLAR_LENGTH = 1200; MAX_PILLAR_HEIGHT = 1700;
 
         //var lblSelectedText = document.getElementById("lblSelectedText");
         
@@ -62,11 +63,11 @@
         var light, slabGeometry, slabMaterial, color, pyramid, assignUVs;
 
         //default size for new pier cap
-        var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 25; PYRAMID_HEIGHT = 20;
+        var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 15; PYRAMID_HEIGHT = 20;
 
         //max dimensions for pier caps
-        var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 150; MIN_PYRAMID_HEIGHT = 0;
-        var MAX_SLAB_WIDTH = 1200; MAX_SLAB_LENGTH = 1200; MAX_SLAB_HEIGHT = 350; MAX_PYRAMID_HEIGHT = 300;
+        var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 100; MIN_PYRAMID_HEIGHT = 0;
+        var MAX_SLAB_WIDTH = 1200; MAX_SLAB_LENGTH = 1200; MAX_SLAB_HEIGHT = 250; MAX_PYRAMID_HEIGHT = 300;
     </script>
 
     <title>Set In Stone</title>
@@ -123,9 +124,22 @@
 
                 slab = new THREE.Mesh(slabGeometry, slabMaterial);
                 slab.castShadow = true;
-                slab.position.set(0, PILLAR_HEIGHT /2.2, 0); //(0, 12, 0);
+                slab.position.set(0, PILLAR_HEIGHT /2.3, 0); //(0, 12, 0);
 
                 scene.add(slab);
+                
+                //var square_geometry = new THREE.CubeGeometry(350, 0, 350);
+
+                //// material
+                //var square_color = 0x00ff00;
+                //var square_material = new THREE.MeshPhongMaterial({ color: square_color, ambient: square_color, transparent: false });
+                //var square = new THREE.Mesh(square_geometry, square_material);
+                //square.receiveShadow = true;
+                ////square.castShadow = true;
+                //square.position.set(0,  - 100, 0);
+                //scene.add(square);
+
+
 
                 //Create pyramid shape
                 var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
@@ -156,13 +170,16 @@
 
                 pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
 
-                pyramid.position.set(0, PILLAR_HEIGHT/1.86, 0);
+                pyramid.position.set(0, PILLAR_HEIGHT/2.21, 0);
                 pyramid.overdraw = true;
                 pyramid.castShadow = true;
                 pyramid.receiveShadow = true;
 
                 scene.add(pyramid);
                 scene.add(new THREE.FaceNormalsHelper(pyramid));
+                
+
+               
 
                 Slab_gui = new dat.GUI();
 
@@ -170,7 +187,7 @@
                     {
                         Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10),    //these will be read from the DB for previous quotes!
                         stone: "Wireframe",
-                        reset: function () { resetPier() }
+                        //reset: function () { resetPier() }
                     };
                 
                 //Slider UI
@@ -250,9 +267,13 @@
                 //});
 
                 slabY.onChange(function(value) {
-                    slab.scale.y = value / (SLAB_HEIGHT * 15);
-                    slab.position.y = (slab.scale.y * 25) / 2;
-                    pyramid.position.y = (slab.scale.y * 25);
+                    slab.scale.y = value / (SLAB_HEIGHT * 10);
+                     //slab.position.y = (slab.scale.y * 25) / 2;
+                    pyramid.position.y = (slab.scale.y * 155) / 1.3;
+                    slab.position.y = (pillar.scale.y * 55) * 1.04;
+                    
+
+
 
                     //Put Y scale value in global variable
                     Slab_Height = slab.scale.y;
@@ -277,6 +298,8 @@
                     //pyramid.position.y = (slab.scale.y * 25);
                 });
 
+                
+               
 
 
                 //Create the pillar
@@ -285,7 +308,7 @@
 
         pillar = new THREE.Mesh(pillarGeometry, pillarMaterial);
         pillar.castShadow = true;
-        pillar.position.set(0, -20, 0); //(0, 12, 0);
+        pillar.position.set(0, -15, 0); //(0, 12, 0);
 
         scene.add(pillar);
 
@@ -357,10 +380,14 @@
 
                 pillarY.onChange(function(value) {
                     pillar.scale.y = value / (PILLAR_HEIGHT * 10);
-                    pillar.position.y = -20;// (pillar.scale.y * 25) / 2;
-                    slab.position.y = (pillar.scale.y * 135) / 2;
+                    //pillar.position.y = (pillar.scale.y *.2);
+                    var difference = (slab.scale.y / 1.3) + (pillar.scale.y / 5);
+                    slab.position.y = pillar.scale.y * (difference * 55);
+
+                    //slab.position.y = (pillar.scale.y * 55)*1.04;
+                    //pyramid.position.y = (pillar.scale.y * 63) *.5;
                     
-                    pyramid.position.y = (pillar.scale.y * 80);
+                    //position.x + width / 2, position.y + height / 2, position.z + depth / 2
 
                     //Put Y scale value in global variable
                     Pillar_Height = pillar.scale.y;

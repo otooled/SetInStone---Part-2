@@ -21,7 +21,9 @@ namespace SetInStone.App_Start
                  "~/Scripts/TrackballControls.js",
                  "~/Scripts/TGALoader.js",
                  "~/Scripts/grayscale.js",
-                 "~/Scripts/jquery-ui.js"
+                 "~/Scripts/jquery-ui.js",
+                 "~/Scripts/physi.js",
+                 "~/Scripts/csg.js"
                  ));
 
             BundleTable.EnableOptimizations = true;
