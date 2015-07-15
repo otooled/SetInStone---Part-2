@@ -170,7 +170,7 @@
 
                 pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
 
-                pyramid.position.set(0, PILLAR_HEIGHT/2.21, 0);
+                pyramid.position.set(0, PILLAR_HEIGHT/2, 0);
                 pyramid.overdraw = true;
                 pyramid.castShadow = true;
                 pyramid.receiveShadow = true;
@@ -269,11 +269,15 @@
                 slabY.onChange(function(value) {
                     slab.scale.y = value / (SLAB_HEIGHT * 10);
                      //slab.position.y = (slab.scale.y * 25) / 2;
-                    pyramid.position.y = (slab.scale.y * 155) / 1.3;
-                    slab.position.y = (pillar.scale.y * 55) * 1.04;
-                    
+                   
+                    //slab.position.y = (pillar.scale.y * 25) /2;
+                    pillar.position.y = (slab.scale.y * (-1.5 * 6.10)) - 6.5;
+                    pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) -8;
+                     
+                    //pillar.scale.y = value / (PILLAR_HEIGHT * 10);
 
-
+                    //slab.position.y = (pillar.scale.y * (10 * 6.10)) - 5.8;
+                    //pyramid.position.y = (pillar.scale.y * (10 * 6.10)) + 1.8;
 
                     //Put Y scale value in global variable
                     Slab_Height = slab.scale.y;
@@ -380,12 +384,10 @@
 
                 pillarY.onChange(function(value) {
                     pillar.scale.y = value / (PILLAR_HEIGHT * 10);
-                    //pillar.position.y = (pillar.scale.y *.2);
-                    var difference = (slab.scale.y / 1.3) + (pillar.scale.y / 5);
-                    slab.position.y = pillar.scale.y * (difference * 55);
 
-                    //slab.position.y = (pillar.scale.y * 55)*1.04;
-                    //pyramid.position.y = (pillar.scale.y * 63) *.5;
+                    slab.position.y = (pillar.scale.y * (10 * 6.10)) - 5.8;
+                    pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;//(pillar.scale.y * (10 * 6.10)) + 1.8;
+                    //pyramid.position.y = pillar.scale.y * (difference * 60);
                     
                     //position.x + width / 2, position.y + height / 2, position.z + depth / 2
 

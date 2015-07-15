@@ -182,7 +182,6 @@
     <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TrackballControls.js" />
     <Content Include="SquarePillar.aspx" />
-    <Content Include="Test2.aspx" />
     <Content Include="Textures\Granite Flashing.jpg" />
     <Content Include="Textures\Granite.jpg" />
     <Content Include="Textures\granite2.jpg" />
@@ -345,13 +344,6 @@
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test2.aspx.cs">
-      <DependentUpon>Test2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test2.aspx.designer.cs">
-      <DependentUpon>Test2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
