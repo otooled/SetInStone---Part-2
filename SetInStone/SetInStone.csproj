@@ -106,6 +106,7 @@
     <Content Include="Content\NewEmployee.css" />
     <Content Include="Content\Quote.css" />
     <Content Include="Content\RetrieveQuote.css" />
+    <Content Include="FirePlace.aspx" />
     <Content Include="Quote.aspx" />
     <Content Include="RetrieveQuote.aspx" />
     <Content Include="RoundCap.aspx" />
@@ -214,6 +215,13 @@
     </Compile>
     <Compile Include="Employee.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FirePlace.aspx.cs">
+      <DependentUpon>FirePlace.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FirePlace.aspx.designer.cs">
+      <DependentUpon>FirePlace.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

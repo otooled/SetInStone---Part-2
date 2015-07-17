@@ -40,7 +40,7 @@
          var light, slabGeometry, slabMaterial, color, pyramid, assignUVs;
 
          //default size for new pier cap
-         var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 25; PYRAMID_HEIGHT = 20;
+         var SLAB_WIDTH = 80; SLAB_LENGTH = 400; SLAB_HEIGHT = 5; PYRAMID_HEIGHT = 20;
 
          //max dimensions for pier caps
          var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 150; MIN_PYRAMID_HEIGHT = 0;
@@ -83,8 +83,8 @@
 
                         scene = new THREE.Scene();
 
-                        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-                        camera.position.set(100, 100, 200);
+                        camera = new THREE.PerspectiveCamera(140, window.innerWidth / window.innerHeight, 1, 1000);
+                        camera.position.set(1, 100, 1);
 
                         controls = new THREE.TrackballControls(camera, renderer.domElement);
 
@@ -101,21 +101,27 @@
                         var combined = new THREE.Geometry();
                         
                         slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
-                        var slab2geom = new THREE.CubeGeometry(80, 70, 100);
+                        //var slab2geom = new THREE.CubeGeometry(80, 70, 100);
                         slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
                         slab1 = new THREE.Mesh(slabGeometry, slabMaterial);
-                        slab2 = new THREE.Mesh(slab2geom, slabMaterial);
+                        //slab2 = new THREE.Mesh(slab2geom, slabMaterial);
 
                         slab1.position.set(0, SLAB_HEIGHT , 0);
-                        slab2.position.set(0, SLAB_HEIGHT-48 , 0);
+                        //slab2.position.set(0, SLAB_HEIGHT-48 , 0);
 
 
                         //THREE.GeometryUtils.merge(combined, slab1);
                         //THREE.GeometryUtils.merge(combined, slab2);
                         
                         //var mesh = new THREE.Mesh(combined);
-                        scene.add(slab2, slab1);
+                        scene.add(slab1);
+                        
+                        var geometry = new THREE.SphereGeometry(50, 16, 32, Math.PI /2, 600 , 0, Math.PI);
+                        var material = new THREE.MeshBasicMaterial({ color: 0xddddff });
+                        mesh = new THREE.Mesh(geometry, material);
+                        mesh.material.side = THREE.DoubleSide;
+                        scene.add(mesh);
 
                         gui = new dat.GUI();
 
@@ -147,12 +153,23 @@
                     }
                     
                     slabY.onChange(function (value) {
-                        slab2.scale.y = value / (SLAB_HEIGHT * 10);
-                        var difference = (slab1.scale.y/ 2) + ( slab2.scale.y /2);
-                        slab1.position.y = slab2.scale.y * (difference * 23);
+                        slab1.scale.y = value / (SLAB_HEIGHT * 10);
+                        //slab1.position.y = (slab1.scale.y * 25) / 2;
                         //slab1.position.y = ((slab2.position.y ) ) - ((slab1.position.y));
 
                         
+                        //pyramid.position.y = (slab.scale.y * 25);
+
+                        //Put Y scale value in global variable
+                        Slab_Height = slab.scale.y;
+                    });
+                    
+                    slabX.onChange(function (value) {
+                        mesh.scale.x = value / (SLAB_WIDTH * 10);
+                        mesh.position.x = (mesh.scale.x * 25) / 2;
+                        //slab1.position.y = ((slab2.position.y ) ) - ((slab1.position.y));
+
+
                         //pyramid.position.y = (slab.scale.y * 25);
 
                         //Put Y scale value in global variable
