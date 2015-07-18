@@ -35,26 +35,38 @@
         var fireplace_deminsions;
         var topSlabY;
         var sideSlabY;
-        var sideSlabX;
-        
-        var light, topSlabGeometry, sideSlabGeometry, slabMaterial, color;
+        var sideSlabZ;
+        var fireplace_depth;
+
+        var light, topSlabGeometry, sideSlabGeometry, right_sideSlabGeometry, slabMaterial, color;
         
         //default size for top slab cap
-        var TOP_SLAB_WIDTH = 40; TOP_SLAB_LENGTH = 500; TOP_SLAB_HEIGHT = 150;
+        var TOP_SLAB_WIDTH = 40; TOP_SLAB_LENGTH = 500; TOP_SLAB_HEIGHT = 120;
         
         //default size for side slab
-        var SIDE_SLAB_WIDTH = 40; SIDE_SLAB_LENGTH = 800; SIDE_SLAB_HEIGHT = 150;
+        var SIDE_SLAB_WIDTH = 40; SIDE_SLAB_LENGTH = 120; SIDE_SLAB_HEIGHT = 150;
+        FIREPLACE_DEPTH = 40;
+        
+        //default size for side slab
+        var RIGHT_SIDE_SLAB_WIDTH = 40; RIGHT_SIDE_SLAB_LENGTH = 120; RIGHT_SIDE_SLAB_HEIGHT = 150;
+       
         
         //max dimensions for top slab caps
-        var MIN_TOP_SLAB_HEIGHT = 100; 
-        var MAX_TOP_SLAB_HEIGHT = 200;
+        var MIN_TOP_SLAB_HEIGHT = 110; 
+        var MAX_TOP_SLAB_HEIGHT = 160;
         
-        //max dimensions for side slab 
-        var MIN_SIDE_SLAB_HEIGHT = 200;
-        var MAX_SIDE_SLAB_HEIGHT = 300;
+        //max dimensions for side slab - left side
+        var MIN_SIDE_SLAB_HEIGHT = 100;
+        var MAX_SIDE_SLAB_HEIGHT = 400;
         
-        var MIN_SIDE_SLAB_WIDTH = 200;
-        var MAX_SIDE_SLAB_WIDTH = 300;
+        var MIN_SIDE_SLAB_WIDTH = 30;
+        var MAX_SIDE_SLAB_WIDTH = 45;
+        
+        
+        
+        //Depth demensions for fireplace
+        var MIN_FIREPLACE_DEPTH = 40;
+        var MAX_FIREPLACE_DEPTH = 150;
         
         </script>
 
@@ -116,15 +128,19 @@
                 topSlabGeometry = new THREE.CubeGeometry(TOP_SLAB_WIDTH, TOP_SLAB_HEIGHT, TOP_SLAB_LENGTH);
                 slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
                 topSlab = new THREE.Mesh(topSlabGeometry, slabMaterial);
-                topSlab.position.set(0, 130, 0);
+                topSlab.position.set(0, 45, 0);
                 
                 // Create left slab of fireplace
                 sideSlabGeometry = new THREE.CubeGeometry(SIDE_SLAB_WIDTH, SIDE_SLAB_HEIGHT, SIDE_SLAB_LENGTH);
                 sideSlab = new THREE.Mesh(sideSlabGeometry, slabMaterial);
-                sideSlab.position.set(0, 10, 0);
+                sideSlab.position.set(0, -90, 180);
                 
+                //Create right side slab
+                right_sideSlabGeometry = new THREE.CubeGeometry(SIDE_SLAB_WIDTH, SIDE_SLAB_HEIGHT, SIDE_SLAB_LENGTH);
+                rightSlab = new THREE.Mesh(right_sideSlabGeometry, slabMaterial);
+                rightSlab.position.set(0, -90,-180);
 
-                scene.add(topSlab, sideSlab);
+                scene.add(topSlab, sideSlab, rightSlab);
                 
                 
 
@@ -138,7 +154,7 @@
 
                 fireplace_parameters =
                     {
-                        Top_Slab_Height: (TOP_SLAB_HEIGHT), Side_Slab_Width:(SIDE_SLAB_WIDTH),
+                        Top_Slab_Height: (TOP_SLAB_HEIGHT), Side_Slab_Height:(SIDE_SLAB_HEIGHT),Side_Slab_Width:(SIDE_SLAB_WIDTH),
                         stone: "Wireframe",
                         //reset: function () { resetPier() }
                     };
@@ -148,7 +164,10 @@
                 //slabX = topSlab_deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
                 //slabZ = topSlab_deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
                 topSlabY = fireplace_deminsions.add(fireplace_parameters, 'Top_Slab_Height').min(MIN_TOP_SLAB_HEIGHT).max(MAX_TOP_SLAB_HEIGHT).step(1).listen();
-                sideSlabX = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
+                
+                sideSlabY = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Height').min(MIN_SIDE_SLAB_HEIGHT).max(MAX_SIDE_SLAB_HEIGHT).step(1).listen();
+                sideSlabZ = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
+                //fireplace_depth = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
                 fireplace_deminsions.open();
 
                 var fireplaceSlabMaterial = firePlace_gui.add(fireplace_parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
@@ -178,7 +197,7 @@
 
                     topSlab.material = newMaterial;
                     sideSlab.material = newMaterial;
-                       
+                    rightSlab.material = newMaterial;
 
                     animate();
                 }
@@ -186,15 +205,32 @@
                 topSlabY.onChange(function(value) {
                     topSlab.scale.y = value / (TOP_SLAB_HEIGHT );
                     //topSlab.position.y = (topSlab.scale.y * 25) / 2;
-
+                    sideSlab.position.y = (topSlab.scale.y * (-7.5 * 12.10)) ;
 
                     //Put Y scale value in global variable
                     //Slab_Height = slab.scale.y;
                 });
                 
-                sideSlabX.onChange(function(value) {
-                    sideSlab.scale.x = value / (SIDE_SLAB_LENGTH );
-                    topSlab.scale.x = value / (SIDE_SLAB_LENGTH);
+                sideSlabY.onChange(function(value) {
+                    sideSlab.scale.y = value / (SIDE_SLAB_HEIGHT);
+                    rightSlab.scale.y = value / (SIDE_SLAB_HEIGHT);
+
+
+                    topSlab.position.y = (sideSlab.position.y + TOP_SLAB_HEIGHT /2) + (sideSlab.scale.y *75) ;
+                    //(slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
+
+                   
+                    //rightSlab.position.y = (sideSlab.scale.y * SIDE_SLAB_HEIGHT)*50;
+                   // slab.position.y = (slab.scale.y * 25) / 2;
+
+                    //Put Y scale value in global variable
+                    //Slab_Height = slab.scale.y;
+                });
+                
+                sideSlabZ.onChange(function (value) {
+                    sideSlab.scale.z = value / (SIDE_SLAB_WIDTH);
+                    rightSlab.scale.z = value / (SIDE_SLAB_WIDTH);
+                    //topSlab.scale.x = value / (SIDE_SLAB_LENGTH);
 
 
                     //Put Y scale value in global variable

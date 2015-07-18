@@ -355,7 +355,7 @@
         DisplaySlabWidth();  DisplaySlabLength();" />
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
                         OnClick="btnSaveConfirm_Click" />
-                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" />
+                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />
                     <asp:CheckBox ID="chkWithCap" runat="server" Text="Include Cap" OnCheckedChanged="chkWithCap_CheckedChanged" />
                     <br />
 

@@ -17,57 +17,52 @@
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ProductPage.css") %><%: Scripts.Render("~/bundles/jQuery") %>
 
     <script>
-        var renderer, scene, camera, controls, stats, slab_scene;
-        var light, geometry, material, mesh, np;
+        var renderer, scene, camera, controls, stats;
+        var light, material, mesh;
         var clock = new THREE.Clock();
         var renderers = [];
-
-
-        //This will act as width & length as slab
-        var Pillar_Width = 1, Pillar_Length = 1, Pillar_Height = 1;
-
-        //Global variables
-        var pillar;
-
-        var parameters;
-        var gui;
+       
+        //Slider and gui variables
         var deminsions;
-
-        var pillarX, pillarY, pillarZ;
-
-        var light, pillarGeometry, pillarMaterial, color, assignUVs;
-
+        var parameters;
+        var gui_deminsions;
+        var pillar;
+        var pillarX, pillarY, pillarZ, slabY, pyramidY;
+        
+        //Pillar creation
+        var pillarGeometry, pillarMaterial;
+        
         //default size for new pier cap
         var PILLAR_WIDTH = 80; PILLAR_LENGTH = 100; PILLAR_HEIGHT = 125;
 
         //max dimensions for pier caps
         var MIN_PILLAR_WIDTH = 400; MIN_PILLAR_LENGTH = 400; MIN_PILLAR_HEIGHT = 500;
         var MAX_PILLAR_WIDTH = 1200; MAX_PILLAR_LENGTH = 1200; MAX_PILLAR_HEIGHT = 1700;
-
-        //var lblSelectedText = document.getElementById("lblSelectedText");
         
-        //Height of pyramid
-        var Pyramid_Height = 1;
+        //This will act as width & length as slab
+        var Pillar_Width = 1, Pillar_Length = 1, Pillar_Height = 1;
 
+        var color, assignUVs;
+
+        //Slab creation
         //This will act as width & length as slab
         var Slab_Width = 1, Slab_Length = 1, Slab_Height = 1;
-
-        //Global variables
+        var slabGeometry, slabMaterial;
         var slab;
-
-        var Slab_parameters;
-        var Slab_gui;
-        var Slab_deminsions;
-        var slabX, slabY, slabZ;
-        var pyramidY;
-        var light, slabGeometry, slabMaterial, color, pyramid, assignUVs;
-
         //default size for new pier cap
         var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 15; PYRAMID_HEIGHT = 20;
 
         //max dimensions for pier caps
         var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 100; MIN_PYRAMID_HEIGHT = 0;
         var MAX_SLAB_WIDTH = 1200; MAX_SLAB_LENGTH = 1200; MAX_SLAB_HEIGHT = 250; MAX_PYRAMID_HEIGHT = 300;
+        
+        //var lblSelectedText = document.getElementById("lblSelectedText");
+        
+        //Pyramid creation
+        var pyramid, assignUVs;
+        //Height of pyramid
+        var Pyramid_Height = 1;
+       
     </script>
 
     <title>Set In Stone</title>
@@ -99,7 +94,7 @@
 
                 mainGraphic.appendChild(renderer.domElement);
 
-                color = new THREE.Color(0xffffff);
+                //color = new THREE.Color(0xffffff);
 
 
                 scene = new THREE.Scene();
@@ -127,18 +122,6 @@
                 slab.position.set(0, PILLAR_HEIGHT /2.3, 0); //(0, 12, 0);
 
                 scene.add(slab);
-                
-                //var square_geometry = new THREE.CubeGeometry(350, 0, 350);
-
-                //// material
-                //var square_color = 0x00ff00;
-                //var square_material = new THREE.MeshPhongMaterial({ color: square_color, ambient: square_color, transparent: false });
-                //var square = new THREE.Mesh(square_geometry, square_material);
-                //square.receiveShadow = true;
-                ////square.castShadow = true;
-                //square.position.set(0,  - 100, 0);
-                //scene.add(square);
-
 
 
                 //Create pyramid shape
@@ -181,28 +164,30 @@
 
                
 
-                Slab_gui = new dat.GUI();
+                gui_deminsions = new dat.GUI();
 
-                Slab_parameters =
+                parameters =
                     {
-                        Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10),    //these will be read from the DB for previous quotes!
+                        Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10), Pillar_Length: (PILLAR_LENGTH * 10),
+                        Pillar_Width: (PILLAR_WIDTH * 10), Pillar_Height: (PILLAR_HEIGHT * 10),
                         stone: "Wireframe",
                         //reset: function () { resetPier() }
                     };
                 
                 //Slider UI
-                Slab_deminsions = Slab_gui.addFolder('Pier Cap Dimensions (mm)');
-                //slabX = Slab_deminsions.add(Slab_parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                //slabZ = Slab_deminsions.add(Slab_parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                slabY = Slab_deminsions.add(Slab_parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
-                pyramidY = Slab_deminsions.add(Slab_parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-                Slab_deminsions.open();
+                deminsions = gui_deminsions.addFolder('Dimensions (mm)');
+                slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
+                pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
+                pillarX = deminsions.add(parameters, 'Pillar_Length').min(MIN_PILLAR_LENGTH).max(MAX_PILLAR_LENGTH).step(1).listen();
+                pillarZ = deminsions.add(parameters, 'Pillar_Width').min(MIN_PILLAR_WIDTH).max(MAX_PILLAR_WIDTH).step(1).listen();
+                pillarY = deminsions.add(parameters, 'Pillar_Height').min(MIN_PILLAR_HEIGHT).max(MAX_PILLAR_HEIGHT).step(10).listen();
+                deminsions.open();
 
-                var slab_productMaterial = Slab_gui.add(Slab_parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
-                ('Stone Type').listen();
+                var slabProductMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
+                ('Cap Stone Type').listen();
 
 
-                slab_productMaterial.onChange(function (value) {
+                slabProductMaterial.onChange(function (value) {
                     updateSlab();
                     updatePyramid();
 
@@ -210,7 +195,7 @@
 
                 //change texture of slab when stone type is changed
                 function updateSlab() {
-                    var value = Slab_parameters.stone;
+                    var value = parameters.stone;
                     var newMaterial;
                     if (value == "Granite") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
@@ -236,7 +221,7 @@
 
                 //change texture of pyramid when stone type is changed
         function updatePyramid() {
-            var value = Slab_parameters.stone;
+            var value = parameters.stone;
             var newMaterial;
             if (value == "Granite") {
                 newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/granite2.jpg') });
@@ -256,15 +241,7 @@
 
         }
                 
-                ////functions to alter shape with sliders
-                //slabX.onChange(function(value) {
-                //    slab.scale.x = value / (SLAB_WIDTH * 10);
-                //    pyramid.scale.x = slab.scale.x;
-                //    //pyramid.scale.z = slab.scale.x;
-
-                //    //Put X scale value in global variable
-                //    Slab_Length = slab.scale.x;
-                //});
+               
 
                 slabY.onChange(function(value) {
                     slab.scale.y = value / (SLAB_HEIGHT * 10);
@@ -283,14 +260,7 @@
                     Slab_Height = slab.scale.y;
                 });
 
-                //slabZ.onChange(function(value) {
-                //    slab.scale.z = value / (SLAB_LENGTH * 10);
-                //    //pyramid.scale.x = slab.scale.z;
-                //    pyramid.scale.z = slab.scale.z;
-
-                //    //Put Z scale value in global variable
-                //    Slab_Width = slab.scale.z;
-                //});
+               
 
                 pyramidY.onChange(function(value) {
                     pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
@@ -316,25 +286,10 @@
 
         scene.add(pillar);
 
-        gui = new dat.GUI();
+     
 
-        parameters =
-            {
-                Length: (PILLAR_LENGTH * 10), Width: (PILLAR_WIDTH * 10), Pillar_Height: (PILLAR_HEIGHT * 10),    //these will be read from the DB for previous quotes!
-                stone: "Wireframe"
-                //reset: function () { resetPier() }
-            };
-
-                //Slider UI
-        deminsions = gui.addFolder('Pillar Dimensions (cm)');
-        pillarX = deminsions.add(parameters, 'Width').min(MIN_PILLAR_LENGTH).max(MAX_PILLAR_LENGTH).step(1).listen();
-        pillarZ = deminsions.add(parameters, 'Length').min(MIN_PILLAR_WIDTH).max(MAX_PILLAR_WIDTH).step(1).listen();
-        pillarY = deminsions.add(parameters, 'Pillar_Height').min(MIN_PILLAR_HEIGHT).max(MAX_PILLAR_HEIGHT).step(10).listen();
-                //pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-        deminsions.open();
-
-        var productMaterial = gui.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
-        ('Stone Type').listen();
+        var productMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
+        ('Pillar Stone Type').listen();
 
 
 
