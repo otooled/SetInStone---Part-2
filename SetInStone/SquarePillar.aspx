@@ -86,6 +86,7 @@
             function init() {
                 var mainGraphic = document.getElementById('MainGraphic');
 
+                //renderer for scene
                 renderer = new THREE.WebGLRenderer({ antialias: true });
                 renderer.setSize(740, 320);
                 renderer.shadowMapEnabled = true;
@@ -94,32 +95,27 @@
 
                 mainGraphic.appendChild(renderer.domElement);
 
-                //color = new THREE.Color(0xffffff);
-
-
+                //create the scene
                 scene = new THREE.Scene();
-                //slab_scene = new THREE.Scene();
                 
+                //Camera position
                 camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
                 camera.position.set(100, 100, 350);
 
+                //Rotation of objects in scene
                 controls = new THREE.TrackballControls(camera, renderer.domElement);
 
+                //Light the scene
                 light = new THREE.AmbientLight(0xffffff);
                 scene.add(light);
 
-                light = new THREE.SpotLight(0xffffff);
-                light.position.set(-100, 100, -100);
-                light.castShadow = true;
-                scene.add(light);
-
-                //Create the slab
-                slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
+                //Create the slab geometry and material
+                slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH);
                 slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
                 slab = new THREE.Mesh(slabGeometry, slabMaterial);
                 slab.castShadow = true;
-                slab.position.set(0, PILLAR_HEIGHT /2.3, 0); //(0, 12, 0);
+                slab.position.set(0, PILLAR_HEIGHT /2.3, 0);
 
                 scene.add(slab);
 
@@ -128,24 +124,25 @@
                 var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
                 var pyramidMaterial = new THREE.MeshLambertMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
-
-                pyramidGeom.vertices = [  // array of Vector3 giving vertex coordinates
-                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / 2),    // vertex number 0
-                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / -2),   // vertex number 1
-                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / -2),  // vertex number 2
-                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / 2),   // vertex number 3
-                    new THREE.Vector3(0, PYRAMID_HEIGHT, 0)     // vertex number 4
+                //vertex coordinates for pryamid
+                pyramidGeom.vertices = [ 
+                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / 2),    
+                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / -2),   
+                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / -2),  
+                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / 2),   
+                    new THREE.Vector3(0, PYRAMID_HEIGHT, 0)     
                 ];
 
-                //var meshFaceMaterial = new THREE.MeshFaceMaterial(pyramidMaterial);
+                //Faces for triangles that make up pryamid
                 pyramidGeom.faces = [
-                    new THREE.Face3(3, 0, 4), // faces are triangles
+                    new THREE.Face3(3, 0, 4), 
                     new THREE.Face3(0, 1, 4),
                     new THREE.Face3(1, 2, 4),
                     new THREE.Face3(2, 3, 4)
 
                 ];
 
+                //Set up pryamid for adding texture
                 pyramidGeom.dynamic = true;
                 pyramidGeom.computeFaceNormals();
                 pyramidGeom.computeVertexNormals();
@@ -161,11 +158,20 @@
                 scene.add(pyramid);
                 scene.add(new THREE.FaceNormalsHelper(pyramid));
                 
+                //Create the pillar
+                pillarGeometry = new THREE.CubeGeometry(PILLAR_WIDTH, PILLAR_HEIGHT, PILLAR_LENGTH); //(100, 15, 100);
+                pillarMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100, });
 
+                pillar = new THREE.Mesh(pillarGeometry, pillarMaterial);
+                pillar.castShadow = true;
+                pillar.position.set(0, -15, 0); //(0, 12, 0);
+
+                scene.add(pillar);
                
-
+                //Begin slider 
                 gui_deminsions = new dat.GUI();
 
+                //Parameters that for product demensions
                 parameters =
                     {
                         Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10), Pillar_Length: (PILLAR_LENGTH * 10),
@@ -176,155 +182,118 @@
                 
                 //Slider UI
                 deminsions = gui_deminsions.addFolder('Dimensions (mm)');
+                
+                //Slab and pyramid
                 slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
                 pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
+                
+                //Pillar
                 pillarX = deminsions.add(parameters, 'Pillar_Length').min(MIN_PILLAR_LENGTH).max(MAX_PILLAR_LENGTH).step(1).listen();
                 pillarZ = deminsions.add(parameters, 'Pillar_Width').min(MIN_PILLAR_WIDTH).max(MAX_PILLAR_WIDTH).step(1).listen();
                 pillarY = deminsions.add(parameters, 'Pillar_Height').min(MIN_PILLAR_HEIGHT).max(MAX_PILLAR_HEIGHT).step(10).listen();
+                
                 deminsions.open();
+                
+                //Stone types selection for cap
+                var slabProductMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name('Cap Stone Type').listen();
 
-                var slabProductMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
-                ('Cap Stone Type').listen();
-
-
-                slabProductMaterial.onChange(function (value) {
-                    updateSlab();
-                    updatePyramid();
-
+                //Call function to update cap and slab textures
+                slabProductMaterial.onChange(function(value) {
+                    updateCap();
+                    //updatePyramid();
                 });
 
-                //change texture of slab when stone type is changed
-                function updateSlab() {
+                //Stone types selection for pillar
+                var productMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name('Pillar Stone Type').listen();
+                
+                //Call function to update pillar texture
+                productMaterial.onChange(function (value) {
+                    updatePillar();
+                });
+
+                //Change texture of cap when stone type is changed
+                //This also puts displays the stone type selected
+                function updateCap() {
+                    
                     var value = parameters.stone;
                     var newMaterial;
+                    
                     if (value == "Granite") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                        //Display selection
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Granite";
-                    }
-                    else if (value == "Sandstone") {
+                        
+                    } else if (value == "Sandstone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
+
+                        //Display selection
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Sand Stone";
-                    }
-                    else if (value == "Limestone") {
+                        
+                    } else if (value == "Limestone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+
+                        //Display selection
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Lime Stone";
-                    }
-                    else // (value == "Wireframe")
+                        
+                    } else 
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
-            slab.material = newMaterial;
-                    //pyramid.material = newMaterial;   
+                    //Apply new textures to cap
+                    slab.material = newMaterial;
+                    pyramid.material = newMaterial;
 
-            animate();
-        }
-
-                //change texture of pyramid when stone type is changed
-        function updatePyramid() {
-            var value = parameters.stone;
-            var newMaterial;
-            if (value == "Granite") {
-                newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/granite2.jpg') });
-            }
-            else if (value == "Sandstone") {
-                newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/sandstone2.jpg') });
-            }
-            else if (value == "Limestone") {
-                newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/limestone2.jpg') });
-            }
-            else // (value == "Wireframe")
-                newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
-
-            pyramid.material = newMaterial;
-
-            animate();
-
-        }
-                
+                    animate();
+                }                
                
-
+                //Manipulate height of slab
+                //This function also controls the position of the pillar and pyramid as the slab moves.
                 slabY.onChange(function(value) {
                     slab.scale.y = value / (SLAB_HEIGHT * 10);
-                     //slab.position.y = (slab.scale.y * 25) / 2;
-                   
-                    //slab.position.y = (pillar.scale.y * 25) /2;
-                    pillar.position.y = (slab.scale.y * (-1.5 * 6.10)) - 6.5;
-                    pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) -8;
-                     
-                    //pillar.scale.y = value / (PILLAR_HEIGHT * 10);
 
-                    //slab.position.y = (pillar.scale.y * (10 * 6.10)) - 5.8;
-                    //pyramid.position.y = (pillar.scale.y * (10 * 6.10)) + 1.8;
+                    //Move the pillar position as the slab moves
+                    pillar.position.y = (slab.scale.y * (-1.5 * 6.10)) - 6.5;
+                    
+                    //Move the pyramid as the slab moves
+                    pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
 
                     //Put Y scale value in global variable
                     Slab_Height = slab.scale.y;
                 });
 
                
-
+                //Manipulate height of pyramid
                 pyramidY.onChange(function(value) {
                     pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
-                    //slab.position.y = (pyramid.scale.y * PYRAMID_HEIGHT) / 2;
-
+                    
                     //Put pryamid Y scale value in global variable
                     Pyramid_Height = pyramid.scale.y;
-                    //slab.position.y = (slab.scale.y * 25) / 2;
-                    //pyramid.position.y = (slab.scale.y * 25);
+                  
                 });
+        
 
-                
-               
+                //change texture of pillar when stone type is changed
+                function updatePillar() {
+                    var value = parameters.stone;
+                    var newMaterial;
+                    if (value == "Granite") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite Flashing.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                        document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Granite";
+                    } else if (value == "Sandstone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Sandstone flashing.jpg") });
+                        document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Sand Stone";
+                    } else if (value == "Limestone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Limestone flashing.jpg") });
+                        document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Lime Stone";
+                    } else // (value == "Wireframe")
+                        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
-                //Create the pillar
-        pillarGeometry = new THREE.CubeGeometry(PILLAR_WIDTH, PILLAR_HEIGHT, PILLAR_LENGTH); //(100, 15, 100);
-        pillarMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100, });
-
-        pillar = new THREE.Mesh(pillarGeometry, pillarMaterial);
-        pillar.castShadow = true;
-        pillar.position.set(0, -15, 0); //(0, 12, 0);
-
-        scene.add(pillar);
-
-     
-
-        var productMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
-        ('Pillar Stone Type').listen();
-
-
-
-        productMaterial.onChange(function (value) {
-            updatePillar();
+                    pillar.material = newMaterial;
 
 
-        });
-
-                //change texture of slab when stone type is changed
-        function updatePillar() {
-            var value = parameters.stone;
-            var newMaterial;
-            if (value == "Granite") {
-                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite Flashing.jpg"), shading: THREE.FlatShading, overdraw: true });
-
-                document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Granite";
-            }
-            else if (value == "Sandstone") {
-                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Sandstone flashing.jpg") });
-                document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Sand Stone";
-            }
-            else if (value == "Limestone") {
-                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Limestone flashing.jpg") });
-                document.getElementById('<%= lblDisplayPillarStone.ClientID %>').textContent = "Lime Stone";
-            }
-            else // (value == "Wireframe")
-                newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
-
-            pillar.material = newMaterial;
-
-
-            animate();
-        }
-
+                    animate();
+                }
 
 
                 //functions to alter shape with sliders
