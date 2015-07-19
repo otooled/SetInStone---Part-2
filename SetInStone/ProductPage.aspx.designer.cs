@@ -49,22 +49,13 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.TextBox txtQuantity;
         
         /// <summary>
-        /// RegNumberOnly control.
+        /// btnCalculate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegNumberOnly;
-        
-        /// <summary>
-        /// rfvQuantity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvQuantity;
+        protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
         /// lblStoneType control.
@@ -94,15 +85,6 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblTotalCost;
         
         /// <summary>
-        /// btnCalculate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCalculate;
-        
-        /// <summary>
         /// btnSaveConfirm control.
         /// </summary>
         /// <remarks>
@@ -119,15 +101,6 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
-        /// <summary>
-        /// chkWithCap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkWithCap;
         
         /// <summary>
         /// SlabLength control.

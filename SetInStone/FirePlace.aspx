@@ -178,8 +178,9 @@
                 });
                 
                 //change texture of slab when stone type is changed
-
-                function updateFireplace() {
+                //This also puts displays the stone type selected
+                function
+                    updateFireplace() {
                     var value = fireplace_parameters.stone;
                     var newMaterial;
                     if (value == "Granite") {

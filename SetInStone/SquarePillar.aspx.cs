@@ -18,5 +18,17 @@ namespace SetInStone
         {
 
         }
+
+        protected void btnSaveConfirm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

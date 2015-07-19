@@ -165,7 +165,7 @@
                 
                 productMaterial.onChange(function (value) {
                     updateSlab();
-                    updatePyramid();
+                    //updatePyramid();
                     
                 });
               
@@ -176,46 +176,49 @@
                     if (value == "Granite") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
                         
+                        document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Granite";
                     }
                     else if (value == "Sandstone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
+                        document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Sand Stone";
                     }
                     else if (value == "Limestone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+                        document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblDisplayStone.ClientID %>').textContent = "Lime Stone";
                     }
                     else // (value == "Wireframe")
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                     slab.material = newMaterial;
-                    //pyramid.material = newMaterial;   
+                    pyramid.material = newMaterial;   
 
                     animate();
                 }
 
                 //change texture of pyramid when stone type is changed
-                function updatePyramid() {
-                    var value = parameters.stone;
-                    var newMaterial;
-                    if (value == "Granite") {
-                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/granite2.jpg') });
-                    }
-                    else if (value == "Sandstone") {
-                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/sandstone2.jpg') });
-                    }
-                    else if (value == "Limestone") {
-                        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/limestone2.jpg') });
-                    }
-                    else // (value == "Wireframe")
-                        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+                //function updatePyramid() {
+                //    var value = parameters.stone;
+                //    var newMaterial;
+                //    if (value == "Granite") {
+                //        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/granite2.jpg') });
+                //    }
+                //    else if (value == "Sandstone") {
+                //        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/sandstone2.jpg') });
+                //    }
+                //    else if (value == "Limestone") {
+                //        newMaterial = new THREE.MeshPhongMaterial({ map: THREE.ImageUtils.loadTexture('Textures/limestone2.jpg') });
+                //    }
+                //    else // (value == "Wireframe")
+                //        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
-                    pyramid.material = newMaterial;
+                //    pyramid.material = newMaterial;
                     
-                    animate();
+                //    animate();
 
-                }
+                //}
 
                 
 
@@ -334,32 +337,27 @@
                     <asp:AsyncPostBackTrigger ControlID="btnCalculate" />
                 </Triggers>
                 <ContentTemplate>
-                    <%--                        <asp:DropDownList ID="ddlProductType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"/>--%>
-                    <%--<asp:DropDownList ID="ddlStoneType" runat="server" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                        OnSelectedIndexChanged="ddlStoneType_SelectedIndexChanged" AutoPostBack="True" />--%>
-                    <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Enter quantity here"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegNumberOnly" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
-                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
-                    <div id="ProvisionalCosts">
-                        <asp:Label ID="lblStoneType" runat="server" Text="Stone Type"></asp:Label>
-                        <asp:Label ID="lblDisplayStone" runat="server" ClientIDMode="Static" ></asp:Label>
-                        <br />
-                        <br />
-                        <asp:Label runat="server" ID="lblTotalCost" Visible="False"></asp:Label>
-                        <br />
-                    </div>
+
+                    <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
+                    <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" OnClick="btnCalculate_Click"
+                        OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabWidth();  DisplaySlabLength();" />
+
+                    <br />
+                    <asp:Label ID="lblStoneType" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
+                    
+                  
+                    <asp:Label ID="lblDisplayStone" runat="server"  ></asp:Label>
+
+                      <br />
+                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
                     <br />
 
-                    <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" OnClick="btnCalculate_Click"
-                        OnClientClick="DisplayPryHeight(); DisplaySlabHeight();
-        DisplaySlabWidth();  DisplaySlabLength();" />
+                    <br />
+
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
                         OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />
-                    <asp:CheckBox ID="chkWithCap" runat="server" Text="Include Cap" OnCheckedChanged="chkWithCap_CheckedChanged" />
-                    <br />
-
-
+                    
                     <%--Hidden fields for slab and pryamid measurements--%>
                     <asp:HiddenField ID="SlabLength" runat="server" />
                     <asp:HiddenField ID="SlabWidth" runat="server" />
@@ -368,7 +366,7 @@
 
                     <%--<asp:HiddenField runat="server" ID="stoneTextureHF"/>--%>
 
-                    <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
+                    <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
                     <asp:Label runat="server"></asp:Label>
 
                 </ContentTemplate>

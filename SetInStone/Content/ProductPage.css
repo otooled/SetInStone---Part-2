@@ -13,7 +13,7 @@
 }
 #MainGraphic {
     /*margin: 30px;*/
-    margin-top: 50px;
+    margin-top: 30px;
     margin-left: 300px;
     /*visibility: hidden;*/
     
@@ -34,25 +34,44 @@
     background-color: transparent;
     font-family: Book Antiqua;
 }
-/*#costControls {
+#txtQuantity {
+    border:  1px solid white;
+    border-width:1px;
+    border-radius: 6px;
+    height: 40px;
+    font-size: 20px;
+    /*color: white;*/
+    /*background-color: transparent;*/
+    font-family: Book Antiqua;
+    width: 85px;
+    text-align: center;
     
-    margin: 10px;
-    width: 40px;
+}
+#costControls {
+
+    margin-left: 350px;
+    margin-right: 350px;
+    
     border: 1px solid white;
     -moz-border-radius:  2px;
     border-radius: 5px;
     height: 220px;
     text-align: center;
-    float: right;
+    left: auto;
+    right: auto;
 
-     margin-top: -300px;
-}*/
+     /*margin-top: -300px;*/
+}
 .Buttons {
     background-color: transparent;
-    border-color: transparent;
+    /*border-color: transparent;*/
     color: white;
     font-family: Book Antiqua;
     font-size: 20px;
+    border-width: 5px;
+    border-radius: 6px;
+    border-color: white;
+
     
 }
 .TextBoxes {
