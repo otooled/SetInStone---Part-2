@@ -11,7 +11,7 @@ namespace SetInStone
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        private int sType;
+        private int sType = 0;
         //product option for session
         public Product prt = new Product();
  
@@ -93,17 +93,17 @@ namespace SetInStone
         private int CheckStoneSelection()
         {
             int sType = 0;
-            if (lblDisplayStone.Text == "Granite")
+            if (lblDisplayStoneType.Text == "Granite")
             {
                 sType = 1;
             }
 
-            else if (lblDisplayStone.Text == "Sandstone")
+            else if (lblDisplayStoneType.Text == "Sandstone")
             {
                 sType = 2;
             }
 
-            else if (lblDisplayStone.Text == "Limestone")
+            else if (lblDisplayStoneType.Text == "Limestone")
             {
                 sType = 3;
             }

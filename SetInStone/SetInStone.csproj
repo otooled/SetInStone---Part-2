@@ -106,6 +106,7 @@
     <Content Include="Content\NewEmployee.css" />
     <Content Include="Content\Quote.css" />
     <Content Include="Content\RetrieveQuote.css" />
+    <Content Include="Content\test.css" />
     <Content Include="FirePlace.aspx" />
     <Content Include="Quote.aspx" />
     <Content Include="RetrieveQuote.aspx" />

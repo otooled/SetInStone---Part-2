@@ -123,24 +123,42 @@
                         mesh.material.side = THREE.DoubleSide;
                         scene.add(mesh);
 
-                        gui = new dat.GUI();
-
+                        gui = new dat.GUI({ autoplace: false });
+                        gui.domElement.id = 'gui';
+                        
                         parameters =
-                            {
-                                Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10),    //these will be read from the DB for previous quotes!
-                                stone: "Wireframe",
-                                //reset: function () { resetPier() }
-                            };
+                        {
+                            Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10),    //these will be read from the DB for previous quotes!
+                            //color: "#ff0000", // color (change "#" to "0x")
+                            opacity: 1,
+                            //visible: true,
+                            stone: "Granite",
+                            reset: function () { resetPier() }
+                        };
 
-                        //Slider UI
-                        deminsions = gui.addFolder('Pier Cap Dimensions (mm)');
-                        slabX = deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                        slabZ = deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                        slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
-                        //pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-                        deminsions.open();
+                        var folder1 = gui.addFolder('Pier Cap Dimensions (mm)');
+                        slabX = folder1.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
+                        slabZ = folder1.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
+                        slabY = folder1.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
+                        pyramidY = folder1.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
+                        folder1.open();
+
 
                       
+                        var cubeMaterial = gui.add(parameters, 'stone', ["Granite", "Sandstone", "Limestone", "Wireframe"]).name('Stone Type').listen();
+                       gui.opacity = 1;
+                        cubeMaterial.onChange(function (value) {
+                            //updateCube();
+                            //updateP();
+                        });
+
+                        //var cubeVisible = gui.add(parameters, 'visible').name('Visible?').listen();
+                        //cubeVisible.onChange(function (value)
+                        //{ cube.visible = value; });
+
+                        gui.add(parameters, 'reset').name("Reset Pier Parameters");
+
+                        gui.open();
 
                        
 

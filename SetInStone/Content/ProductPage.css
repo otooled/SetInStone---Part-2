@@ -29,7 +29,7 @@
 
 .Labels {
     height: 40px;
-    font-size: 30px;
+    font-size: 16px;
     color: white;
     background-color: transparent;
     font-family: Book Antiqua;
@@ -38,13 +38,14 @@
     border:  1px solid white;
     border-width:1px;
     border-radius: 6px;
-    height: 40px;
+    height: 35px;
     font-size: 20px;
     /*color: white;*/
     /*background-color: transparent;*/
     font-family: Book Antiqua;
     width: 85px;
     text-align: center;
+    
     
 }
 #costControls {
@@ -68,6 +69,7 @@
     color: white;
     font-family: Book Antiqua;
     font-size: 20px;
+    height: 35px;
     border-width: 5px;
     border-radius: 6px;
     border-color: white;
@@ -89,3 +91,4 @@
     font-family: Book Antiqua;
     font-size: 20px;
 }
+#gui { position: absolute; top: 2px; left: 2px }

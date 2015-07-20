@@ -17,6 +17,7 @@
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ProductPage.css") %><%: Scripts.Render("~/bundles/jQuery") %>
 
     <script>
+        //Scene rendering variables
         var renderer, scene, camera, controls, stats;
         var light, material, mesh;
         var clock = new THREE.Clock();
@@ -60,7 +61,7 @@
         var pyramid;
         //Height of pyramid
         var Pyramid_Height = 1;
-       
+
     </script>
 
     <title>Set In Stone</title>
@@ -362,27 +363,27 @@
 
             }
 
-                //Functions to send co-ordinates of pryamid and slab to code behind
+            //Functions to send co-ordinates of pryamid and slab to code behind
 
-                function DisplaySlabHeight() {
-                    var getSlabHeight = Slab_Height;
-                    document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
-                }
+            function DisplaySlabHeight() {
+                var getSlabHeight = Slab_Height;
+                document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
+            }
 
-                function DisplaySlabWidth() {
-                    var getSlabWidth = Slab_Width;
-                    document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
-                }
+            function DisplaySlabWidth() {
+                var getSlabWidth = Slab_Width;
+                document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
+            }
 
-                function DisplaySlabLength() {
-                    var getSlabLength = Slab_Length;
-                    document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
-                }
+            function DisplaySlabLength() {
+                var getSlabLength = Slab_Length;
+                document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
+            }
 
-                function DisplayPryHeight() {
-                    var getPryHeight = Pyramid_Height;
-                    document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
-                }
+            function DisplayPryHeight() {
+                var getPryHeight = Pyramid_Height;
+                document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
+            }
                 
                         
 
@@ -440,7 +441,7 @@
                     
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
                         OnClick="btnCalculate_Click" OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabLength();
-                        DisplaySlabWidth();" CausesValidation="True"/>
+    DisplaySlabWidth();" CausesValidation="True"/>
                     <br/>
                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
                         <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
