@@ -193,10 +193,11 @@
     <Content Include="Textures\limestone2.jpg" />
     <Content Include="Textures\Sandstone flashing.jpg" />
     <Content Include="Textures\sandstone2.jpg" />
+    <Content Include="RoundPillar.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ProductPage.aspx" />
+    <Content Include="PillarCap.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -262,12 +263,12 @@
       <DependentUpon>SetStone.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProductPage.aspx.cs">
-      <DependentUpon>ProductPage.aspx</DependentUpon>
+    <Compile Include="PillarCap.aspx.cs">
+      <DependentUpon>PillarCap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ProductPage.aspx.designer.cs">
-      <DependentUpon>ProductPage.aspx</DependentUpon>
+    <Compile Include="PillarCap.aspx.designer.cs">
+      <DependentUpon>PillarCap.aspx</DependentUpon>
     </Compile>
     <Compile Include="Quote.aspx.cs">
       <DependentUpon>Quote.aspx</DependentUpon>
@@ -353,6 +354,13 @@
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>SetStone.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoundPillar.aspx.cs">
+      <DependentUpon>RoundPillar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RoundPillar.aspx.designer.cs">
+      <DependentUpon>RoundPillar.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

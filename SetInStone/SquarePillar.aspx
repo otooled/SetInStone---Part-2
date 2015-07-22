@@ -45,7 +45,7 @@
 
         //Slab creation
         //This will act as width & length as slab
-        var Slab_Width = 1, Slab_Length = 1, Slab_Height = 1;
+        var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
         var slabGeometry, slabMaterial;
         var slab;
         //default size for new pier cap

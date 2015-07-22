@@ -59,7 +59,7 @@ namespace SetInStone
             if (ddlProductType.SelectedIndex == 1)
             {
                 Session.Add("productOptionID",ddlProductType.SelectedValue);
-                Response.Redirect("ProductPage.aspx");
+                Response.Redirect("PillarCap.aspx");
                 
             }
         }

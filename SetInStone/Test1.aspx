@@ -51,200 +51,125 @@
 
     <title>Set In Stone</title>
 </head>
-<body>
+    <body>
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
 
-    <br />
-    <br />
-    <div id="divTitle">
-        <label>Set In Stone</label>
-    </div>
-            <div id='MainGraphic'>
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
 
+    // once everything is loaded, we run our Three.js stuff.
+    function init() {
 
-                <script type='text/javascript'>
-                    // var controls, stats;
-                    init();
+        var stats = initStats();
 
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
 
-                    function init() {
-                        var mainGraphic = document.getElementById('MainGraphic');
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
+        // create a render and set the size
+        var webGLRenderer = new THREE.WebGLRenderer();
+        webGLRenderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = true;
 
-                        renderer = new THREE.WebGLRenderer({ antialias: true });
-                        renderer.setSize(740, 320);
-                        renderer.shadowMapEnabled = true;
-                        renderer.shadowMapSoft = true;
-                        renderer.domElement.style.border = '5px solid white';
+        var cylinder = createMesh(new THREE.CylinderGeometry(20, 20, 20));
+        // add the sphere to the scene
+        scene.add(cylinder);
 
-                        mainGraphic.appendChild(renderer.domElement);
+        // position and point the camera to the center of the scene
+        camera.position.x = -30;
+        camera.position.y = 40;
+        camera.position.z = 50;
+        camera.lookAt(new THREE.Vector3(10, 0, 0));
 
-                        color = new THREE.Color(0xffffff);
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
 
-
-                        scene = new THREE.Scene();
-
-                        camera = new THREE.PerspectiveCamera(140, window.innerWidth / window.innerHeight, 1, 1000);
-                        camera.position.set(1, 100, 1);
-
-                        controls = new THREE.TrackballControls(camera, renderer.domElement);
-
-                        light = new THREE.AmbientLight(0xffffff);
-                        scene.add(light);
-
-                        light = new THREE.SpotLight(0xffffff);
-                        light.position.set(-100, 100, -100);
-                        light.castShadow = true;
-                        scene.add(light);
-
-                        //Create the slab
-                        
-                        var combined = new THREE.Geometry();
-                        
-                        slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH); //(100, 15, 100);
-                        //var slab2geom = new THREE.CubeGeometry(80, 70, 100);
-                        slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
-
-                        slab1 = new THREE.Mesh(slabGeometry, slabMaterial);
-                        //slab2 = new THREE.Mesh(slab2geom, slabMaterial);
-
-                        slab1.position.set(0, SLAB_HEIGHT , 0);
-                        //slab2.position.set(0, SLAB_HEIGHT-48 , 0);
+        // call the render function
+        var step = 0;
 
 
-                        //THREE.GeometryUtils.merge(combined, slab1);
-                        //THREE.GeometryUtils.merge(combined, slab2);
-                        
-                        //var mesh = new THREE.Mesh(combined);
-                        scene.add(slab1);
-                        
-                        var geometry = new THREE.SphereGeometry(50, 16, 32, Math.PI /2, 600 , 0, Math.PI);
-                        var material = new THREE.MeshBasicMaterial({ color: 0xddddff });
-                        mesh = new THREE.Mesh(geometry, material);
-                        mesh.material.side = THREE.DoubleSide;
-                        scene.add(mesh);
+        // setup the control gui
+        var controls = new function () {
+            // we need the first child, since it's a multimaterial
 
-                        gui = new dat.GUI({ autoplace: false });
-                        gui.domElement.id = 'gui';
-                        
-                        parameters =
-                        {
-                            Length: (SLAB_LENGTH * 10), Width: (SLAB_WIDTH * 10), Slab_Height: (SLAB_HEIGHT * 10), Point_Height: (PYRAMID_HEIGHT * 10),    //these will be read from the DB for previous quotes!
-                            //color: "#ff0000", // color (change "#" to "0x")
-                            opacity: 1,
-                            //visible: true,
-                            stone: "Granite",
-                            reset: function () { resetPier() }
-                        };
+            this.radiusTop = 20;
+            this.radiusBottom = 20;
+            this.height = 20;
 
-                        var folder1 = gui.addFolder('Pier Cap Dimensions (mm)');
-                        slabX = folder1.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                        slabZ = folder1.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                        slabY = folder1.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
-                        pyramidY = folder1.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-                        folder1.open();
+            this.radialSegments = 8;
+            this.heightSegments = 8;
 
+            this.openEnded = false;
 
-                      
-                        var cubeMaterial = gui.add(parameters, 'stone', ["Granite", "Sandstone", "Limestone", "Wireframe"]).name('Stone Type').listen();
-                       gui.opacity = 1;
-                        cubeMaterial.onChange(function (value) {
-                            //updateCube();
-                            //updateP();
-                        });
+            this.redraw = function () {
+                // remove the old plane
+                scene.remove(cylinder);
+                // create a new one
 
-                        //var cubeVisible = gui.add(parameters, 'visible').name('Visible?').listen();
-                        //cubeVisible.onChange(function (value)
-                        //{ cube.visible = value; });
+                cylinder = createMesh(new THREE.CylinderGeometry(controls.radiusTop, controls.radiusBottom, controls.height, controls.radialSegments, controls.heightSegments, controls.openEnded));
+                // add it to the scene.
+                scene.add(cylinder);
+            };
+        };
 
-                        gui.add(parameters, 'reset').name("Reset Pier Parameters");
-
-                        gui.open();
-
-                       
+        var gui = new dat.GUI();
+        gui.add(controls, 'radiusTop', -40, 40).onChange(controls.redraw);
+        gui.add(controls, 'radiusBottom', -40, 40).onChange(controls.redraw);
+        gui.add(controls, 'height', 0, 40).onChange(controls.redraw);
+        gui.add(controls, 'radialSegments', 1, 20).step(1).onChange(controls.redraw);
+        gui.add(controls, 'heightSegments', 1, 20).step(1).onChange(controls.redraw);
+        gui.add(controls, 'openEnded').onChange(controls.redraw);
 
 
-                        //var sphere = new THREE.Mesh(new THREE.SphereGeometry(100, 16, 12), new THREE.MeshLambertMaterial({ color: 0x2D303D, wireframe: true, shading: THREE.FlatShading }));
-                        //var cylinder = new THREE.Mesh(new THREE.CylinderGeometry(100, 100, 200, 16, 4, false), new THREE.MeshLambertMaterial({ color: 0x2D303D, wireframe: true, shading: THREE.FlatShading }));
-                        //cylinder.position.y = -100;
-                        //scene.add(sphere);
-                        //scene.add(cylinder);
-                    }
-                    
-                    slabY.onChange(function (value) {
-                        slab1.scale.y = value / (SLAB_HEIGHT * 10);
-                        //slab1.position.y = (slab1.scale.y * 25) / 2;
-                        //slab1.position.y = ((slab2.position.y ) ) - ((slab1.position.y));
+        render();
 
-                        
-                        //pyramid.position.y = (slab.scale.y * 25);
+        function createMesh(geom) {
 
-                        //Put Y scale value in global variable
-                        Slab_Height = slab.scale.y;
-                    });
-                    
-                    slabX.onChange(function (value) {
-                        mesh.scale.x = value / (SLAB_WIDTH * 10);
-                        mesh.position.x = (mesh.scale.x * 25) / 2;
-                        //slab1.position.y = ((slab2.position.y ) ) - ((slab1.position.y));
+            // assign two materials
+            var meshMaterial = new THREE.MeshNormalMaterial();
+            meshMaterial.side = THREE.DoubleSide;
+            var wireFrameMat = new THREE.MeshBasicMaterial();
+            wireFrameMat.wireframe = true;
 
+            // create a multimaterial
+            var mesh = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial, wireFrameMat]);
 
-                        //pyramid.position.y = (slab.scale.y * 25);
-
-                        //Put Y scale value in global variable
-                        Slab_Height = slab.scale.y;
-                    });
-                    function callback() { return; }
-                    renderers.push({ renderer: renderer, scene: scene, camera: camera, controls: controls, callback: callback });
-
-                </script>
-
-    </div>
-
-
-    <script>
-        //init();
-        animate();
-
-        function animate() {
-            requestAnimationFrame(animate);
-            render();
+            return mesh;
         }
 
         function render() {
-            var tim = clock.getElapsedTime() * 0.15;
-            for (var i = 0, l = renderers.length; i < l; i++) {
-                var r = renderers[i];
+            stats.update();
 
-                r.renderer.render(r.scene, r.camera);
-                if (r.stats) { r.stats.update(); }
-                if (r.callback) {
-                    r.callback();
-                } else {
-                    r.camera.position.x = 20 * Math.cos(tim);
-                    r.camera.position.y = 20 * Math.cos(tim);
-                    r.camera.position.z = 20 * Math.sin(tim);
-                }
-                r.controls.update();
-            }
+            cylinder.rotation.y = step += 0.01;
+
+            // render using requestAnimationFrame
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
         }
 
-    </script>
+        function initStats() {
 
+            var stats = new Stats();
+            stats.setMode(0); // 0: fps, 1: ms
 
-    <form id="Form1" runat="server">
-        <asp:Label runat="server" ID="lblDisplayPillarStone"></asp:Label>
-         <asp:Label ID="lblDisplayStone" runat="server" ClientIDMode="Static" ></asp:Label>
-        
-         <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate"  Text="Calculate Cost" 
-                        OnClientClick="DisplayPryHeight(); DisplaySlabHeight();
-        DisplaySlabWidth();  DisplaySlabLength();"  />
-        
-        
-                    <%--Hidden fields for slab and pryamid measurements--%>
-                    <asp:HiddenField ID="SlabLength" runat="server" />
-                    <asp:HiddenField ID="SlabWidth" runat="server" />
-                    <asp:HiddenField ID="PryHeight" runat="server" />
-                    <asp:HiddenField ID="SlabHeight" runat="server" />
-    </form>
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.getElementById("Stats-output").appendChild(stats.domElement);
+
+            return stats;
+        }
+    }
+    window.onload = init;
+</script>
 </body>
 </html>

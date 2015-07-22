@@ -4,16 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.Entity;
+using System.Windows.Forms;
 
 namespace SetInStone
 {
-    public partial class SquarePillar : System.Web.UI.Page
+    public partial class WebForm1 : System.Web.UI.Page
     {
         private int sType = 0;
         //product option for session
         public Product prt = new Product();
-
-        //database connection
+ 
+       //database connection
         private SetStone db = new SetStone();
 
         protected void Dispose(bool disposing)
@@ -24,15 +26,15 @@ namespace SetInStone
         //Check user is logged in
         private void Page_PreInit(object sender, System.EventArgs e)
         {
-            //if ((Session["loginDetails"] == null))
-            //{
-            //    Response.Redirect("Login.aspx");
-            //}
+            if ((Session["loginDetails"] == null))
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
-
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-
+       
             if (!Page.IsPostBack)
             {
                 //The following commented out code will be used
@@ -43,20 +45,20 @@ namespace SetInStone
                 //    if ((Session["quote"] != null))
                 //    {
                 //        Quote q = (Quote)Session["quote"];
-
+                        
                 //    }
                 //}
                 //else
                 //{
-                //ddlStoneType.Attributes.Add("onchange", "stoneTexture();");
+                    //ddlStoneType.Attributes.Add("onchange", "stoneTexture();");
                 //}
                 //Populate stone menu
 
-                // PopulateStoneMenu();
+               // PopulateStoneMenu();
             }
 
         }
-
+        
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
@@ -70,7 +72,7 @@ namespace SetInStone
 
             //Display final cost of stone work
             lblCalculateAnswer.Text = (total * qauntity).ToString("#.##");
-
+           
         }
 
         private float PyramidSurface()
@@ -84,46 +86,24 @@ namespace SetInStone
             float slabLength = float.Parse(SlabLength.Value);
 
             //calculations performed cost class
-            var surface = CalcClasses.Cost.PyramidCutCost(CheckCapStoneSelection(), slabWidth, slabHeight, pyramidHeight, slabLength);
+            var surface = CalcClasses.Cost.PyramidCutCost( CheckStoneSelection(), slabWidth, slabHeight, pyramidHeight, slabLength);
             return surface;
         }
 
-        //Check what stone type is selected for cap
-        private int CheckCapStoneSelection()
+        private int CheckStoneSelection()
         {
             int sType = 0;
-            if (lblCapStoneType.Text == "Granite")
+            if (lblDisplayStoneType.Text == "Granite")
             {
                 sType = 1;
             }
 
-            else if (lblCapStoneType.Text == "Sandstone")
+            else if (lblDisplayStoneType.Text == "Sandstone")
             {
                 sType = 2;
             }
 
-            else if (lblCapStoneType.Text == "Limestone")
-            {
-                sType = 3;
-            }
-            return sType;
-        }
-
-        //Check pillar stone selection
-        private int CheckPillarStoneSelection()
-        {
-            int sType = 0;
-            if (lblCapStoneType.Text == "Granite")
-            {
-                sType = 1;
-            }
-
-            else if (lblCapStoneType.Text == "Sandstone")
-            {
-                sType = 2;
-            }
-
-            else if (lblCapStoneType.Text == "Limestone")
+            else if (lblDisplayStoneType.Text == "Limestone")
             {
                 sType = 3;
             }
@@ -134,14 +114,14 @@ namespace SetInStone
         {
             //Measurements entered by the user through the slider control
             //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
-            CheckCapStoneSelection();
-
+            CheckStoneSelection();
+           
             float slabWidth = float.Parse(SlabWidth.Value);
             float slabHeight = float.Parse(SlabHeight.Value);
             float slabLength = float.Parse(SlabLength.Value);
 
             //calculations performed cost class
-            var price = CalcClasses.Cost.CalcCost(CheckCapStoneSelection(), slabWidth, slabHeight, slabLength);
+            var price = CalcClasses.Cost.CalcCost( CheckStoneSelection(), slabWidth, slabHeight, slabLength);
             return price;
         }
 
@@ -150,18 +130,18 @@ namespace SetInStone
             //Measurements entered by the user through the slider control
             //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
 
-            CheckCapStoneSelection();
-
+            CheckStoneSelection();
+            
 
             float slabWidth = float.Parse(SlabWidth.Value);
             float slabHeight = float.Parse(SlabHeight.Value);
             float slabLength = float.Parse(SlabLength.Value);
 
             //calculations performed cost class
-            var cutCost = CalcClasses.Cost.CalcStraightCuts(CheckCapStoneSelection(), slabWidth, slabHeight, slabLength);
+            var cutCost = CalcClasses.Cost.CalcStraightCuts( CheckStoneSelection(), slabWidth, slabHeight, slabLength);
             return cutCost;
         }
-
+        
         //Save user inputs
         protected void btnSaveConfirm_Click(object sender, EventArgs e)
         {
@@ -169,7 +149,7 @@ namespace SetInStone
             string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
 
             //This is for editing a quote which is implemented yet
-            if (Page.IsValid)
+            if(Page.IsValid)
             {
                 if ((Session["EditMode"] != null) && true)
                 {
@@ -189,29 +169,29 @@ namespace SetInStone
                     //This adds product deminsions into session
                 else
                 {
-
+                    
                     prt.Width = float.Parse(SlabWidth.Value);
                     //prt.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
                     prt.StoneId = sType;
                     prt.Height = float.Parse(SlabHeight.Value);
                     prt.Length = float.Parse(SlabLength.Value);
                     prt.PyrHeight = float.Parse(PryHeight.Value);
-                    Session.Add("quoteRef", qRef);
+                    Session.Add("quoteRef",qRef);
                     Session.Add("quote", lblCalculateAnswer.Text);
                     Session.Add("product", prt);
-
+                    
                     Response.Redirect("Quote.aspx");
                 }
-
+                
             }
         }
-
+        
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("LandingPage.aspx");
         }
 
-
+       
     }
 }
