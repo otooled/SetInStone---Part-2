@@ -23,8 +23,6 @@
         var clock = new THREE.Clock();
         var renderers = [];
         var displayStone;
-        //Height of pyramid
-        //var Pyramid_Height = 200;
 
         //This will act as diameter & height of pillar cylinder
         var Pillar_Diameter = 400, Pillar_Height = 550;
@@ -32,7 +30,7 @@
         //This will act as diameter & height as cap
         var Cap_Diameter = 430, Cap_Height = 100;
 
-        //cylinder creation
+        //pillar creation
         var pillarGeometry, pillarMaterial;
         var pillar;
         
@@ -51,7 +49,7 @@
         var PILLAR_DIAMETER = 40; PILLAR_HEIGHT = 90;PILLAR_CURVE = 20;  
 
         //max dimensions for pillar
-        var MIN_PILLAR_DIAMETER = 300; MAX_PILLAR_DIAMETER = 600; MIN_PILLAR_HEIGHT = 600; MAX_PILLAR_HEIGHT = 1000;
+        var MIN_PILLAR_DIAMETER = 300; MAX_PILLAR_DIAMETER = 600; MIN_PILLAR_HEIGHT = 600; MAX_PILLAR_HEIGHT = 1300;
         
         //default size for cap
         var CAP_DIAMETER = 45; CAP_HEIGHT = 7;CAP_CURVE = 30;
@@ -170,80 +168,69 @@
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite Flashing.jpg"), shading: THREE.FlatShading, overdraw: true });
 
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                displayStone = document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Granite";
+                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                                document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
                                 //DisplayStoneSelection();
 
                             } else if (value == "Sandstone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').textContent = "Sandstone";
+                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                                document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Sandstone";
                             } else if (value == "Limestone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
 
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').textContent = "Limestone";
+                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                                document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Limestone";
                             } else // (value == "Wireframe")
                                 newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                             //Apply new textures
                             pillar.material = newMaterial;
-                    //pyramid.material = newMaterial;
-
                             animate();
                         }
-                        
 
 
-
-                        //functions to alter shape with sliders
-                        pillarX.onChange(function(value) {
+                        //Functions to alter shape with sliders
+                        //Diameter of pillar and cap changes here
+                        pillarX.onChange(function (value) {
+                            
+                            //Move diameter of pillar
                             pillar.scale.x = value / (PILLAR_DIAMETER * 10);
                             pillar.scale.z = value / (PILLAR_DIAMETER * 10);
-                            //pyramid.scale.x = slab.scale.x;
+                            
+                            //Move diameter of cap
+                            cap.scale.x = value / (PILLAR_DIAMETER * 10);
+                            cap.scale.z = value / (PILLAR_DIAMETER * 10);
 
-                            //Put X scale value in global variable
-                            //Slab_Length = slab.scale.x;
+                            //Put X of pillar and cap scale value in variables for hidden fields
+                            Pillar_Diameter = pillar.scale.x;
+                            
+                            //Cap diameter has 10 added to compensate overhang
+                            Cap_Diameter = pillar.scale.x + 10;
+                            
                         });
 
-                        //Manipulate height of slab
-                       //This function also controls the position of the slab and pyramid as the slab moves.
-                        pillarY.onChange(function (value) {
+                        //Manipulate height of pillar
+                       //This function also controls the position of the cap as the pillar moves.
+                        pillarY.onChange(function(value) {
                             pillar.scale.y = value / (PILLAR_HEIGHT * 10);
-
-                    //Keep slab position stationary
                             cap.position.y = (pillar.scale.y * (9 * 5.10)) - 11.8;
 
-                    //Keep pyramid position stationary
-                    //pyramid.position.y = (slab.scale.y * 25);
+                            //Put Y scale value in global variable
+                            Pillar_Height = pillar.scale.y;
 
-                    //Put Y scale value in global variable
-                    //Slab_Height = slab.scale.y;
-                });
-
-                //        //Manipulate length of the slab
-                //        //This function also controls the width and length of the slab and pyramid as the slab moves.
-                //slabZ.onChange(function (value) {
-
-                //    //Move slab length
-                //    slab.scale.z = value / (SLAB_LENGTH * 10);
-
-                //    //Move pyramid length
-                //    pyramid.scale.z = slab.scale.z;
-
-                //    //Put Z scale value in global variable
-                //    Slab_Width = slab.scale.z;
-                //});
+                        }); 
 
                         //Manipulate height of pyramid point
-                capY.onChange(function (value) {
-                    cap.scale.y = value / (CAP_HEIGHT * 10);
-                    pillar.position.y = (cap.scale.y * (-2.65 * 1.30))-11.5;
-                    //Put pryamid Y scale value in global variable
-                   // Pyramid_Height = pyramid.scale.y;
+                        capY.onChange(function(value) {
+                            cap.scale.y = value / (CAP_HEIGHT * 10);
+                            pillar.position.y = (cap.scale.y * (-2.65 * 1.30)) - 11.5;
+                            
+                            //Put cap Y scale value in global variable for hidden field
+                            Cap_Height = cap.scale.y;
                         });
                         
                         function updateCap() {
@@ -255,18 +242,24 @@
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
 
                                 //Display selection
+                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
 
 
                             } else if (value == "Sandstone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
                                 //Display selection
+                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
 
 
                             } else if (value == "Limestone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
 
                                 //Display selection
+                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
 
 
                             } else
@@ -274,8 +267,6 @@
 
                             //Apply new textures to cap
                             cap.material = newMaterial;
-
-
                             animate();
                         }
 
@@ -287,24 +278,24 @@
             }
 
             //Functions to send co-ordinates of pryamid and slab to code behind
-            function DisplaySlabHeight() {
-                var getSlabHeight = Slab_Height;
-                document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
+            function DisplayPillarHeight() {
+                var getPillarHeight = Pillar_Height;
+                document.getElementById('<%= PillarHeight.ClientID %>').value = getPillarHeight;
                     }
 
-                    function DisplaySlabWidth() {
-                        var getSlabWidth = Slab_Width;
-                        document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
+                    function DisplayPillarDiameter() {
+                        var getPillarDiameter = Pillar_Diameter;
+                        document.getElementById('<%= PillarDiameter.ClientID %>').value = getPillarDiameter;
                     }
 
-                    function DisplaySlabLength() {
-                        var getSlabLength = Slab_Length;
-                        document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
+                    function DisplayCapDiameter() {
+                        var getCapDiameter = Cap_Diameter;
+                        document.getElementById('<%=CapDiameter.ClientID %>').value = getCapDiameter;
                     }
 
-                    function DisplayPryHeight() {
-                        var getPryHeight = Pyramid_Height;
-                        document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
+                    function DisplayCapHeight() {
+                        var getCapHeight = Cap_Height;
+                        document.getElementById('<%= CapHeight.ClientID %>').value = getCapHeight;
                     }
 
 
@@ -360,11 +351,15 @@
 
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
-                        OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabWidth();  DisplaySlabLength(); DisplayStoneSelection();" />
+                        OnClientClick="DisplayPillarHeight(); DisplayPillarDiameter(); DisplayCapDiameter();  DisplayCapHeight();" />
 
                     <br />
-                    <asp:Label ID="lblStoneType" runat="server" Text="Cap Stone Type:" Style="display: none" CssClass="Labels"></asp:Label>
-                    <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
+                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
+                        <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
+                    <br/>
+                        <asp:Label ID="lblPillarStoneCaption" runat="server" Text="Pillar Stone Type" Style="display: none"></asp:Label>
+
+                        <asp:Label ID="lblPillarStone" runat="server"  ClientIDMode="Static" ></asp:Label>
 
                       <br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
@@ -376,11 +371,11 @@
                          />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" />
                     
-                    <%--Hidden fields for slab and pryamid measurements--%>
-                    <asp:HiddenField ID="SlabLength" runat="server" />
-                    <asp:HiddenField ID="SlabWidth" runat="server" />
-                    <asp:HiddenField ID="PryHeight" runat="server" />
-                    <asp:HiddenField ID="SlabHeight" runat="server" />
+                    <%--Hidden fields for slab and pillar measurements--%>
+                    <asp:HiddenField ID="PillarDiameter" runat="server" />
+                    <asp:HiddenField ID="PillarHeight" runat="server" />
+                    <asp:HiddenField ID="CapDiameter" runat="server" />
+                    <asp:HiddenField ID="CapHeight" runat="server" />
                     
 <%--                    <asp:HiddenField runat="server" ID="DisplayStoneType"/>--%>
 

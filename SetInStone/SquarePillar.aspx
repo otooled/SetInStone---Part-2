@@ -49,7 +49,7 @@
         var slabGeometry, slabMaterial;
         var slab;
         //default size for new pier cap
-        var SLAB_WIDTH = 80; SLAB_LENGTH = 100; SLAB_HEIGHT = 15; PYRAMID_HEIGHT = 20;
+        var SLAB_WIDTH = 90; SLAB_LENGTH = 110; SLAB_HEIGHT = 15; PYRAMID_HEIGHT = 20;
 
         //max dimensions for pier caps
         var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 100; MIN_PYRAMID_HEIGHT = 0;

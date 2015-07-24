@@ -58,22 +58,40 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// lblStoneType control.
+        /// lblCapStoneTypeCaption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStoneType;
+        protected global::System.Web.UI.WebControls.Label lblCapStoneTypeCaption;
         
         /// <summary>
-        /// lblDisplayStoneType control.
+        /// lblCapStoneType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDisplayStoneType;
+        protected global::System.Web.UI.WebControls.Label lblCapStoneType;
+        
+        /// <summary>
+        /// lblPillarStoneCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPillarStoneCaption;
+        
+        /// <summary>
+        /// lblPillarStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPillarStone;
         
         /// <summary>
         /// lblTotalCost control.
@@ -103,40 +121,40 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnCancel;
         
         /// <summary>
-        /// SlabLength control.
+        /// PillarDiameter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField SlabLength;
+        protected global::System.Web.UI.WebControls.HiddenField PillarDiameter;
         
         /// <summary>
-        /// SlabWidth control.
+        /// PillarHeight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField SlabWidth;
+        protected global::System.Web.UI.WebControls.HiddenField PillarHeight;
         
         /// <summary>
-        /// PryHeight control.
+        /// CapDiameter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField PryHeight;
+        protected global::System.Web.UI.WebControls.HiddenField CapDiameter;
         
         /// <summary>
-        /// SlabHeight control.
+        /// CapHeight control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField SlabHeight;
+        protected global::System.Web.UI.WebControls.HiddenField CapHeight;
         
         /// <summary>
         /// lblCalculateAnswer control.

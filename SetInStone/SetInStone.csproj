@@ -187,13 +187,16 @@
     <Content Include="Textures\Granite Flashing.jpg" />
     <Content Include="Textures\Granite.jpg" />
     <Content Include="Textures\granite2.jpg" />
+    <Content Include="Textures\greenMarble.jpg" />
     <Content Include="Textures\gridcomb.gif" />
     <Content Include="Textures\Limestone flashing.jpg" />
     <Content Include="Textures\Limestone.jpg" />
     <Content Include="Textures\limestone2.jpg" />
+    <Content Include="Textures\redMarble.jpg" />
     <Content Include="Textures\Sandstone flashing.jpg" />
     <Content Include="Textures\sandstone2.jpg" />
     <Content Include="RoundPillar.aspx" />
+    <Content Include="Textures\whiteMarble.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

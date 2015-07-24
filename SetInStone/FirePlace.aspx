@@ -23,12 +23,13 @@
         var renderers = [];
         
         //This will act as width & length as slab
-        var Top_Slap_Height = 1, Side_Slab_Width = 1, Side_Slab_Height = 1;
+        var Top_Slap_Height = 100, Top_Slab_Width = 120, Side_Slab_Width = 150, Side_Slab_Height = 250, Fireplace_Depth = 60;
 
         //Global variables
         var topSlab;
         var sideSlab;
         var rightSlab;
+        var slabDepth;
 
         var fireplace_parameters;
         var firePlace_gui;
@@ -41,14 +42,14 @@
         var light, topSlabGeometry, sideSlabGeometry, right_sideSlabGeometry, slabMaterial, color;
         
         //default size for top slab cap
-        var TOP_SLAB_WIDTH = 40; TOP_SLAB_LENGTH = 500; TOP_SLAB_HEIGHT = 120;
+        var TOP_SLAB_WIDTH = 40; TOP_SLAB_LENGTH = 500; TOP_SLAB_HEIGHT = 120; FIREPLACE_DEPTH = 60;
         
         //default size for side slab
-        var SIDE_SLAB_WIDTH = 40; SIDE_SLAB_LENGTH = 120; SIDE_SLAB_HEIGHT = 150;
-        FIREPLACE_DEPTH = 40;
+        var SIDE_SLAB_WIDTH = 40; SIDE_SLAB_LENGTH = 120; SIDE_SLAB_HEIGHT = 250;
+        FIREPLACE_DEPTH = 60;
         
         //default size for side slab
-        var RIGHT_SIDE_SLAB_WIDTH = 40; RIGHT_SIDE_SLAB_LENGTH = 120; RIGHT_SIDE_SLAB_HEIGHT = 150;
+        //var RIGHT_SIDE_SLAB_WIDTH = 40; RIGHT_SIDE_SLAB_LENGTH = 120; RIGHT_SIDE_SLAB_HEIGHT = 150;
        
         
         //max dimensions for top slab caps
@@ -56,17 +57,12 @@
         var MAX_TOP_SLAB_HEIGHT = 160;
         
         //max dimensions for side slab - left side
-        var MIN_SIDE_SLAB_HEIGHT = 100;
-        var MAX_SIDE_SLAB_HEIGHT = 400;
+        var MIN_SIDE_SLAB_HEIGHT = 200, MAX_SIDE_SLAB_HEIGHT = 400;
         
-        var MIN_SIDE_SLAB_WIDTH = 30;
-        var MAX_SIDE_SLAB_WIDTH = 45;
-        
-        
+        var MIN_SIDE_SLAB_WIDTH = 30, MAX_SIDE_SLAB_WIDTH = 45;
         
         //Depth demensions for fireplace
-        var MIN_FIREPLACE_DEPTH = 40;
-        var MAX_FIREPLACE_DEPTH = 150;
+        var MIN_FIREPLACE_DEPTH = 40, MAX_FIREPLACE_DEPTH = 100;
         
         </script>
 
@@ -123,12 +119,12 @@
                 light.castShadow = true;
                 scene.add(light);
 
-                //Create the slab
+                //Create the top slab
 
                 topSlabGeometry = new THREE.CubeGeometry(TOP_SLAB_WIDTH, TOP_SLAB_HEIGHT, TOP_SLAB_LENGTH);
                 slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
                 topSlab = new THREE.Mesh(topSlabGeometry, slabMaterial);
-                topSlab.position.set(0, 45, 0);
+                topSlab.position.set(0, 95, 0);
                 
                 // Create left slab of fireplace
                 sideSlabGeometry = new THREE.CubeGeometry(SIDE_SLAB_WIDTH, SIDE_SLAB_HEIGHT, SIDE_SLAB_LENGTH);
@@ -141,21 +137,19 @@
                 rightSlab.position.set(0, -90,-180);
 
                 scene.add(topSlab, sideSlab, rightSlab);
-                
-                
 
-                //var geometry = new THREE.SphereGeometry(50, 16, 32, Math.PI /2, 600 , 0, Math.PI);
-                //var material = new THREE.MeshBasicMaterial({ color: 0xddddff });
-                //mesh = new THREE.Mesh(geometry, material);
-                //mesh.material.side = THREE.DoubleSide;
-                //scene.add(mesh);
+               
 
                 firePlace_gui = new dat.GUI();
 
                 fireplace_parameters =
                     {
-                        Top_Slab_Height: (TOP_SLAB_HEIGHT), Side_Slab_Height:(SIDE_SLAB_HEIGHT),Side_Slab_Width:(SIDE_SLAB_WIDTH),
-                        stone: "Wireframe",
+                        Top_Slab_Height: (TOP_SLAB_HEIGHT),
+                        Base_Height: (SIDE_SLAB_HEIGHT ),
+                        Base_Width: (SIDE_SLAB_WIDTH),
+                        Fireplace_Depth: (FIREPLACE_DEPTH),
+                        baseStone: "Wireframe",
+                        topSlap: "Wireframe"
                         //reset: function () { resetPier() }
                     };
 
@@ -165,12 +159,12 @@
                 //slabZ = topSlab_deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
                 topSlabY = fireplace_deminsions.add(fireplace_parameters, 'Top_Slab_Height').min(MIN_TOP_SLAB_HEIGHT).max(MAX_TOP_SLAB_HEIGHT).step(1).listen();
                 
-                sideSlabY = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Height').min(MIN_SIDE_SLAB_HEIGHT).max(MAX_SIDE_SLAB_HEIGHT).step(1).listen();
-                sideSlabZ = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
-                //fireplace_depth = fireplace_deminsions.add(fireplace_parameters, 'Side_Slab_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
+                sideSlabY = fireplace_deminsions.add(fireplace_parameters, 'Base_Height').min(MIN_SIDE_SLAB_HEIGHT).max(MAX_SIDE_SLAB_HEIGHT).step(1).listen();
+                sideSlabZ = fireplace_deminsions.add(fireplace_parameters, 'Base_Width').min(MIN_SIDE_SLAB_WIDTH).max(MAX_SIDE_SLAB_WIDTH).step(1).listen();
+                fireplace_depth = fireplace_deminsions.add(fireplace_parameters, 'Fireplace_Depth').min(MIN_FIREPLACE_DEPTH).max(MAX_FIREPLACE_DEPTH).step(1).listen();
                 fireplace_deminsions.open();
 
-                var fireplaceSlabMaterial = firePlace_gui.add(fireplace_parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name
+                var fireplaceSlabMaterial = firePlace_gui.add(fireplace_parameters, 'baseStone', ["Wireframe", "Green Marble", "White Marble", "Red Marble"]).name
                 ('Stone Type').listen();
 
                 fireplaceSlabMaterial.onChange(function(value) {
@@ -181,17 +175,27 @@
                 //This also puts displays the stone type selected
                 function
                     updateFireplace() {
-                    var value = fireplace_parameters.stone;
+                    var value = fireplace_parameters.baseStone;
                     var newMaterial;
-                    if (value == "Granite") {
-                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
+                    if (value == "Green Marble") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/greenMarble.jpg"), shading: THREE.FlatShading, overdraw: true });
+                        //Display selection
+                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Green Marble";
 
+                    } else if (value == "White Marble") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/whiteMarble.jpg") });
+                        
+                        //Display selection
+                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "White Marble";
 
-                    } else if (value == "Sandstone") {
-                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
-
-                    } else if (value == "Limestone") {
-                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+                    } else if (value == "Red Marble") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/redMarble.jpg") });
+                        
+                        //Display selection
+                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Red Marble";
 
                     } else // (value == "Wireframe")
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
@@ -206,43 +210,74 @@
                 topSlabY.onChange(function(value) {
                     topSlab.scale.y = value / (TOP_SLAB_HEIGHT );
                     //topSlab.position.y = (topSlab.scale.y * 25) / 2;
-                    sideSlab.position.y = (topSlab.scale.y * (-7.5 * 12.10)) ;
-
+                    sideSlab.position.y = (topSlab.scale.y * (-9 * 5.10)) -44;
+                    rightSlab.position.y = (topSlab.scale.y * (-9 * 5.10)) - 44;
+                    
                     //Put Y scale value in global variable
-                    //Slab_Height = slab.scale.y;
+                    Top_Slap_Height = top.scale.y;
                 });
                 
                 sideSlabY.onChange(function(value) {
                     sideSlab.scale.y = value / (SIDE_SLAB_HEIGHT);
                     rightSlab.scale.y = value / (SIDE_SLAB_HEIGHT);
 
-
-                    topSlab.position.y = (sideSlab.position.y + TOP_SLAB_HEIGHT /2) + (sideSlab.scale.y *75) ;
-                    //(slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
-
+                    topSlab.position.y = (sideSlab.scale.y * (15 * 8.10))-26 ;//(sideSlab.position.y + TOP_SLAB_HEIGHT /2) + (sideSlab.scale.y *75) ;
                    
-                    //rightSlab.position.y = (sideSlab.scale.y * SIDE_SLAB_HEIGHT)*50;
-                   // slab.position.y = (slab.scale.y * 25) / 2;
-
                     //Put Y scale value in global variable
-                    //Slab_Height = slab.scale.y;
+                    Side_Slab_Height = sideSlab.scale.y;
                 });
                 
                 sideSlabZ.onChange(function (value) {
                     sideSlab.scale.z = value / (SIDE_SLAB_WIDTH);
                     rightSlab.scale.z = value / (SIDE_SLAB_WIDTH);
+                   
+
+
+                    //Put Z scale value in global variable
+                    Side_Slab_Width = sideSlabZ.scale.z;
+                });
+                
+                fireplace_depth.onChange(function (value) {
+                    //fireplace_depth.scale.x = value / (FIREPLACE_DEPTH);
+                    rightSlab.scale.x = value / (FIREPLACE_DEPTH);
+                    sideSlab.scale.x = value / (FIREPLACE_DEPTH);
+                    topSlab.scale.x = value / (FIREPLACE_DEPTH);
                     //topSlab.scale.x = value / (SIDE_SLAB_LENGTH);
 
 
-                    //Put Y scale value in global variable
-                    //Slab_Height = slab.scale.y;
+                    //Put X scale value in global variable
+                    Fireplace_Depth = topSlab.scale.x;
                 });
 
                 function callback() { return; }
 
                 renderers.push({ renderer: renderer, scene: scene, camera: camera, controls: controls, callback: callback });
             }              
-                
+            //Functions to send co-ordinates of pryamid and slab to code behind
+            function DisplayTopHeight() {
+                var getTopHeight = Top_Slap_Height;
+                document.getElementById('<%= TopHeight.ClientID %>').value = getTopHeight;
+            }
+
+            function DisplayTopWidth() {
+                var getTopWidth = Top_Slab_Width;
+                document.getElementById('<%= TopWidth.ClientID %>').value = getTopWidth;
+            }
+
+            function DisplayBaseHeight() {
+                var getBaseHeight = Side_Slab_Height;
+                document.getElementById('<%=BaseHeight.ClientID %>').value = getBaseHeight;
+            }
+
+            function DisplayBaseWidth() {
+                var getBaseWidth = Side_Slab_Width;
+                document.getElementById('<%= BaseWidth.ClientID %>').value = getBaseWidth;
+            }
+            
+            function DisplayDepth() {
+                var getDepth = Fireplace_Depth;
+                document.getElementById('<%= Depth.ClientID %>').value = getDepth;
+            }
         </script>
 
     </div>
@@ -279,6 +314,57 @@
     <div>
     
     </div>
-   
+   <form id="fmControls" runat="server">
+
+
+        <%--Start of Ajax commands--%>
+        <asp:ScriptManager ID="MainScriptManager" runat="server" />
+
+
+        <%--This div gets updated using Ajax--%>
+        <div id="costControls">
+            <asp:UpdatePanel runat="server" ID="UpdatePanel" UpdateMode="Conditional">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="btnCalculate" />
+                </Triggers>
+                <ContentTemplate>
+
+                    <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
+                    <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
+                        OnClientClick="DisplayBaseHeight(); DisplayBaseWidth(); DisplayTopHeight();  DisplayTopLength(); DisplayDepth();" />
+
+                    <br />
+                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
+                        <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
+                    <br/>
+                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" Text="Pillar Stone Type" Style="display: none"></asp:Label>
+
+                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" ></asp:Label>
+
+                      <br />
+                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
+                    <br />
+
+                    <br />
+
+                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
+                         />
+                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" />
+                    
+                    <%--Hidden fields for slab and pillar measurements--%>
+                    <asp:HiddenField ID="TopHeight" runat="server" />
+                    <asp:HiddenField ID="TopWidth" runat="server" />
+                    <asp:HiddenField ID="BaseHeight" runat="server" />
+                    <asp:HiddenField ID="BaseWidth" runat="server" />
+                    <asp:HiddenField ID="Depth" runat="server" />
+
+                    <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
+                    <asp:Label ID="Label1" runat="server"></asp:Label>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+        </div>
+
+    </form>
 </body>
 </html>
