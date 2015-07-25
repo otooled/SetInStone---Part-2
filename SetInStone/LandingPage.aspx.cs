@@ -10,7 +10,7 @@ namespace SetInStone
     public partial class LandingPage : System.Web.UI.Page
     {
         //Make database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {
@@ -18,7 +18,7 @@ namespace SetInStone
         }
 
         //Create a product object that will be used in the session
-        public Product prt = new Product();
+        //public Product prt = new Product();
 
         //Ensure user is logged in with session
         private void Page_PreInit(object sender, System.EventArgs e)
@@ -37,7 +37,7 @@ namespace SetInStone
 
         private void PopulateProductMenu()
         {
-            var p = from pdt in db.ProductOptions select new { pdt };
+            //var p = from pdt in db.ProductOptions select new { pdt };
             var pp = db.ProductOptions;
             ddlProductType.DataSource = pp.ToList();
             ddlProductType.DataValueField = "ProductOptionID";
@@ -60,7 +60,6 @@ namespace SetInStone
             {
                 Session.Add("productOptionID",ddlProductType.SelectedValue);
                 Response.Redirect("PillarCap.aspx");
-                
             }
         }
 

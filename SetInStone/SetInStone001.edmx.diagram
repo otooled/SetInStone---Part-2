@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d7ff8e84c2de4cc4a9ac26b4a8b86b11" Name="Diagram1">
+        <EntityTypeShape EntityType="SetInStone2Model.Customer" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Employee" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Order" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Product" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.ProductOption" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Quote" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Quote_Details" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.Slab" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SetInStone2Model.sysdiagram" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStone2Model.FK_Order_Quote" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_ProductOption" ManuallyRouted="false" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_Quote" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SetInStone2Model.Stone" Width="1.5" PointX="5.125" PointY="8.375" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_Stone" />
+        <AssociationConnector Association="SetInStone2Model.FK_Slab_Stone" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

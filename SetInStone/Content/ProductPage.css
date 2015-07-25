@@ -6,14 +6,14 @@
 #divTitle {
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 500px;
     color: white;
     font-family: Papyrus;
-    font-size: 50px;
+    font-size: 40px;
 }
 #MainGraphic {
     /*margin: 30px;*/
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: 300px;
     /*visibility: hidden;*/
     
@@ -37,7 +37,7 @@
 #txtQuantity {
     border:  1px solid white;
     border-width:1px;
-    border-radius: 6px;
+    border-radius: 1px;
     height: 35px;
     font-size: 20px;
     /*color: white;*/
@@ -56,7 +56,7 @@
     border: 1px solid white;
     -moz-border-radius:  2px;
     border-radius: 5px;
-    height: 220px;
+    height: 180px;
     text-align: center;
     left: auto;
     right: auto;
@@ -70,7 +70,7 @@
     font-family: Book Antiqua;
     font-size: 20px;
     height: 35px;
-    border-width: 5px;
+    border-width: 3px;
     border-radius: 6px;
     border-color: white;
 

@@ -61,7 +61,9 @@
         var pyramid;
         //Height of pyramid
         var Pyramid_Height = 1;
-
+        var Pillar_Stone_Type = 0;
+        var Cap_Stone_Type = 0;
+        
     </script>
 
     <title>Set In Stone</title>
@@ -223,6 +225,8 @@
                     if (value == "Granite") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                        Cap_Stone_Type = 1;
+                        CapStoneType();
                         //Display selection
                         document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Granite";
                         document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
@@ -230,6 +234,8 @@
                     } else if (value == "Sandstone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
+                        Cap_Stone_Type = 2;
+                        CapStoneType();
                         //Display selection
                         document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Sand Stone";
                         document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
@@ -237,6 +243,8 @@
                     } else if (value == "Limestone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
 
+                        Cap_Stone_Type = 3;
+                        CapStoneType();
                         //Display selection
                         document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Lime Stone";
                         document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
@@ -286,12 +294,16 @@
                     if (value == "Granite") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite Flashing.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                        Pillar_Stone_Type = 1;
+                        PillarStoneType();
                         //Display selection
                         document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Granite";
                         document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
                     } else if (value == "Sandstone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Sandstone flashing.jpg") });
 
+                        Pillar_Stone_Type = 2;
+                        PillarStoneType();
                         //Display selection
                         document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Sand Stone";
                         document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
@@ -299,6 +311,8 @@
                     } else if (value == "Limestone") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Limestone flashing.jpg") });
 
+                        Pillar_Stone_Type = 3;
+                        PillarStoneType();
                         //Display selection
                         document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Lime Stone";
                         document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
@@ -384,7 +398,28 @@
                 var getPryHeight = Pyramid_Height;
                 document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
             }
-                
+            function PillarHeight() {
+                var getPillarHeight = Pillar_Height;
+                document.getElementById('<%= HF_PillarHeight.ClientID %>').value = getPillarHeight;
+            }
+            
+            function PillarWidth() {
+                var getPillarWidth = Pillar_Width;
+                document.getElementById('<%= HF_PillarWidth.ClientID %>').value = getPillarWidth;
+            }
+            
+            function PillarLength() {
+                var getPillarLength = Pillar_Length;
+                document.getElementById('<%= HF_PillarLength.ClientID %>').value = getPillarLength;
+            }
+            function CapStoneType() {
+
+                document.getElementById('<%= HF_CapStoneType.ClientID %>').value = Cap_Stone_Type;
+             }
+            function PillarStoneType() {
+
+                document.getElementById('<%= HF_PillarStone.ClientID %>').value = Pillar_Stone_Type;
+                }
                         
 
         </script>
@@ -441,7 +476,7 @@
                     
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
                         OnClick="btnCalculate_Click" OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabLength();
-    DisplaySlabWidth();" CausesValidation="True"/>
+    DisplaySlabWidth(); PillarHeight(); PillarWidth(); PillarLength();" CausesValidation="True"/>
                     <br/>
                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
                         <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
@@ -462,7 +497,7 @@
                     <br />
 <%--                    <asp:Label ID="lblDisplayPillarStone" runat="server"></asp:Label>--%>
 
-                    
+                    <asp:Button runat="server" ID="btnContinueOrder" Text="Continue" OnClick="btnContinueOrder_Click"/>
 
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order" OnClick="btnSaveConfirm_Click"
                         />
@@ -476,8 +511,14 @@
                     <asp:HiddenField ID="SlabWidth" runat="server" />
                     <asp:HiddenField ID="PryHeight" runat="server" />
                     <asp:HiddenField ID="SlabHeight" runat="server" />
-
-                    <%--<asp:HiddenField runat="server" ID="stoneTextureHF"/>--%>
+                    <asp:HiddenField ID="HF_PillarHeight" runat="server" />
+                    <asp:HiddenField ID="HF_PillarWidth" runat="server" />
+                    <asp:HiddenField ID="HF_PillarLength" runat="server" />
+                    <asp:HiddenField runat="server" ID="HF_CapStoneType"/>
+                    <asp:HiddenField runat="server" ID="HF_PillarStone"/>
+                    
+                    <asp:HiddenField runat="server" ID="HF_CapTotal"/>
+                    <asp:HiddenField runat="server" ID="HF_PillarTotal"/>
 
                     <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
                    

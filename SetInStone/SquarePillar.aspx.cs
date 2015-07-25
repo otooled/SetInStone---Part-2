@@ -14,7 +14,7 @@ namespace SetInStone
         public Product prt = new Product();
 
         //database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {
@@ -62,14 +62,18 @@ namespace SetInStone
         {
 
             //variables to hold cost and cutting calculation results
-            float qauntity = float.Parse(txtQuantity.Text);
+            float quantity = float.Parse(txtQuantity.Text);
             float slabSurfaceCost = CustomerSlabDetails();
             float pyrSurfaceArea = PyramidSurface();
             float cutCost = CalculateStraightCuts();
-            float total = (pyrSurfaceArea + slabSurfaceCost + cutCost);
+
+            float totalCap = (pyrSurfaceArea + slabSurfaceCost + cutCost);
+            float totalPillar = CostOfSquarePillar();
+            HF_CapTotal.Value = totalCap.ToString();
+            HF_PillarTotal.Value = totalPillar.ToString();
 
             //Display final cost of stone work
-            lblCalculateAnswer.Text = (total * qauntity).ToString("#.##");
+            lblCalculateAnswer.Text = ((totalCap + totalPillar) * quantity).ToString("#.##");
 
         }
 
@@ -88,46 +92,32 @@ namespace SetInStone
             return surface;
         }
 
+        private float CostOfSquarePillar()
+        {
+            float pillarHeight = float.Parse(HF_PillarHeight.Value);
+            float pillarWidth = float.Parse(HF_PillarWidth.Value);
+            float pillarLength = float.Parse(HF_PillarLength.Value);
+
+            int stoneId = CheckPillarStoneSelection();
+            Stone stone = db.Stones.Where(a => a.StoneId == stoneId).FirstOrDefault();
+            float cubedPrice = (float)stone.CostPerCube; 
+
+            return pillarHeight*pillarWidth*pillarLength * cubedPrice;
+
+
+        }
+
         //Check what stone type is selected for cap
         private int CheckCapStoneSelection()
         {
-            int sType = 0;
-            if (lblCapStoneType.Text == "Granite")
-            {
-                sType = 1;
-            }
-
-            else if (lblCapStoneType.Text == "Sandstone")
-            {
-                sType = 2;
-            }
-
-            else if (lblCapStoneType.Text == "Limestone")
-            {
-                sType = 3;
-            }
-            return sType;
+            return Convert.ToInt32(HF_CapStoneType.Value);
         }
 
         //Check pillar stone selection
         private int CheckPillarStoneSelection()
         {
-            int sType = 0;
-            if (lblCapStoneType.Text == "Granite")
-            {
-                sType = 1;
-            }
-
-            else if (lblCapStoneType.Text == "Sandstone")
-            {
-                sType = 2;
-            }
-
-            else if (lblCapStoneType.Text == "Limestone")
-            {
-                sType = 3;
-            }
-            return sType;
+         int x = Convert.ToInt32(HF_PillarStone.Value);
+            return x;
         }
 
         private float CustomerSlabDetails()
@@ -167,7 +157,7 @@ namespace SetInStone
         {
             //generate a random alphanumeric string for Quote Reference
             string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
-
+            Quote qte;
             //This is for editing a quote which is implemented yet
             if (Page.IsValid)
             {
@@ -175,40 +165,160 @@ namespace SetInStone
                 {
                     if ((Session["quote"] != null))
                     {
-                        Quote q = (Quote)Session["quote"];
-                        q.Product.Width = float.Parse(SlabWidth.Value);
-                        //q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                        q.Product.StoneId = sType;
-                        q.Product.Height = float.Parse(SlabHeight.Value);
-                        q.Product.Length = float.Parse(SlabLength.Value);
-                        q.Product.PyrHeight = float.Parse(PryHeight.Value);
-                        db.SaveChanges();
+                        //Quote q = (Quote)Session["quote"];
+                        //q.Product.Width = float.Parse(SlabWidth.Value);
+                        ////q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
+                        //q.Product.StoneId = sType;
+                        //q.Product.Height = float.Parse(SlabHeight.Value);
+                        //q.Product.Length = float.Parse(SlabLength.Value);
+                        //q.Product.PyrHeight = float.Parse(PryHeight.Value);
+                        //db.SaveChanges();
                     }
                 }
 
                     //This adds product deminsions into session
-                else
+                //This adds product deminsions into session
+                else // not edit mode
                 {
+                    if ((Session["quote"] != null))
+                    {
+                        qte = (Quote)Session["quote"];
+                        if (qte != null)
+                        {
+                            qte.Quote_Details.Add(new Quote_Details()
+                            {
+                                Cap_Height = float.Parse(SlabHeight.Value),
+                                Cap_Width = float.Parse(SlabWidth.Value),
+                                Cap_Length = float.Parse(SlabLength.Value),
+                                Cap_Point = float.Parse(PryHeight.Value),
+                                Stone_ID = Convert.ToInt32(HF_CapStoneType.Value),
+                                Product_Option_ID = 1,
+                                Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                                Quantity = Convert.ToInt16(txtQuantity.Text)
+                            });
+                            qte.Quote_Details.Add(new Quote_Details()
+                            {
+                                Pillar_Height = float.Parse(HF_PillarHeight.Value),
+                                Pillar_Width = float.Parse(HF_PillarWidth.Value),
+                                Pillar_Length = float.Parse(HF_PillarLength.Value),
+                                Stone_ID = Convert.ToInt32(HF_PillarStone.Value),
+                                Product_Option_ID = 2,
+                                Item_Price = Convert.ToDecimal(HF_PillarTotal.Value),
+                                Quantity = Convert.ToInt16(txtQuantity.Text)
+                            });
 
-                    prt.Width = float.Parse(SlabWidth.Value);
-                    //prt.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                    prt.StoneId = sType;
-                    prt.Height = float.Parse(SlabHeight.Value);
-                    prt.Length = float.Parse(SlabLength.Value);
-                    prt.PyrHeight = float.Parse(PryHeight.Value);
-                    Session.Add("quoteRef", qRef);
-                    Session.Add("quote", lblCalculateAnswer.Text);
-                    Session.Add("product", prt);
+                            Session["quote"] = qte;
 
-                    Response.Redirect("Quote.aspx");
+
+                            Response.Redirect("Quote.aspx");
+                        }
+                    }
+                    else
+                    {
+                        qte = new Quote() { Quote_Ref = qRef };
+
+                        qte.Quote_Details.Add(new Quote_Details()
+                        {
+                            Cap_Height = float.Parse(SlabHeight.Value),
+                            Cap_Width = float.Parse(SlabWidth.Value),
+                            Cap_Length = float.Parse(SlabLength.Value),
+                            Cap_Point = float.Parse(PryHeight.Value),
+                            Stone_ID = Convert.ToInt32(HF_CapStoneType.Value),
+                            Product_Option_ID = 1,
+                            Item_Price = Convert.ToDecimal(HF_CapTotal.Value),
+                            Quantity = Convert.ToInt16(txtQuantity.Text)
+                        });
+                        qte.Quote_Details.Add(new Quote_Details()
+                        {
+                            Pillar_Height = float.Parse(HF_PillarHeight.Value),
+                            Pillar_Width = float.Parse(HF_PillarWidth.Value),
+                            Pillar_Length = float.Parse(HF_PillarLength.Value),
+                            Stone_ID = Convert.ToInt32(HF_PillarStone.Value),
+                            Product_Option_ID = 2,
+                            Item_Price = Convert.ToDecimal(HF_PillarTotal.Value),
+                            Quantity = Convert.ToInt16(txtQuantity.Text)
+                        });
+                        Session.Add("quote", qte);
+
+
+                        Response.Redirect("Quote.aspx");
+                    }
                 }
 
             }
         }
+        
 
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Response.Redirect("LandingPage.aspx");
+        }
+
+        protected void btnContinueOrder_Click(object sender, EventArgs e)
+        {
+            Quote qte;
+            if ((Session["quote"] != null))
+            {
+                qte = (Quote)Session["quote"];
+                if (qte != null)
+                {
+                    qte.Quote_Details.Add(new Quote_Details()
+                    {
+                        Cap_Height = float.Parse(SlabHeight.Value),
+                        Cap_Width = float.Parse(SlabWidth.Value),
+                        Cap_Length = float.Parse(SlabLength.Value),
+                        Cap_Point = float.Parse(PryHeight.Value),
+                        Stone_ID = Convert.ToInt32(HF_CapStoneType.Value),
+                        Product_Option_ID = 1,
+                        Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                        Quantity = Convert.ToInt16(txtQuantity.Text)
+                    });
+                    qte.Quote_Details.Add(new Quote_Details()
+                    {
+                        Pillar_Height = float.Parse(HF_PillarHeight.Value),
+                        Pillar_Width = float.Parse(HF_PillarWidth.Value),
+                        Pillar_Length = float.Parse(HF_PillarLength.Value),
+                        Stone_ID = Convert.ToInt32(HF_PillarStone.Value),
+                        Product_Option_ID = 2,
+                        Item_Price = Convert.ToDecimal(HF_PillarTotal.Value),
+                        Quantity = Convert.ToInt16(txtQuantity.Text)
+                    });
+
+                    Session["quote"] = qte;
+                }
+            }
+            else
+            {
+                string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
+                qte = new Quote() { Quote_Ref = qRef };
+
+                qte.Quote_Details.Add(new Quote_Details()
+                {
+                    Cap_Height = float.Parse(SlabHeight.Value),
+                    Cap_Width = float.Parse(SlabWidth.Value),
+                    Cap_Length = float.Parse(SlabLength.Value),
+                    Cap_Point = float.Parse(PryHeight.Value),
+                    Stone_ID = Convert.ToInt32(HF_CapStoneType.Value),
+                    Product_Option_ID = 1,
+                    Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                    Quantity = Convert.ToInt16(txtQuantity.Text)
+                });
+                qte.Quote_Details.Add(new Quote_Details()
+                {
+                    Pillar_Height = float.Parse(HF_PillarHeight.Value),
+                    Pillar_Width = float.Parse(HF_PillarWidth.Value),
+                    Pillar_Length = float.Parse(HF_PillarLength.Value),
+                    Stone_ID = Convert.ToInt32(HF_PillarStone.Value),
+                    Product_Option_ID = 2,
+                    Item_Price = Convert.ToDecimal(HF_PillarTotal.Value),
+                    Quantity = Convert.ToInt16(txtQuantity.Text)
+                });
+
+                Session.Add("quote", qte);
+
+
+            }
             Response.Redirect("LandingPage.aspx");
         }
 

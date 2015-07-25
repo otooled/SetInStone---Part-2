@@ -16,16 +16,16 @@ namespace SetInStone
     {
         public Stone()
         {
+            this.Quote_Details = new HashSet<Quote_Details>();
             this.Slabs = new HashSet<Slab>();
-            this.Products = new HashSet<Product>();
         }
     
         public int StoneId { get; set; }
         public string StoneType { get; set; }
-        public Nullable<double> CostPerCube { get; set; }
+        public double CostPerCube { get; set; }
         public Nullable<double> CutCost { get; set; }
     
+        public virtual ICollection<Quote_Details> Quote_Details { get; set; }
         public virtual ICollection<Slab> Slabs { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -10,18 +10,13 @@
 namespace SetInStone
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ProductOption
+    public partial class GetQuoteDetails_Result
     {
-        public ProductOption()
-        {
-            this.Quote_Details = new HashSet<Quote_Details>();
-        }
-    
-        public int ProductOptionID { get; set; }
-        public string ProductOption1 { get; set; }
-    
-        public virtual ICollection<Quote_Details> Quote_Details { get; set; }
+        public string ProductOption { get; set; }
+        public string StoneType { get; set; }
+        public short Quantity { get; set; }
+        public decimal Item_Price { get; set; }
+        public Nullable<decimal> Item_Total { get; set; }
     }
 }

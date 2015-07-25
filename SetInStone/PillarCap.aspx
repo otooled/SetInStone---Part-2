@@ -23,11 +23,12 @@
         var clock = new THREE.Clock();
         var renderers = [];
         var displayStone;
+        var Display_stone = 0;
         //Height of pyramid
-        var Pyramid_Height = 200;
+        var Pyramid_Height = 0.2;
 
         //This will act as width & length as slab
-        var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
+        var Slab_Width = 0.8, Slab_Length = 1, Slab_Height = 0.25;
 
         //Slab creation
         var slabGeometry, slabMaterial;
@@ -183,24 +184,27 @@
                             var newMaterial;
                             if (value == "Granite") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
-
+                                Display_stone = 1;
                                 //Display selection
                                 document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
                                 displayStone = document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Granite";
-                                //DisplayStoneSelection();
+                                DisplayStoneSelection();
 
                             } else if (value == "Sandstone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
+                                Display_stone = 2;
+                                DisplayStoneSelection();
                                 //Display selection
                                 document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').textContent = "Sandstone";
+                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Sandstone";
                             } else if (value == "Limestone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
-
+                                Display_stone = 3;
+                                DisplayStoneSelection();
                                 //Display selection
                                 document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').textContent = "Limestone";
+                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Limestone";
                             } else // (value == "Wireframe")
                                 newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
@@ -286,6 +290,12 @@
                         document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
                     }
 
+                    function DisplayStoneSelection() {
+                        
+                        document.getElementById('<%= DisplayStoneType.ClientID %>').value = Display_stone;
+                        
+                    }
+
                    
 
                 </script>
@@ -348,7 +358,7 @@
                       <br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
                     <br />
-
+                    <asp:Button runat="server" ID="btnBack" Text="Continue Shopping" OnClick="btnBack_Click"/>
                     <br />
 
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
@@ -361,7 +371,7 @@
                     <asp:HiddenField ID="PryHeight" runat="server" />
                     <asp:HiddenField ID="SlabHeight" runat="server" />
                     
-<%--                    <asp:HiddenField runat="server" ID="DisplayStoneType"/>--%>
+                    <asp:HiddenField runat="server" ID="DisplayStoneType"/>
 
                     <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
                     <asp:Label runat="server"></asp:Label>

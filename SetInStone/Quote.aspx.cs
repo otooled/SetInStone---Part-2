@@ -10,7 +10,7 @@ namespace SetInStone
     public partial class Quote1 : System.Web.UI.Page
     {
         //database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {
@@ -27,71 +27,91 @@ namespace SetInStone
         }
 
         //create product for session
-        public Product pt = new Product();
+        public Quote qte = null;
 
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["product"] != null)
-            {
-                pt = (Product)Session["product"];
-
-            }
             if(!IsPostBack)
             {
-                if(Session["quote"] != null)
+                if (Session["quote"] != null)
                 {
-                    //Display quote ref generated on product page
-                    string quoteRef = (string) Session["quoteRef"];
-                    lblDisplayQuoteRef.Text = quoteRef;
+                    qte = (Quote) Session["quote"];
+                    if (qte != null)
+                    {
+                        //Display quote ref generated on product page
+                        //string quoteRef = (string) Session["quoteRef"];
+                        lblDisplayQuoteRef.Text = qte.Quote_Ref;
 
-                    //Display quote price generated on product page
-                    string quote = (string) Session["quote"];
-                    lblDisplayQuote.Text = quote;
+                        decimal totalQuote = 0;
+                        //Display quote price generated on product page
+                        //string quote = (string) Session["quote"];
+                        foreach (var item in qte.Quote_Details)
+                        {
+                            totalQuote += item.Item_Price;
+                        }
+                        lblDisplayQuote.Text = totalQuote.ToString();
+                    }
                 }
 
-                if (Session["productID"] != null)
-                {
+                //if (Session["productID"] != null)
+                //{
                     
-                    //string quote = (string)Session["quote"];
+                //    //string quote = (string)Session["quote"];
 
-                    //lblDisplayQuote.Text = quote;
-                }
+                //    //lblDisplayQuote.Text = quote;
+                //}
             }
         }
 
         //Add the quote, customer and product to the database
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
-           
-            var customer = db.Customers.Where(a => a.First_Name ==txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
-            if(customer == null)
+            if (Session["quote"] != null)
             {
-                Customer cust = new Customer{ First_Name = txtFirstName.Text, Surname = txtSurname.Text, Address = txtAddress.Text, Phone = (txtPhoneNo.Text)};
-                db.Customers.Add(cust);
-                db.SaveChanges();
+                qte = (Quote) Session["quote"];
+                if (qte != null)
+                {
+                    Customer cust = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
+                    if (cust == null)
+                    {
+                        cust = new Customer
+                                   {
+                                       First_Name = txtFirstName.Text,
+                                       Surname = txtSurname.Text,
+                                       Address = txtAddress.Text,
+                                       Phone = (txtPhoneNo.Text)
+                                   };
+                        db.Customers.Add(cust);
+                        db.SaveChanges();
+                    }
+                    //var customer2 = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
+                    //if (Session["productOptionID"] != null)
+                    //{
+                    //    var id = (string)Session["productOptionID"];
+                    //    pt.ProductOptionID = Convert.ToInt32(id);
+                    //}
+                    //db.Products.Add(pt);
+                    //db.SaveChanges();
+
+                    //Quote qute = new Quote();
+                    qte.CustomerId = cust.CustomerID;
+                    qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
+                    //qute.Quote_Ref = lblDisplayQuoteRef.Text;
+
+                    //qute.ProductId = pt.ProductID;
+                    db.Quotes.Add(qte);
+
+                    
+                    db.SaveChanges();
+
+                    //send user back to landing page after details are saved
+                    Response.Write(
+                        "<script LANGUAGE='JavaScript' >alert('Quote has been saved.');document.location='" +
+                        ResolveClientUrl("~/LandingPage.aspx") + "';</script>");
+                }
+
             }
-            var customer2 = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
-            if (Session["productOptionID"] != null)
-            {
-                var id = (string)Session["productOptionID"];
-                pt.ProductOptionID = Convert.ToInt32(id);
-            }
-            db.Products.Add(pt);
-            db.SaveChanges();
-
-            Quote qute = new Quote();
-            qute.CustomerId = customer2.CustomerID;
-            qute.Price = Convert.ToDecimal(lblDisplayQuote.Text);
-            qute.Quote_Ref = lblDisplayQuoteRef.Text;
-
-            qute.ProductId = pt.ProductID;
-            db.Quotes.Add(qute);
-            db.SaveChanges();
-
-            //send user back to landing page after details are saved
-            Response.Write("<script LANGUAGE='JavaScript' >alert('Quote has been saved.');document.location='" + ResolveClientUrl("~/LandingPage.aspx") + "';</script>");
-
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)

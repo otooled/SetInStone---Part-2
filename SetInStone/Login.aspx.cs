@@ -11,7 +11,7 @@ namespace SetInStone
 {
     public partial class Login : System.Web.UI.Page
     {
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {

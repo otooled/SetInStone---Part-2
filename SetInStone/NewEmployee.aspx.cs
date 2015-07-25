@@ -12,7 +12,7 @@ namespace SetInStone
     public partial class NewEmployee : System.Web.UI.Page
     {
         //Database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {

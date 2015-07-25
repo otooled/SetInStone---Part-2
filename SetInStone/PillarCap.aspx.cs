@@ -11,12 +11,12 @@ namespace SetInStone
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        private int sType = 0;
+        //private int sType = 0;
         //product option for session
-        public Product prt = new Product();
+        //public Product prt = new Product();
  
        //database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {
@@ -92,36 +92,22 @@ namespace SetInStone
 
         private int CheckStoneSelection()
         {
-            int sType = 0;
-            if (lblDisplayStoneType.Text == "Granite")
-            {
-                sType = 1;
-            }
-
-            else if (lblDisplayStoneType.Text == "Sandstone")
-            {
-                sType = 2;
-            }
-
-            else if (lblDisplayStoneType.Text == "Limestone")
-            {
-                sType = 3;
-            }
-            return sType;
+            return Convert.ToInt32(DisplayStoneType.Value);
+            
         }
 
         private float CustomerSlabDetails()
         {
             //Measurements entered by the user through the slider control
             //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
-            CheckStoneSelection();
+            int stoneID = CheckStoneSelection();
            
             float slabWidth = float.Parse(SlabWidth.Value);
             float slabHeight = float.Parse(SlabHeight.Value);
             float slabLength = float.Parse(SlabLength.Value);
 
             //calculations performed cost class
-            var price = CalcClasses.Cost.CalcCost( CheckStoneSelection(), slabWidth, slabHeight, slabLength);
+            var price = CalcClasses.Cost.CalcCost( stoneID, slabWidth, slabHeight, slabLength);
             return price;
         }
 
@@ -151,36 +137,70 @@ namespace SetInStone
             //This is for editing a quote which is implemented yet
             if(Page.IsValid)
             {
+                Quote qte;
                 if ((Session["EditMode"] != null) && true)
                 {
                     if ((Session["quote"] != null))
                     {
-                        Quote q = (Quote)Session["quote"];
-                        q.Product.Width = float.Parse(SlabWidth.Value);
-                        //q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                        q.Product.StoneId = sType;
-                        q.Product.Height = float.Parse(SlabHeight.Value);
-                        q.Product.Length = float.Parse(SlabLength.Value);
-                        q.Product.PyrHeight = float.Parse(PryHeight.Value);
-                        db.SaveChanges();
+                        //Quote q = (Quote)Session["quote"];
+                        //q.Product.Width = float.Parse(SlabWidth.Value);
+                        ////q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
+                        //q.Product.StoneId = sType;
+                        //q.Product.Height = float.Parse(SlabHeight.Value);
+                        //q.Product.Length = float.Parse(SlabLength.Value);
+                        //q.Product.PyrHeight = float.Parse(PryHeight.Value);
+                        //db.SaveChanges();
                     }
                 }
 
                     //This adds product deminsions into session
-                else
+                else // not edit mode
                 {
-                    
-                    prt.Width = float.Parse(SlabWidth.Value);
-                    //prt.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                    prt.StoneId = sType;
-                    prt.Height = float.Parse(SlabHeight.Value);
-                    prt.Length = float.Parse(SlabLength.Value);
-                    prt.PyrHeight = float.Parse(PryHeight.Value);
-                    Session.Add("quoteRef",qRef);
-                    Session.Add("quote", lblCalculateAnswer.Text);
-                    Session.Add("product", prt);
-                    
-                    Response.Redirect("Quote.aspx");
+                    if ((Session["quote"] != null))
+                    {
+                        qte = (Quote) Session["quote"];
+                        if (qte != null)
+                        {
+                            qte.Quote_Details.Add(new Quote_Details()
+                            {
+                                Cap_Height = float.Parse(SlabHeight.Value),
+                                Cap_Width = float.Parse(SlabWidth.Value),
+                                Cap_Length = float.Parse(SlabLength.Value),
+                                Cap_Point = float.Parse(PryHeight.Value),
+                                Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
+                                Product_Option_ID = 1,
+                                Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                                Quantity = Convert.ToInt16(txtQuantity.Text)
+
+                            });
+
+                            Session["quote"] = qte;
+
+
+                            Response.Redirect("Quote.aspx");
+                        }
+                    }
+                    else
+                    {
+                        qte = new Quote() {Quote_Ref = qRef};
+
+                        qte.Quote_Details.Add(new Quote_Details()
+                                                  {
+                                                      Cap_Height = float.Parse(SlabHeight.Value),
+                                                      Cap_Width = float.Parse(SlabWidth.Value),
+                                                      Cap_Length = float.Parse(SlabLength.Value),
+                                                      Cap_Point = float.Parse(PryHeight.Value),
+                                                      Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
+                                                      Product_Option_ID = 1,
+                                                      Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                                                      Quantity = Convert.ToInt16(txtQuantity.Text)
+                                                  });
+
+                        Session.Add("quote", qte);
+
+
+                        Response.Redirect("Quote.aspx");
+                    }
                 }
                 
             }
@@ -189,6 +209,55 @@ namespace SetInStone
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Response.Redirect("LandingPage.aspx");
+        }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Quote qte;
+            if ((Session["quote"] != null))
+            {
+                qte = (Quote)Session["quote"];
+                if (qte != null)
+                {
+                    qte.Quote_Details.Add(new Quote_Details()
+                    {
+                        Cap_Height = float.Parse(SlabHeight.Value),
+                        Cap_Width = float.Parse(SlabWidth.Value),
+                        Cap_Length = float.Parse(SlabLength.Value),
+                        Cap_Point = float.Parse(PryHeight.Value),
+                        Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
+                        Product_Option_ID = 1,
+                        Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                        Quantity = Convert.ToInt16(txtQuantity.Text)
+
+                    });
+
+                    Session["quote"] = qte;
+                }
+            }
+            else
+            {
+                string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
+                qte = new Quote() { Quote_Ref = qRef };
+
+                qte.Quote_Details.Add(new Quote_Details()
+                {
+                    Cap_Height = float.Parse(SlabHeight.Value),
+                    Cap_Width = float.Parse(SlabWidth.Value),
+                    Cap_Length = float.Parse(SlabLength.Value),
+                    Cap_Point = float.Parse(PryHeight.Value),
+                    Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
+                    Product_Option_ID = 1,
+                    Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                    Quantity = Convert.ToInt16(txtQuantity.Text)
+
+                });
+
+                Session.Add("quote", qte);
+
+
+            }
             Response.Redirect("LandingPage.aspx");
         }
 

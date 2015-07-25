@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -10,7 +11,7 @@ namespace SetInStone
     public partial class RetrieveQuote : System.Web.UI.Page
     {
         //database connection
-        private SetStone db = new SetStone();
+        private SetInStone db = new SetInStone();
 
         protected void Dispose(bool disposing)
         {
@@ -47,16 +48,32 @@ namespace SetInStone
                 lblSurname.Text = q.Customer.Surname;
                 lblAddress.Text = q.Customer.Address;
                 lblPhoneNo.Text = q.Customer.Phone;
-                lblProduct.Text = q.Product.ProductOption.ProductOption1;
-                lblStone.Text = db.Stones.Where(a => a.StoneId == q.Product.StoneId).FirstOrDefault().StoneType;
-                lblPrice.Text = q.Price.ToString();
 
-                if (q.Quote_Ref == txtQuoteRef.Text)
-                {
-                    btnEditQuote.Visible = true;
-                    btnPlaceOrder.Visible = true;
-                }
-                
+                var query = db.Quote_Details.Where(det => det.Quote.Quote_Ref == q.Quote_Ref).
+                    Select(d => new
+                    {
+                       ProdOption=d.ProductOption.ProductOption1,
+                        d.ProductOption.ProductOptionID,
+                        d.Quote_Details_ID,
+                       d.Stone.StoneType,
+                       d.Quantity,
+                       d.Item_Price,
+                       Item_Total=d.Quantity*d.Item_Price
+                    }).ToList();
+//                
+
+                gvQuoteDetails.DataSource = query;
+                gvQuoteDetails.DataBind();
+                //lblProduct.Text = q.Product.ProductOption.ProductOption1;
+                //lblStone.Text = db.Stones.Where(a => a.StoneId == q.Product.StoneId).FirstOrDefault().StoneType;
+                //lblPrice.Text = q.Price.ToString();
+
+                //if (q.Quote_Ref == txtQuoteRef.Text)
+                //{
+                //    btnEditQuote.Visible = true;
+                //    btnPlaceOrder.Visible = true;
+                //}
+
 
             }
 
@@ -94,6 +111,16 @@ namespace SetInStone
         {
             Response.Redirect("LandingPage.aspx");
 
+        }
+
+        protected void btn_EditCommand(object sender, CommandEventArgs e)
+        {
+            string[] commandArgs = e.CommandArgument.ToString().Split(new char[] { ',' });
+            int option = Convert.ToInt32(commandArgs[0]);
+            if (option == 1)
+            {
+                Response.Redirect("PillarCap.aspx?QuoteDetailsID=" + commandArgs[1]);
+            }
         }
     }
 }

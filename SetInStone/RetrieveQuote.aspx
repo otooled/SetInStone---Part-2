@@ -46,6 +46,23 @@
 
         <br />
         
+        <asp:DataGrid ID="gvQuoteDetails" runat="server" AutoGenerateColumns="False">
+            <Columns>
+              <asp:BoundColumn DataField="ProdOption" HeaderText="Product Name"></asp:BoundColumn>
+                <asp:BoundColumn DataField="StoneType" HeaderText="Stone Type"></asp:BoundColumn>
+                  <asp:BoundColumn DataField="Quantity" HeaderText="Quantity"></asp:BoundColumn>
+                    <asp:BoundColumn DataField="Item_Price" HeaderText="Unit Price"></asp:BoundColumn>
+                        <asp:BoundColumn DataField="Item_Total" HeaderText="Total"></asp:BoundColumn>
+                <asp:TemplateColumn>
+                    <ItemTemplate>
+                        <asp:Button runat="server" ID="btnEdit" Text="Edit..." CommandArgument='<%# Eval("ProductOptionID")+","+ Eval("Quote_Details_ID") %>' OnCommand="btn_EditCommand" />
+                    </ItemTemplate>
+                </asp:TemplateColumn>
+
+    </Columns>                
+</asp:DataGrid>
+        </>
+        
         <br />
         <br />
         <asp:Button ID="btnEditQuote" runat="server" Text="Edit Quote" CssClass="Buttons" OnClick="btnEditQuote_Click"/>

@@ -8,7 +8,7 @@ namespace SetInStone.CalcClasses
     public static class Cost
     {
         //database connection
-        private static SetStone db = new SetStone();
+        private static SetInStone db = new SetInStone();
         static void Dispose(bool disposing)
         {
             db.Dispose();

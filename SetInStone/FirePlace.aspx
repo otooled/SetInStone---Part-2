@@ -66,14 +66,14 @@
         
         </script>
 
-    <title>Set In Stone</title>
+    <title>Set In Stone - Fireplace</title>
 
 </head>
 <body>
     <br />
     <br />
     <div id="divTitle">
-        <label>Set In Stone</label>
+        <label>Set In Stone - Fireplace</label>
     </div>
     <div id='MainGraphic'>
 
@@ -334,12 +334,11 @@
                         OnClientClick="DisplayBaseHeight(); DisplayBaseWidth(); DisplayTopHeight();  DisplayTopLength(); DisplayDepth();" />
 
                     <br />
-                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
-                        <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
-                    <br/>
-                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" Text="Pillar Stone Type" Style="display: none"></asp:Label>
+                     <br/>
+                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" Text="Marble Type:" Style="display: none"
+                            CssClass="Labels"></asp:Label>
 
-                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" ></asp:Label>
+                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>
 
                       <br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>

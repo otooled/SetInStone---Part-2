@@ -5,14 +5,14 @@ namespace SetInStone.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SetInStone.SetInStoneEntities4>
+    internal sealed class Configuration : DbMigrationsConfiguration<SetInStone>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SetInStone.SetInStoneEntities4 context)
+        protected override void Seed(SetInStone context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -103,6 +103,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblTotalCost;
         
         /// <summary>
+        /// btnContinueOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnContinueOrder;
+        
+        /// <summary>
         /// btnSaveConfirm control.
         /// </summary>
         /// <remarks>
@@ -155,6 +164,69 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField SlabHeight;
+        
+        /// <summary>
+        /// HF_PillarHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PillarHeight;
+        
+        /// <summary>
+        /// HF_PillarWidth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PillarWidth;
+        
+        /// <summary>
+        /// HF_PillarLength control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PillarLength;
+        
+        /// <summary>
+        /// HF_CapStoneType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_CapStoneType;
+        
+        /// <summary>
+        /// HF_PillarStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PillarStone;
+        
+        /// <summary>
+        /// HF_CapTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_CapTotal;
+        
+        /// <summary>
+        /// HF_PillarTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_PillarTotal;
         
         /// <summary>
         /// lblCalculateAnswer control.

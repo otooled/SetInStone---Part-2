@@ -213,13 +213,13 @@
     </Compile>
     <Compile Include="CalcClasses\CutCost.cs" />
     <Compile Include="Customer.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="Cut_Cost.cs">
       <DependentUpon>SetInStone.tt</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="FirePlace.aspx.cs">
       <DependentUpon>FirePlace.aspx</DependentUpon>
@@ -227,6 +227,9 @@
     </Compile>
     <Compile Include="FirePlace.aspx.designer.cs">
       <DependentUpon>FirePlace.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetQuoteDetails_Result.cs">
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -254,16 +257,16 @@
       <DependentUpon>NewEmployee.aspx</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="Order_Details.cs">
       <DependentUpon>SetInStone.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductOption.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PillarCap.aspx.cs">
@@ -281,7 +284,10 @@
       <DependentUpon>Quote.aspx</DependentUpon>
     </Compile>
     <Compile Include="Quote.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Quote_Details.cs">
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="RetrieveQuote.aspx.cs">
       <DependentUpon>RetrieveQuote.aspx</DependentUpon>
@@ -296,6 +302,30 @@
     </Compile>
     <Compile Include="RoundCap.aspx.designer.cs">
       <DependentUpon>RoundCap.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SetInStone001.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetInStone001.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SetInStone001.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetInStone001.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SetInStone001.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetInStone001.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Slab.cs">
+      <DependentUpon>SetInStone001.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Stone.cs">
+      <DependentUpon>SetInStone001.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
     <Compile Include="Test1.aspx.cs">
       <DependentUpon>Test1.aspx</DependentUpon>
@@ -319,29 +349,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OldSetInStone.edmx</DependentUpon>
     </Compile>
-    <Compile Include="SetStone.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetStone.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SetStone.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetStone.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SetStone.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetStone.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="SetStone1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SetStone.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Slab.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
-    </Compile>
     <Compile Include="SquarePillar.aspx.cs">
       <DependentUpon>SquarePillar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -349,14 +356,8 @@
     <Compile Include="SquarePillar.aspx.designer.cs">
       <DependentUpon>SquarePillar.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Stone.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
-    </Compile>
     <Compile Include="Stone_Type.cs">
       <DependentUpon>SetInStone.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>SetStone.tt</DependentUpon>
     </Compile>
     <Compile Include="RoundPillar.aspx.cs">
       <DependentUpon>RoundPillar.aspx</DependentUpon>
@@ -385,22 +386,22 @@
       <DependentUpon>OldSetInStone.edmx</DependentUpon>
       <LastGenOutput>SetInStone.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="SetStone.edmx">
+    <EntityDeploy Include="SetInStone001.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SetStone1.Designer.cs</LastGenOutput>
+      <LastGenOutput>SetInStone001.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="SetStone.Context.tt">
+    <Content Include="SetInStone001.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SetStone.edmx</DependentUpon>
-      <LastGenOutput>SetStone.Context.cs</LastGenOutput>
+      <DependentUpon>SetInStone001.edmx</DependentUpon>
+      <LastGenOutput>SetInStone001.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="SetStone.edmx.diagram">
-      <DependentUpon>SetStone.edmx</DependentUpon>
+    <Content Include="SetInStone001.edmx.diagram">
+      <DependentUpon>SetInStone001.edmx</DependentUpon>
     </Content>
-    <Content Include="SetStone.tt">
+    <Content Include="SetInStone001.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SetStone.edmx</DependentUpon>
-      <LastGenOutput>SetStone.cs</LastGenOutput>
+      <DependentUpon>SetInStone001.edmx</DependentUpon>
+      <LastGenOutput>SetInStone001.cs</LastGenOutput>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
