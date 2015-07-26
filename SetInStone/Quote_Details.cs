@@ -18,6 +18,7 @@ namespace SetInStone
         public int Quote_ID { get; set; }
         public int Product_Option_ID { get; set; }
         public int Stone_ID { get; set; }
+        public short Quantity { get; set; }
         public Nullable<double> Cap_Height { get; set; }
         public Nullable<double> Cap_Width { get; set; }
         public Nullable<double> Cap_Length { get; set; }
@@ -31,11 +32,11 @@ namespace SetInStone
         public Nullable<double> Fireplace_Base_Height { get; set; }
         public Nullable<double> Fireplace_Top_Width { get; set; }
         public Nullable<double> Fireplace_Top_Height { get; set; }
+        public Nullable<double> Fireplace_Depth { get; set; }
         public decimal Item_Price { get; set; }
-        public short Quantity { get; set; }
     
         public virtual ProductOption ProductOption { get; set; }
-        public virtual Quote Quote { get; set; }
         public virtual Stone Stone { get; set; }
+        public virtual Quote Quote { get; set; }
     }
 }

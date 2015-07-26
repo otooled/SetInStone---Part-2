@@ -10,18 +10,18 @@
         <EntityTypeShape EntityType="SetInStone2Model.Order" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SetInStone2Model.Product" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SetInStone2Model.ProductOption" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SetInStone2Model.Quote" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SetInStone2Model.Quote_Details" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SetInStone2Model.Slab" Width="1.5" PointX="8.25" PointY="9.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SetInStone2Model.sysdiagram" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <AssociationConnector Association="SetInStone2Model.FK_Quote_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="SetInStone2Model.FK_Quote_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="SetInStone2Model.FK_Order_Quote" ManuallyRouted="false" />
-        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_ProductOption" ManuallyRouted="false" />
-        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_Quote" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SetInStone2Model.Stone" Width="1.5" PointX="5.125" PointY="8.375" />
+        <EntityTypeShape EntityType="SetInStone2Model.Quote_Details" Width="1.5" PointX="8.75" PointY="3.25" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_ProductOption" />
+        <EntityTypeShape EntityType="SetInStone2Model.Stone" Width="1.5" PointX="5.8467279234187339" PointY="29.903787775851686" />
         <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_Stone" />
         <AssociationConnector Association="SetInStone2Model.FK_Slab_Stone" />
+        <EntityTypeShape EntityType="SetInStone2Model.Quote" Width="1.5" PointX="11.400454658735756" PointY="16.13441736257375" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Customer" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Employee" />
+        <AssociationConnector Association="SetInStone2Model.FK_Order_Quote" />
+        <AssociationConnector Association="SetInStone2Model.FK_Quote_Details_Quote" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -63,7 +63,7 @@
         
         //Depth demensions for fireplace
         var MIN_FIREPLACE_DEPTH = 40, MAX_FIREPLACE_DEPTH = 100;
-        
+        var DisplayMarbleType = 0;
         </script>
 
     <title>Set In Stone - Fireplace</title>
@@ -180,23 +180,30 @@
                     if (value == "Green Marble") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/greenMarble.jpg"), shading: THREE.FlatShading, overdraw: true });
                         //Display selection
+
+                        DisplayMarbleType = 6;
                         document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Green Marble";
+                        DisplayMarbleSelection();
 
                     } else if (value == "White Marble") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/whiteMarble.jpg") });
                         
                         //Display selection
+                        DisplayMarbleType = 9;
                         document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "White Marble";
-
+                        DisplayMarbleSelection();
+                        
                     } else if (value == "Red Marble") {
                         newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/redMarble.jpg") });
                         
                         //Display selection
+                        DisplayMarbleType = 4;
                         document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
                         document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Red Marble";
-
+                        DisplayMarbleSelection();
+                        
                     } else // (value == "Wireframe")
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
@@ -207,14 +214,16 @@
                     animate();
                 }
 
-                topSlabY.onChange(function(value) {
+                topSlabY.onChange(function (value)
+                {
                     topSlab.scale.y = value / (TOP_SLAB_HEIGHT );
                     //topSlab.position.y = (topSlab.scale.y * 25) / 2;
                     sideSlab.position.y = (topSlab.scale.y * (-9 * 5.10)) -44;
                     rightSlab.position.y = (topSlab.scale.y * (-9 * 5.10)) - 44;
                     
                     //Put Y scale value in global variable
-                    Top_Slap_Height = top.scale.y;
+                    //Top_Slap_Height = value;//top.scale.y;
+                    document.getElementById('<%= TopHeight.ClientID %>').value = value;
                 });
                 
                 sideSlabY.onChange(function(value) {
@@ -224,7 +233,8 @@
                     topSlab.position.y = (sideSlab.scale.y * (15 * 8.10))-26 ;//(sideSlab.position.y + TOP_SLAB_HEIGHT /2) + (sideSlab.scale.y *75) ;
                    
                     //Put Y scale value in global variable
-                    Side_Slab_Height = sideSlab.scale.y;
+                    //Side_Slab_Height = sideSlab.scale.y;
+                    document.getElementById('<%=BaseHeight.ClientID %>').value = value;
                 });
                 
                 sideSlabZ.onChange(function (value) {
@@ -234,7 +244,8 @@
 
 
                     //Put Z scale value in global variable
-                    Side_Slab_Width = sideSlabZ.scale.z;
+                    //Side_Slab_Width = sideSlabZ.scale.z;
+                    document.getElementById('<%= BaseWidth.ClientID %>').value = value;
                 });
                 
                 fireplace_depth.onChange(function (value) {
@@ -246,7 +257,8 @@
 
 
                     //Put X scale value in global variable
-                    Fireplace_Depth = topSlab.scale.x;
+                    //Fireplace_Depth = value;// topSlab.scale.x;
+                    document.getElementById('<%= Depth.ClientID %>').value = value;
                 });
 
                 function callback() { return; }
@@ -254,29 +266,13 @@
                 renderers.push({ renderer: renderer, scene: scene, camera: camera, controls: controls, callback: callback });
             }              
             //Functions to send co-ordinates of pryamid and slab to code behind
-            function DisplayTopHeight() {
-                var getTopHeight = Top_Slap_Height;
-                document.getElementById('<%= TopHeight.ClientID %>').value = getTopHeight;
-            }
-
-            function DisplayTopWidth() {
-                var getTopWidth = Top_Slab_Width;
-                document.getElementById('<%= TopWidth.ClientID %>').value = getTopWidth;
-            }
-
-            function DisplayBaseHeight() {
-                var getBaseHeight = Side_Slab_Height;
-                document.getElementById('<%=BaseHeight.ClientID %>').value = getBaseHeight;
-            }
-
-            function DisplayBaseWidth() {
-                var getBaseWidth = Side_Slab_Width;
-                document.getElementById('<%= BaseWidth.ClientID %>').value = getBaseWidth;
-            }
+           
             
-            function DisplayDepth() {
-                var getDepth = Fireplace_Depth;
-                document.getElementById('<%= Depth.ClientID %>').value = getDepth;
+            function DisplayMarbleSelection() {
+                document.getElementById('<%= HF_MarbleSelection.ClientID %>').value = DisplayMarbleType;
+            }
+            function TopWidth() {
+                document.getElementById('<%= TopWidth.ClientID %>').value = Top_Slab_Width;
             }
         </script>
 
@@ -331,7 +327,7 @@
 
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
-                        OnClientClick="DisplayBaseHeight(); DisplayBaseWidth(); DisplayTopHeight();  DisplayTopLength(); DisplayDepth();" />
+                        OnClientClick="DisplayMarbleSelection();" OnClick="btnCalculate_Click" />
 
                     <br />
                      <br/>
@@ -343,19 +339,21 @@
                       <br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
                     <br />
-
+                    <asp:Button runat="server" ID="btnContinue" Text="Continue" OnClick="btnContinue_Click"/>
                     <br />
 
-                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
+                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order" OnClick="btnSaveConfirm_Click"
                          />
-                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" />
+                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />
                     
                     <%--Hidden fields for slab and pillar measurements--%>
                     <asp:HiddenField ID="TopHeight" runat="server" />
-                    <asp:HiddenField ID="TopWidth" runat="server" />
+                    <asp:HiddenField ID="TopWidth" runat="server" Value="120" />
                     <asp:HiddenField ID="BaseHeight" runat="server" />
                     <asp:HiddenField ID="BaseWidth" runat="server" />
                     <asp:HiddenField ID="Depth" runat="server" />
+                    
+                    <asp:HiddenField ID="HF_MarbleSelection" runat="server"/>
 
                     <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
                     <asp:Label ID="Label1" runat="server"></asp:Label>

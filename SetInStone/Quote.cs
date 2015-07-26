@@ -23,8 +23,9 @@ namespace SetInStone
         public int QuoteId { get; set; }
         public string Quote_Ref { get; set; }
         public Nullable<int> CustomerId { get; set; }
-        public Nullable<int> EmployeeId { get; set; }
         public Nullable<decimal> Quote_Price { get; set; }
+        public Nullable<int> EmployeeId { get; set; }
+        public System.DateTime Quote_Date { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }

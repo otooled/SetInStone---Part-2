@@ -33,12 +33,12 @@ namespace SetInStone
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductOption> ProductOptions { get; set; }
-        public DbSet<Quote> Quotes { get; set; }
-        public DbSet<Quote_Details> Quote_Details { get; set; }
         public DbSet<Slab> Slabs { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<Quote_Details> Quote_Details { get; set; }
         public DbSet<Stone> Stones { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
     
-        
+      
     }
 }

@@ -85,6 +85,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblTotalCost;
         
         /// <summary>
+        /// btnContinue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnContinue;
+        
+        /// <summary>
         /// btnSaveConfirm control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField Depth;
+        
+        /// <summary>
+        /// HF_MarbleSelection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HF_MarbleSelection;
         
         /// <summary>
         /// lblCalculateAnswer control.

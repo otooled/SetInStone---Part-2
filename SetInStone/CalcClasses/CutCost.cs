@@ -22,8 +22,8 @@ namespace SetInStone.CalcClasses
            float sideArea = 0;
            float totalSlabHeight = 0;
 
-           surfaceArea = slLength*slWidth;
-           sideArea = (slLength*slWidth)*2;
+           surfaceArea = slLength/1000*slWidth/1000;
+           sideArea = (slLength/1000*slWidth/1000)*2;
            totalCutArea = surfaceArea + sideArea;
 
 
@@ -48,12 +48,89 @@ namespace SetInStone.CalcClasses
         {
             float cost = 0;
 
-            var volume = slHeight*slWidth*slLength;
+            var volume = slHeight / 1000 * slWidth / 1000 * slLength / 1000;
 
             Stone stoneCost = db.Stones.Where(a => a.StoneId == sType).FirstOrDefault();
             cost = volume*(float)stoneCost.CostPerCube;
 
             return cost;
+        }
+        //calculate base fireplace stone cost
+        public static float FirplaceCalcCost(int sType, float bWidth, float blHeight, float fDepth, float tHeight, float tWidth)
+        {
+            float bCost = 0;
+            float tCost = 0;
+            float total = 0;
+
+            var baseVolume = (bWidth / 1000 * blHeight / 1000 * fDepth / 1000) * 2;
+            var topVolume = tHeight / 1000 * tWidth / 1000 * fDepth / 1000;
+
+            Stone stoneCost = db.Stones.Where(a => a.StoneId == sType).FirstOrDefault();
+            bCost = baseVolume * (float)stoneCost.CostPerCube;
+            tCost = topVolume * (float)stoneCost.CostPerCube;
+            total = bCost + tCost;
+
+            return total;
+        }
+
+        public static float baseFireplaceStraightCuts(int sType, float bWidth, float bHeight, float bDepth)
+        {
+            float totalCutArea = 0;
+          
+            float smallSideArea = 0;
+            float largeSideArea = 0;
+            float totalSurfaceArea = 0;
+
+            smallSideArea = ((bWidth / 1000) * (bDepth / 1000)) * 4;
+            largeSideArea = ((bHeight / 1000) * (bDepth / 1000)) * 4;
+            totalSurfaceArea = smallSideArea + largeSideArea;
+
+
+            List<Slab> slabs = db.Slabs.ToList();
+
+            var heightOk = slabs.Where(a => a.Thickness > bHeight);
+            var pickSlab = heightOk.OrderBy(a => a.Thickness).Take(1);
+            var slabCutCost = db.Stones.Where(a => a.StoneId == sType).FirstOrDefault();
+
+            totalCutArea = totalSurfaceArea * (float)slabCutCost.CutCost;
+            return totalCutArea;
+
+            //if (slHeight != float(pickSlab))
+            //{
+            //    totalCutArea = surfaceArea * (float)slabCutCost.CutCost;
+            //    return totalCutArea;
+            //}
+
+        }
+
+        public static float topFireplaceStraightCuts(int sType, float tWidth, float tHeight, float tDepth)
+        {
+            float totalCutArea = 0;
+
+            float smallSideArea = 0;
+            float largeSideArea = 0;
+            float totalSurfaceArea = 0;
+
+            smallSideArea = (tWidth /1000)*( tDepth /1000)* 2;
+            largeSideArea = (tHeight /1000) * (tDepth/1000) * 2;
+            totalSurfaceArea  = smallSideArea + largeSideArea;
+
+
+            List<Slab> slabs = db.Slabs.ToList();
+
+            var heightOk = slabs.Where(a => a.Thickness > tHeight);
+            var pickSlab = heightOk.OrderBy(a => a.Thickness).Take(1);
+            var slabCutCost = db.Stones.Where(a => a.StoneId == sType).FirstOrDefault();
+
+            totalCutArea = totalSurfaceArea * (float)slabCutCost.CutCost;
+            return totalCutArea;
+
+            //if (slHeight != float(pickSlab))
+            //{
+            //    totalCutArea = surfaceArea * (float)slabCutCost.CutCost;
+            //    return totalCutArea;
+            //}
+
         }
 
         //calculate pyramid cost
@@ -63,16 +140,16 @@ namespace SetInStone.CalcClasses
         {
             float totalPyramidCost = 0;
 
-            float baseArea = slLength*slWidth;
+            float baseArea = slLength / 1000 * slWidth / 1000;
             ////step one of formula (L)(W)+(L)
-            float fPart1 = baseArea + slLength;
+            float fPart1 = baseArea + slLength / 1000;
 
             //step two of formula (w/2)²+h²+w - not getting the square root yet
-            float fPart2 = (slWidth/2)*(slWidth/2) + (pyrHeight*pyrHeight) + slWidth;
+            float fPart2 = (slWidth / 2000) * (slWidth / 2000) + (pyrHeight / 1000 * pyrHeight / 1000) + slWidth / 1000;
 
             //step three of formula (l/2)²+h² - not getting the square root yet
 
-            float fPart3 = (slLength/2)*(slLength/2) + (pyrHeight*pyrHeight);
+            float fPart3 = (slLength / 2000) * (slLength / 2000) + (pyrHeight / 1000 * pyrHeight / 1000);
 
             //step four of formula - get square root of part 2 and part 3
 
