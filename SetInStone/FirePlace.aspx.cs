@@ -75,7 +75,7 @@ namespace SetInStone
             //Measurements entered by the user through the slider control
             //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
 
-            CheckStoneSelection();
+            //CheckStoneSelection();
 
             int stoneID = CheckStoneSelection();
 
@@ -96,7 +96,7 @@ namespace SetInStone
             //Measurements entered by the user through the slider control
             //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
 
-            CheckStoneSelection();
+            //CheckStoneSelection();
 
             int stoneID = CheckStoneSelection();
 

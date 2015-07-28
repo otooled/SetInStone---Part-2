@@ -23,17 +23,17 @@
     </div>
     <div id="divRetrieve">
     <br/>
-    <br/>
+    <%--<br/>
         <asp:Label ID="lblInstructions" runat="server" ForeColor="white" Text="Enter quote reference below and click Retrieve Quote" ></asp:Label>
         <br/>
         <asp:TextBox ID="txtQuoteRef" runat="server" CssClass="TextBoxes"
             placeholder="Quote Ref"></asp:TextBox>
 
     <asp:Button ID="btnRetrieveQuote" runat="server" Text="Retrieve Quote" 
-            OnClick="btnRetrieveQuote_Click" CssClass="Buttons" />
-        <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click"/>
+            OnClick="btnRetrieveQuote_Click" CssClass="Buttons" />--%>
+<%--        <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click"/>--%>
         <br />
-        <asp:Label ID="lblFirstName" runat="server" CssClass="Labels" ></asp:Label>
+       <%-- <asp:Label ID="lblFirstName" runat="server" CssClass="Labels" ></asp:Label>
 
         <br />
         <asp:Label ID="lblSurname" runat="server" CssClass="Labels" placeholder="Surame"></asp:Label>
@@ -46,14 +46,26 @@
         <br />
         <asp:Label ID="lblStone" runat="server" CssClass="Labels" placeholder="Stone"></asp:Label>
         <br />
-        <asp:Label ID="lblPrice" runat="server" CssClass="Labels" placeholder="Price"></asp:Label>
+        <asp:Label ID="lblPrice" runat="server" CssClass="Labels" placeholder="Price"></asp:Label>--%>
         
 
         <br />
         
-        <div class=" k-header">
-                <h4>Find Custmer</h4>
+        <div id="searchCust" >
+                <h4>Customer Name</h4>
                 <input id="customers" />
+
+            <button id="button" type="button">
+    <span class="k-icon"></span> Cancel
+</button>
+<script>
+    $("#button").kendoButton({
+        icon: "cancel",
+        click: function(e) {
+            window.location.href = "LandingPage.aspx";
+        }
+    });
+</script>
             </div>
         <div id="grid_Quotes"></div>
 
@@ -82,6 +94,7 @@
                 function DisplayCustQuotes(custID)
                 {
                     $("#grid_Quotes").kendoGrid({
+                        
                         dataSource: {
                             transport: {
                                 read: {
@@ -111,10 +124,11 @@
                                     click: showDetails
                                 },
                                 title: " ",
-                                width: "80px"
+                                width: "130px"
                             }]
                     });
                 }
+
                 
                 function showDetails(e) {
                     e.preventDefault();
@@ -135,6 +149,7 @@
                     }).data("kendoWindow").center().open();
                     //alert(dataItem.QuoteId);
                     $("#QuoteDetails").kendoGrid({
+                        
                         dataSource: {
                             transport: {
                                 read: {
@@ -160,12 +175,14 @@
                             },
                              {
                                  field: "Item_Price",
-                                 title: "Unit Price"
+                                 title: "Unit Price",
+                                 format: "€{0:n2}"
 
                              },
                              {
                                  field: "Item_Total",
-                                 title: "Total"
+                                 title: "Total",
+                                 format: "€{0:n2}"
 
                              },
                             {
@@ -174,7 +191,7 @@
                                     click: EditDetail
                                 },
                                 title: " ",
-                                width: "80px"
+                                width: "100px"
                             }]
                     });
                 }
@@ -184,7 +201,7 @@
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                     
-                    if(dataItem.ProductOptionID == 1) // tier cap
+                    if(dataItem.ProductOptionID == 1) // pillar cap
                     {
                         window.location.href = "PillarCap.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID;
                     }
@@ -195,7 +212,7 @@
                 }
             </script>
         
-        <asp:DataGrid ID="gvQuoteDetails" runat="server" AutoGenerateColumns="False">
+       <%-- <asp:DataGrid ID="gvQuoteDetails" runat="server" AutoGenerateColumns="False">
             <Columns>
               <asp:BoundColumn DataField="ProdOption" HeaderText="Product Name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="StoneType" HeaderText="Stone Type"></asp:BoundColumn>
@@ -209,13 +226,13 @@
                 </asp:TemplateColumn>
 
     </Columns>                
-</asp:DataGrid>
+</asp:DataGrid>--%>
         </>
         
         <br />
         <br />
-        <asp:Button ID="btnEditQuote" runat="server" Text="Edit Quote" CssClass="Buttons" OnClick="btnEditQuote_Click"/>
-        <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="Buttons"/>
+<%--        <asp:Button ID="btnEditQuote" runat="server" Text="Edit Quote" CssClass="Buttons" OnClick="btnEditQuote_Click"/>--%>
+<%--        <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="Buttons"/>--%>
         <br />
     </div>
         

@@ -24,7 +24,7 @@ namespace SetInStone.Api
                        select new
                                   {
                                       c.CustomerID,
-                                      FullName = c.Surname + " " + c.First_Name
+                                      FullName = c.First_Name + " " + c.Surname
                                   }).AsEnumerable();
             return cust;
         }

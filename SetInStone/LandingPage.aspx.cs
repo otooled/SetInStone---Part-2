@@ -61,6 +61,22 @@ namespace SetInStone
                 Session.Add("productOptionID",ddlProductType.SelectedValue);
                 Response.Redirect("PillarCap.aspx");
             }
+            else if (ddlProductType.SelectedIndex == 2)
+            {
+                Session.Add("productOptionID",ddlProductType.SelectedValue);
+                Response.Redirect("SquarePillar.aspx");
+            }
+            else if (ddlProductType.SelectedIndex == 3)
+            {
+                Session.Add("productOptionID", ddlProductType.SelectedValue);
+                Response.Redirect("RoundPillar.aspx");
+            }
+            else if (ddlProductType.SelectedIndex == 4)
+            {
+                Session.Add("productOptionID", ddlProductType.SelectedValue);
+                Response.Redirect("FirePlace.aspx");
+            }
+            
         }
 
         //Log user out and clear session

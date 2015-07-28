@@ -76,6 +76,24 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblDisplayStoneType;
         
         /// <summary>
+        /// rgvQuantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rgvQuantity;
+        
+        /// <summary>
+        /// rfvQuantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvQuantity;
+        
+        /// <summary>
         /// lblTotalCost control.
         /// </summary>
         /// <remarks>
@@ -164,5 +182,14 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
+        
+        /// <summary>
+        /// vlsCapValidation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vlsCapValidation;
     }
 }

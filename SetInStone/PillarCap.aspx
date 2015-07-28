@@ -12,6 +12,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <link rel="stylesheet" href="/resources/demos/style.css" />
     <link rel="stylesheet" href="http://localhost:55153/code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+   
 
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ProductPage.css") %><%: Scripts.Render("~/bundles/jQuery") %>
 
@@ -175,6 +176,7 @@
                         productMaterial.onChange(function(value) {
                             updateSlab();
                         });
+                      
 
                         //Change texture of cap when stone type is changed
                         //This also puts displays the stone type selected
@@ -222,7 +224,8 @@
                             pyramid.scale.x = slab.scale.x;
 
                             //Put X scale value in global variable
-                            Slab_Length = slab.scale.x;
+                            //Slab_Length = slab.scale.x;
+                            document.getElementById('<%= SlabWidth.ClientID %>').value = value;
                         });
 
                         //Manipulate height of slab
@@ -237,7 +240,8 @@
                             pyramid.position.y = (slab.scale.y * 25);
 
                             //Put Y scale value in global variable
-                            Slab_Height = slab.scale.y;
+                            //Slab_Height = slab.scale.y;
+                            document.getElementById('<%= SlabHeight.ClientID %>').value = value;
                         });
 
                         //Manipulate length of the slab
@@ -251,7 +255,8 @@
                             pyramid.scale.z = slab.scale.z;
 
                             //Put Z scale value in global variable
-                            Slab_Width = slab.scale.z;
+                            //Slab_Width = slab.scale.z;
+                            document.getElementById('<%=SlabLength.ClientID %>').value = value;
                         });
 
                         //Manipulate height of pyramid point
@@ -259,7 +264,8 @@
                             pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
 
                             //Put pryamid Y scale value in global variable
-                            Pyramid_Height = pyramid.scale.y;
+                            //Pyramid_Height = pyramid.scale.y;
+                            document.getElementById('<%= PryHeight.ClientID %>').value = value;
                         });
 
 
@@ -270,25 +276,7 @@
                     }
 
                     //Functions to send co-ordinates of pryamid and slab to code behind
-                    function DisplaySlabHeight() {
-                        var getSlabHeight = Slab_Height;
-                        document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
-                    }
-
-                    function DisplaySlabWidth() {
-                        var getSlabWidth = Slab_Width;
-                        document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
-                    }
-
-                    function DisplaySlabLength() {
-                        var getSlabLength = Slab_Length;
-                        document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
-                    }
-
-                    function DisplayPryHeight() {
-                        var getPryHeight = Pyramid_Height;
-                        document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
-                    }
+                  
 
                     function DisplayStoneSelection() {
                         
@@ -349,11 +337,18 @@
 
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" OnClick="btnCalculate_Click"
-                        OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabWidth();  DisplaySlabLength(); DisplayStoneSelection();" />
+                        OnClientClick=" DisplayStoneSelection();" />
 
                     <br />
                     <asp:Label ID="lblStoneType" runat="server" Text="Cap Stone Type:" Style="display: none" CssClass="Labels"></asp:Label>
                     <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
+
+                      
+
+                      <asp:RangeValidator ID="rgvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Max limit - 30" MaximumValue="30" MinimumValue="1" Type="Integer"></asp:RangeValidator>
+                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a order quantity"></asp:RequiredFieldValidator>
+
+                      
 
                       <br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
@@ -379,6 +374,8 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+
+        <asp:ValidationSummary ID="vlsCapValidation" runat="server" />
 
     </form>
 

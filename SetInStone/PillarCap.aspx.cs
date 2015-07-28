@@ -62,6 +62,7 @@ namespace SetInStone
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
+           
 
             //variables to hold cost and cutting calculation results
             float qauntity = float.Parse(txtQuantity.Text);

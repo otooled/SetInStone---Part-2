@@ -56,3 +56,13 @@ input:focus {
     width: 1000px;
     
 }
+#searchCust {
+    width: 400px;
+    background-color: white;
+    font-family: Book Antiqua;
+    font-size: 15px;
+    border-radius: 6px;
+}
+#grid_Quotes {
+    width: 600px;
+}
