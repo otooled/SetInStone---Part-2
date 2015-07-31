@@ -1,5 +1,5 @@
 ﻿body {
-    background: url("Images/intro-bg.jpg");
+    background: url("Images/back5.jpg");
     background-repeat: no-repeat;
    background-size: 1400px 650px;
 }
@@ -42,6 +42,7 @@ input:focus {
     outline: none
 }
 #divTitle {
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
     width: 400px;
@@ -57,11 +58,15 @@ input:focus {
     
 }
 #searchCust {
-    width: 400px;
-    background-color: white;
+    
+    width: 350px;
+    background: transparent;
     font-family: Book Antiqua;
     font-size: 15px;
-    border-radius: 6px;
+   
+    color: white;
+    margin-left: 130px;
+    
 }
 #grid_Quotes {
     width: 600px;

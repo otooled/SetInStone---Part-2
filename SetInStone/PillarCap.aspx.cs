@@ -11,7 +11,7 @@ namespace SetInStone
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-        //private int sType = 0;
+      
         //product option for session
         //public Product prt = new Product();
  
@@ -31,38 +31,55 @@ namespace SetInStone
                 Response.Redirect("Login.aspx");
             }
         }
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
-       
-            if (!Page.IsPostBack)
-            {
-                //The following commented out code will be used
-                //editing a quote
 
-                //if ((Session["EditMode"] != null) && true)
-                //{
-                //    if ((Session["quote"] != null))
-                //    {
-                //        Quote q = (Quote)Session["quote"];
+            if (ViewState["sTypes"] != null)
+                txtDisplay.Text = ViewState["sTypes"].ToString();
+            //else
+            //    NameLabel.Text = "Not set yet...";
+                
+
+
+                if (!Page.IsPostBack)
+                {
+                    
+                    //The following commented out code will be used
+                    //editing a quote
+
+                    if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
+                    {
+                        //Edit mode
+                        int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                        Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                        SlabWidth.Value = qid.Cap_Width.ToString();
+                        SlabHeight.Value = qid.Cap_Height.ToString();
+                        txtDisplay.Text = qid.Stone.ToString();
                         
-                //    }
-                //}
-                //else
-                //{
-                    //ddlStoneType.Attributes.Add("onchange", "stoneTexture();");
-                //}
-                //Populate stone menu
+                    }
+                    else
+                    {
+                        SlabWidth.Value = 250.ToString();
+                        SlabLength.Value = 1000.ToString();
+                        SlabHeight.Value = 800.ToString();
 
-               // PopulateStoneMenu();
+                        PryHeight.Value = 200.ToString();
+                    }
+                    
+                }
+
+
             }
-
-        }
         
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-           
+
+            ViewState["sTypes"] = txtDisplay.Text;
+
+           // txtDisplay.Text = txtDisplay.Text;
+            lblDisplayStoneType.Text = txtDisplay.Text;
 
             //variables to hold cost and cutting calculation results
             float qauntity = float.Parse(txtQuantity.Text);
@@ -261,6 +278,10 @@ namespace SetInStone
             }
             Response.Redirect("LandingPage.aspx");
         }
+
+   
+
+       
 
        
     }

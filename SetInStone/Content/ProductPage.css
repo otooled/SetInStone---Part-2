@@ -15,17 +15,10 @@
     /*margin: 30px;*/
     margin-top: 10px;
     margin-left: 300px;
-    /*visibility: hidden;*/
-    
-    /*margin-left: auto;*/
-    /*//margin-right: auto;*/
-   
+  
 }
 
-/*.Title {
-  float: right;
-    margin: 10px;
-}*/
+
 
 .Labels {
     height: 40px;
@@ -33,6 +26,8 @@
     color: white;
     background-color: transparent;
     font-family: Book Antiqua;
+    margin-left: 100px;
+   
 }
 #txtQuantity {
     border:  1px solid white;
@@ -91,4 +86,12 @@
     font-family: Book Antiqua;
     font-size: 20px;
 }
-#gui { position: absolute; top: 2px; left: 2px }
+#gui { position: absolute; top: 110px; right: 20px }
+.stoneTextbox {
+     background-color: transparent;
+    font-family: Book Antiqua;
+    border: none;
+    height: 40px;
+    color: white;
+    font-size: 15px;
+}

@@ -1,58 +1,78 @@
 ﻿body {
-    background: url("Images/intro-bg.jpg");
+    background: url("Images/back5.JPG");
     background-repeat: no-repeat;
    background-size: 1400px 650px;
 }
 #divTitle {
+    margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
-    width: 400px;
+    width: 350px;
     color: white;
     font-family: Papyrus;
     font-size: 50px;
+    top: 50%;
 }
-.controlsDiv {
-    margin-left: 150px;
-    top: 30%;
+.controlsDivCol1 {
+    margin-left: 320px;
+    top: 40%;
     bottom: auto;
-    width: 280px;
+    width: 200px;
+    position: fixed;
+    right: auto;
+    
+    
+}
+#controlsDivCol2 {
+    margin-left: 820px;
+    top: 40%;
+    bottom: auto;
+    width: 200px;
     position: fixed;
     
 }
-#retrieveControlsDiv {
-    margin-left: 450px;
-    top: 30%;
-    bottom: auto;
-    width: 280px;
-    position: fixed;
-}
-#otherDiv {
-    margin-left: 750px;
-    top: 30%;
-    bottom: auto;
-    width: 280px;
-    position: fixed;
-}
+
 .LoginButtons {
     background-color: transparent;
-    border-color: transparent;
+    /*border-color: transparent;*/
     color: white;
     font-family: Book Antiqua;
     font-size: 30px;
+    border-width: 3px;
+    border-style: ridge;
+        width: 280px;
+    border-radius: 4px;
+
+}
+
+#ddlProductType {
+    
+    /*background-color: darkgray;*/
+    background: transparent;
+    background: url("Images/drop.png");
+    background-color: #575757;
+    border-color: white;
+    border-radius: 4px;
+    color: white;
+    font-family: Book Antiqua;
+    font-size: 30px;
+    display: block;
+    width: 280px;
     
 }
-#divLogOut {
-     margin-left: 1000px;
-    top: 30%;
-    bottom: auto;
-    width: 280px;
-    position: fixed;
-}
-.drops {
-    /*background: url("Images/intro-bg.jpg");*/
-    background-color: #6E767F;
-    border-color: transparent;
+#ddlOther {
+    
+    
+    /*background-color: darkgray;*/
+    background: transparent;
+    background: url("Images/drop2.png");
+    background-color: #575757;
+    border-color: white;
+    border-radius: 4px;
     color: white;
     font-family: Book Antiqua;
     font-size: 30px;
+    display: block;
+        width: 280px;
+
 }

@@ -105,6 +105,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\back5.jpg" />
+    <Content Include="Content\Images\drop.png" />
+    <Content Include="Content\Images\drop2.png" />
+    <Content Include="Content\Images\drop3.png" />
+    <Content Include="Content\Images\drop4.png" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\LandingPage\css\bootstrap.css" />
     <Content Include="Content\LandingPage\css\bootstrap.min.css" />
@@ -222,6 +226,7 @@
     <Compile Include="Api\CustomersController.cs" />
     <Compile Include="Api\QuoteDetailsController.cs" />
     <Compile Include="Api\QuotesController.cs" />
+    <Content Include="App_Code\HF_StoneType.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\test2.aspx.cs">
       <DependentUpon>test2.aspx</DependentUpon>
