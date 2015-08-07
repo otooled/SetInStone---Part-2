@@ -26,11 +26,11 @@
         var displayStone;
         var Display_stone = 0;
         //Height of pyramid
-        var Pyramid_Height = 200;
+        //var Pyramid_Height = 200;
 
         //This will act as width & length as slab
-        //var Slab_Width = 0.8, Slab_Length = 1, Slab_Height = 0.25;
-        var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
+        //var Slab_Width = 0, Slab_Length = 1, Slab_Height = 0.25;
+        //var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
         //Slab creation
         var slabGeometry, slabMaterial;
         var slab;
@@ -51,19 +51,34 @@
         //max dimensions for pier caps
         var MIN_SLAB_WIDTH = 400; MIN_SLAB_LENGTH = 400; MIN_SLAB_HEIGHT = 150; MIN_PYRAMID_HEIGHT = 0;
         var MAX_SLAB_WIDTH = 1200; MAX_SLAB_LENGTH = 1200; MAX_SLAB_HEIGHT = 350; MAX_PYRAMID_HEIGHT = 300;
-        
+
+    
         
     </script>
-  <%--  <script>
+     <script>
 
         window.onload = function () {
-            document.getElementById("<%= SlabHeight.ClientID %>").value = 250;
-            document.getElementById("<%= SlabLength.ClientID %>").value = 1000;
-            document.getElementById("<%= SlabWidth.ClientID %>").value = 800;
-            document.getElementById("<%= PryHeight.ClientID %>").value = 200;
+
+            alert("page loaded");
+            <%--document.getElementById("<%= SlabHeight.ClientID %>").value = SLAB_HEIGHT;
+            document.getElementById("<%= SlabLength.ClientID %>").value = SLAB_LENGTH;
+            document.getElementById("<%= SlabWidth.ClientID %>").value = SLAB_WIDTH;
+            document.getElementById("<%= PryHeight.ClientID %>").value = PYRAMID_HEIGHT;
+            --%>
+            
+            //default size for new pier cap
+            //var SLAB_WIDTH = 20; SLAB_LENGTH = 80; SLAB_HEIGHT = 20; PYRAMID_HEIGHT = 25;
+            //init();
+
+            
+            
+            //alert(slab.scale.y);
+            
+            //slab.scale.y = 2 / (SLAB_HEIGHT * 10);
+            //alert(slab.scale.y);
             
         }
-    </script>--%>
+    </script>
 
     <title>Set In Stone</title>
 </head>
@@ -78,7 +93,8 @@
                 <script type='text/javascript'>
 
                     init();
-            
+                    alert(document.getElementById("<%= SlabHeight.ClientID %>").value);
+                    
                     function init() {
                         var mainGraphic = document.getElementById('MainGraphic');
 
@@ -158,17 +174,22 @@
                         gui = new dat.GUI({ autoplace: false });
                         gui.domElement.id = 'gui';
 
+                                                <%--//SLAB_HEIGHT = document.getElementById("<%= SlabHeight.ClientID %>").value;--%>
+                        
                         //Parameters that for product demensions
                         parameters =
                             {
                                 Length: (SLAB_LENGTH * 10),
                                 Width: (SLAB_WIDTH * 10),
-                                Slab_Height: (SLAB_HEIGHT * 10),
+                                Slab_Height: (SLAB_HEIGHT * 10),                         
                                 Point_Height: (PYRAMID_HEIGHT * 10),  
                                 stone: "Wireframe",
                                 reset: function() { resetPier() }
                             };
 
+                                                <%--//parameters(0).value = (document.getElementById("<%= SlabHeight.ClientID %>").value * 10);
+                        //alert(parameters(0).value);--%>
+                        
                         //Slider UI
                         deminsions = gui.addFolder('Pier Cap Dimensions (mm)');
 
@@ -176,7 +197,10 @@
                         slabX = deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
                         slabZ = deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
                         slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
-                        
+
+                        //slab.scale.x = value / (20 * 10);
+
+
                         //Pyramid controls
                         pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
                         deminsions.open();
@@ -200,10 +224,11 @@
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
                                 Display_stone = 1;
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                               // displayStone = document.getElementById('<%= txtDisplay.ClientID %>').value = "Granite";
+                                document.getElementById('<%= lblStoneTitle.ClientID %>').style.display = 'inline';
+                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Granite";
+                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Granite";
                                
-                                //displayStone = document.getElementById('<%= txtDisplay.ClientID %>').style.visibility = 'visible';
+                              
                                
                                 DisplayStoneSelection();
 
@@ -213,8 +238,7 @@
                                 Display_stone = 2;
                                 DisplayStoneSelection();
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= txtDisplay.ClientID %>').value = "Sandstone";
+                                
                                 
                             } else if (value == "Limestone") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
@@ -222,8 +246,7 @@
                                 Display_stone = 3;
                                 DisplayStoneSelection();
                                 //Display selection
-                                document.getElementById('<%= lblStoneType.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= txtDisplay.ClientID %>').value = "Limestone";
+                                
                             } else // (value == "Wireframe")
                                 newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
@@ -243,6 +266,8 @@
                             //Put X scale value in global variable
                             //Slab_Length = slab.scale.x;
                             document.getElementById('<%= SlabWidth.ClientID %>').value = value;
+                            // Slab_Width = slab.scale.x;
+                           
                         });
 
                         //Manipulate height of slab
@@ -302,8 +327,6 @@
                         
                     }
 
-                   
-
                 </script>
                 
     </div>
@@ -358,17 +381,21 @@
                         OnClientClick=" DisplayStoneSelection(); " />
 
                     <br />
-                    <asp:Label ID="lblStoneType" runat="server" Text="Cap Stone Type:" Style="display: none" CssClass="Labels"></asp:Label>
-                    <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
-                    <asp:TextBox runat="server" ID="txtDisplay"  CssClass="stoneTextbox"   ReadOnly="True"
-                        ></asp:TextBox>
+                    <asp:Label ID="lblStoneTitle" runat="server" Text="Cap Stone Type:" Style="display: none" CssClass="Labels"></asp:Label>
+<%--                   <asp:TextBox runat="server" ID="txtDisplayTitle" Text="Cap Stone Type:" CssClass="stoneTextbox" ReadOnly="True"></asp:TextBox>--%>
+
+                     
+
+                      <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
+
+                     
 
                       <asp:RangeValidator ID="rgvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Max limit - 30" MaximumValue="30" MinimumValue="1" Type="Integer" Display="None"></asp:RangeValidator>
                     
                     
                     
 
-                    <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplay" Display="None" ErrorMessage="Select a stone type"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplay" Display="None" ErrorMessage="Select a stone type" Visible="False"></asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" Display="None" ErrorMessage="Enter a quantity"></asp:RequiredFieldValidator>
                     
                     
@@ -376,14 +403,17 @@
 
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" 
                         />
-                      
-
                       <br />
+                    
                     <%--<asp:Label runat="server" ID="lblTotalCost" Visible="True" ></asp:Label>--%>
-                    <asp:Label runat="server" ID="lblCalculateAnswer"  CssClass="Labels"></asp:Label>
+                    <asp:Label ID="lblCalculateAnswer" runat="server" CssClass="Labels" ></asp:Label>
                     <br />
                     
+
+                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox"   
+                        ></asp:TextBox>
                     <br />
+
                     <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnBack_Click" CssClass="Buttons"/>
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
                         OnClick="btnSaveConfirm_Click" />
@@ -397,7 +427,7 @@
                     
                     <asp:HiddenField runat="server" ID="DisplayStoneType"/>
                     
-                   
+<%--                   <asp:HiddenField runat="server" ID="hfSliderWidth"/>--%>
 
                     
                     <asp:Label runat="server"></asp:Label>
@@ -410,6 +440,8 @@
 
     </form>
 
-
+<script>
+  
+</script>
 </body>
 </html>

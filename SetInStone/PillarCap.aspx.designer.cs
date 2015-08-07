@@ -58,13 +58,13 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// lblStoneType control.
+        /// lblStoneTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStoneType;
+        protected global::System.Web.UI.WebControls.Label lblStoneTitle;
         
         /// <summary>
         /// lblDisplayStoneType control.
@@ -74,15 +74,6 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDisplayStoneType;
-        
-        /// <summary>
-        /// txtDisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDisplay;
         
         /// <summary>
         /// rgvQuantity control.
@@ -128,6 +119,15 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
+        
+        /// <summary>
+        /// txtDisplayStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDisplayStone;
         
         /// <summary>
         /// btnAddProducts control.

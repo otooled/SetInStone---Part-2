@@ -54,13 +54,6 @@ namespace SetInStone
                     }
                 }
 
-                //if (Session["productID"] != null)
-                //{
-                    
-                //    //string quote = (string)Session["quote"];
-
-                //    //lblDisplayQuote.Text = quote;
-                //}
             }
         }
 
@@ -81,25 +74,27 @@ namespace SetInStone
                                        Surname = txtSurname.Text,
                                        Address = txtAddress.Text,
                                        Phone = (txtPhoneNo.Text)
+
                                    };
                         db.Customers.Add(cust);
                         db.SaveChanges();
                     }
-                    //var customer2 = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
-                    //if (Session["productOptionID"] != null)
-                    //{
-                    //    var id = (string)Session["productOptionID"];
-                    //    pt.ProductOptionID = Convert.ToInt32(id);
-                    //}
-                    //db.Products.Add(pt);
-                    //db.SaveChanges();
-
-                    //Quote qute = new Quote();
+                    
                     qte.CustomerId = cust.CustomerID;
-                    qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
-                    //qute.Quote_Ref = lblDisplayQuoteRef.Text;
 
-                    //qute.ProductId = pt.ProductID;
+                    ///////////////////
+                    //decimal totalQuote = 0;
+                    ////Display quote price generated on product page
+                    ////string quote = (string) Session["quote"];
+                    //foreach (var item in qte.Quote_Details)
+                    //{
+                    //    totalQuote += item.Item_Price;
+                    //}
+                    ////lblDisplayQuote.Text = totalQuote.ToString();
+                    //////////////
+
+                    qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
+                    
                     db.Quotes.Add(qte);
 
                     
@@ -118,11 +113,5 @@ namespace SetInStone
         {
             Response.Redirect("LandingPage.aspx");
         }
-
-        
-
-        
-
-        
     }
 }

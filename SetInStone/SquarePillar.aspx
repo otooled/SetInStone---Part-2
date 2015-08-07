@@ -41,11 +41,11 @@
         var MAX_PILLAR_WIDTH = 1200; MAX_PILLAR_LENGTH = 1200; MAX_PILLAR_HEIGHT = 1700;
         
         //This will act as width & length of pillar
-        var Pillar_Width = 1, Pillar_Length = 1, Pillar_Height = 1;
+        //var Pillar_Width = 1, Pillar_Length = 1, Pillar_Height = 1;
 
         //Slab creation
         //This will act as width & length as slab
-        var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
+       // var Slab_Width = 800, Slab_Length = 1000, Slab_Height = 250;
         var slabGeometry, slabMaterial;
         var slab;
         //default size for new pier cap
@@ -271,7 +271,8 @@
                     pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
 
                     //Put Y scale value in global variable
-                    Slab_Height = slab.scale.y;
+                   // Slab_Height = slab.scale.y;
+                    document.getElementById('<%= SlabHeight.ClientID %>').value = value;
                 });
 
 
@@ -280,7 +281,8 @@
                     pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
 
                     //Put pryamid Y scale value in global variable
-                    Pyramid_Height = pyramid.scale.y;
+                    //Pyramid_Height = pyramid.scale.y;
+                    document.getElementById('<%= PryHeight.ClientID %>').value = value;
                 });
 
 
@@ -338,7 +340,10 @@
                     slab.scale.x = pillar.scale.x;
 
                     //Put X scale value in global variable
-                    Pillar_Length = pillar.scale.x;
+                    //Pillar_Length = pillar.scale.x;
+                    
+                    document.getElementById('<%= HF_PillarWidth.ClientID %>').value = value;
+
                 });
 
                 //Manipulate height of pillar
@@ -353,7 +358,9 @@
                     pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8; //(pillar.scale.y * (10 * 6.10)) + 1.8;
 
                     //Put Y scale value in global variable
-                    Pillar_Height = pillar.scale.y;
+                    //Pillar_Height = pillar.scale.y;
+                    document.getElementById('<%= HF_PillarHeight.ClientID %>').value = value;
+
                 });
 
 
@@ -369,7 +376,8 @@
                     pyramid.scale.z = pillar.scale.z;
 
                     //Put Z scale value in global variable
-                    Pillar_Width = pillar.scale.z;
+                    //Pillar_Width = pillar.scale.z;
+                    document.getElementById('<%= HF_PillarLength.ClientID %>').value = value;
                 });
                 function callback() { return; }
 
@@ -378,40 +386,7 @@
             }
 
             //Functions to send co-ordinates of pryamid and slab to code behind
-
-            function DisplaySlabHeight() {
-                var getSlabHeight = Slab_Height;
-                document.getElementById('<%= SlabHeight.ClientID %>').value = getSlabHeight;
-            }
-
-            function DisplaySlabWidth() {
-                var getSlabWidth = Slab_Width;
-                document.getElementById('<%= SlabWidth.ClientID %>').value = getSlabWidth;
-            }
-
-            function DisplaySlabLength() {
-                var getSlabLength = Slab_Length;
-                document.getElementById('<%=SlabLength.ClientID %>').value = getSlabLength;
-            }
-
-            function DisplayPryHeight() {
-                var getPryHeight = Pyramid_Height;
-                document.getElementById('<%= PryHeight.ClientID %>').value = getPryHeight;
-            }
-            function PillarHeight() {
-                var getPillarHeight = Pillar_Height;
-                document.getElementById('<%= HF_PillarHeight.ClientID %>').value = getPillarHeight;
-            }
-            
-            function PillarWidth() {
-                var getPillarWidth = Pillar_Width;
-                document.getElementById('<%= HF_PillarWidth.ClientID %>').value = getPillarWidth;
-            }
-            
-            function PillarLength() {
-                var getPillarLength = Pillar_Length;
-                document.getElementById('<%= HF_PillarLength.ClientID %>').value = getPillarLength;
-            }
+           
             function CapStoneType() {
 
                 document.getElementById('<%= HF_CapStoneType.ClientID %>').value = Cap_Stone_Type;
@@ -475,20 +450,19 @@
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
-                        OnClick="btnCalculate_Click" OnClientClick="DisplayPryHeight(); DisplaySlabHeight(); DisplaySlabLength();
-    DisplaySlabWidth(); PillarHeight(); PillarWidth(); PillarLength();" CausesValidation="True"/>
+                        OnClick="btnCalculate_Click" OnClientClick=" PillarStoneType(); CapStoneType() ;" CausesValidation="True"/>
                     <br/>
-                    <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
-                        <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
+                    <asp:Label ID="lblCapStoneTypeCaption" runat="server" CssClass="Labels" Text="Cap Stone Type" Style="display: none"></asp:Label>
+                        <asp:Label ID="lblCapStoneType" runat="server" CssClass="Labels"  ClientIDMode="Static"></asp:Label>
                     <br/>
-                        <asp:Label ID="lblPillarStoneCaption" runat="server" Text="Pillar Stone Type" Style="display: none"></asp:Label>
+                        <asp:Label ID="lblPillarStoneCaption" runat="server" CssClass="Labels" Text="Pillar Stone Type" Style="display: none"></asp:Label>
 
-                        <asp:Label ID="lblPillarStone" runat="server"  ClientIDMode="Static" ></asp:Label>
+                        <asp:Label ID="lblPillarStone" CssClass="Labels" runat="server"  ClientIDMode="Static" ></asp:Label>
                         <br />
-                     <br />
+                     <<asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
 
-                        <asp:Label runat="server" ID="lblTotalCost" Visible="False"></asp:Label>
-                        <br />
+                        <%--<asp:Label runat="server" ID="lblTotalCost" Visible="False"></asp:Label>
+                        <br />--%>
 
                    <%-- <asp:RegularExpressionValidator ID="RegNumberOnly" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
@@ -497,9 +471,9 @@
                     <br />
 <%--                    <asp:Label ID="lblDisplayPillarStone" runat="server"></asp:Label>--%>
 
-                    <asp:Button runat="server" ID="btnContinueOrder" Text="Continue" OnClick="btnContinueOrder_Click"/>
+                    <asp:Button runat="server" ID="btnContinueOrder" Text="Add more products" CssClass="Buttons" OnClick="btnContinueOrder_Click"/>
 
-                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order" OnClick="btnSaveConfirm_Click"
+                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click"
                         />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />
                    
@@ -520,7 +494,7 @@
                     <asp:HiddenField runat="server" ID="HF_CapTotal"/>
                     <asp:HiddenField runat="server" ID="HF_PillarTotal"/>
 
-                    <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
+                    
                    
 
                 </ContentTemplate>

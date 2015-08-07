@@ -39,6 +39,13 @@ namespace SetInStone
         public DbSet<Stone> Stones { get; set; }
         public DbSet<Quote> Quotes { get; set; }
     
-      
+       /* public virtual ObjectResult<GetQuoteDetails_Result> GetQuoteDetails(string quoteRef)
+        {
+            var quoteRefParameter = quoteRef != null ?
+                new ObjectParameter("QuoteRef", quoteRef) :
+                new ObjectParameter("QuoteRef", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetQuoteDetails_Result>("GetQuoteDetails", quoteRefParameter);
+        }*/
     }
 }

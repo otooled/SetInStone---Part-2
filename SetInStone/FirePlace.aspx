@@ -336,13 +336,17 @@
 
                         <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>
 
-                      <br />
-                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
+                      <%--<br />
+                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>--%>
                     <br />
-                    <asp:Button runat="server" ID="btnContinue" Text="Continue" OnClick="btnContinue_Click"/>
+                    
+                     <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
                     <br />
+                    <br />
+                    <asp:Button runat="server" ID="btnContinue" Text="Add more products" CssClass="Buttons" OnClick="btnContinue_Click"/>
+                   
 
-                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order" OnClick="btnSaveConfirm_Click"
+                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click"
                          />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />
                     
@@ -355,7 +359,7 @@
                     
                     <asp:HiddenField ID="HF_MarbleSelection" runat="server"/>
 
-                    <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
+                   
                     <asp:Label ID="Label1" runat="server"></asp:Label>
 
                 </ContentTemplate>

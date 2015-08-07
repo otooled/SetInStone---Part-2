@@ -94,13 +94,13 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblPillarStone;
         
         /// <summary>
-        /// lblTotalCost control.
+        /// lblCalculateAnswer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalCost;
+        protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
         
         /// <summary>
         /// btnContinueOrder control.
@@ -227,14 +227,5 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HF_PillarTotal;
-        
-        /// <summary>
-        /// lblCalculateAnswer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
     }
 }
