@@ -112,6 +112,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.ValidationSummary vldSummary;
         
         /// <summary>
+        /// lblDisplayTotalCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDisplayTotalCost;
+        
+        /// <summary>
         /// lblCalculateAnswer control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,15 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField DisplayStoneType;
+        
+        /// <summary>
+        /// hf_StoneType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_StoneType;
         
         /// <summary>
         /// vlsCapValidation control.

@@ -41,6 +41,9 @@
         <asp:TextBox ID="txtAddress" runat="server" CssClass="TextBoxes" placeholder="Address"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address"></asp:RequiredFieldValidator>
         <br />
+        <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxes" placeholder="Email"></asp:TextBox>
+<%--        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address"></asp:RequiredFieldValidator>--%>
+        <br />
          <br />
         <%--<asp:Label ID="lblPhone" runat="server" Text="Phone No."></asp:Label>--%>
         <asp:TextBox ID="txtPhoneNo" runat="server" CssClass="TextBoxes" placeholder="Phone Number"></asp:TextBox>

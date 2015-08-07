@@ -86,12 +86,16 @@
     font-family: Book Antiqua;
     font-size: 20px;
 }
-#gui { position: absolute; top: 110px; right: 20px }
+#gui {
+     position: absolute; 
+     top: 110px; 
+     right: 20px
+}
+
 .stoneTextbox {
      background-color: transparent;
-    font-family: Book Antiqua;
     border: none;
     height: 40px;
-    color: white;
+    color: transparent;
     font-size: 15px;
 }

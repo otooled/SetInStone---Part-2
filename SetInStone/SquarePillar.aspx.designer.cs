@@ -58,6 +58,24 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
+        /// rfvCapStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCapStone;
+        
+        /// <summary>
+        /// rfvPillarStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPillarStone;
+        
+        /// <summary>
         /// lblCapStoneTypeCaption control.
         /// </summary>
         /// <remarks>
@@ -94,6 +112,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblPillarStone;
         
         /// <summary>
+        /// lblDisplayTotalCost control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDisplayTotalCost;
+        
+        /// <summary>
         /// lblCalculateAnswer control.
         /// </summary>
         /// <remarks>
@@ -101,6 +128,15 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
+        
+        /// <summary>
+        /// vldSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vldSummary;
         
         /// <summary>
         /// btnContinueOrder control.
@@ -227,5 +263,41 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HF_PillarTotal;
+        
+        /// <summary>
+        /// hf_DisplayCapType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_DisplayCapType;
+        
+        /// <summary>
+        /// hf_DisplayPillarType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hf_DisplayPillarType;
+        
+        /// <summary>
+        /// txtDisplayCapStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDisplayCapStone;
+        
+        /// <summary>
+        /// txtDisplayPillarStone control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDisplayPillarStone;
     }
 }

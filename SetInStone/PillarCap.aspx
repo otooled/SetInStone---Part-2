@@ -59,7 +59,7 @@
 
         window.onload = function () {
 
-            alert("page loaded");
+            //alert("page loaded");
             <%--document.getElementById("<%= SlabHeight.ClientID %>").value = SLAB_HEIGHT;
             document.getElementById("<%= SlabLength.ClientID %>").value = SLAB_LENGTH;
             document.getElementById("<%= SlabWidth.ClientID %>").value = SLAB_WIDTH;
@@ -222,12 +222,14 @@
                             var newMaterial;
                             if (value == "Granite") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
+
+                                
                                 Display_stone = 1;
                                 //Display selection
-                                document.getElementById('<%= lblStoneTitle.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Granite";
+                                //document.getElementById('<%= lblStoneTitle.ClientID %>').style.display = 'inline';
+                                //document.getElementById('<%= lblDisplayStoneType.ClientID %>').innerText = "Granite";
+                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Granite";
                                 document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Granite";
-                               
                               
                                
                                 DisplayStoneSelection();
@@ -236,6 +238,9 @@
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
                                 Display_stone = 2;
+                                
+                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Sandstone";
+                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Sandstone";
                                 DisplayStoneSelection();
                                 //Display selection
                                 
@@ -244,6 +249,9 @@
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
 
                                 Display_stone = 3;
+                                
+                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Limestone";
+                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Limestone";
                                 DisplayStoneSelection();
                                 //Display selection
                                 
@@ -381,21 +389,16 @@
                         OnClientClick=" DisplayStoneSelection(); " />
 
                     <br />
-                    <asp:Label ID="lblStoneTitle" runat="server" Text="Cap Stone Type:" Style="display: none" CssClass="Labels"></asp:Label>
+                    <asp:Label ID="lblStoneTitle" runat="server"  CssClass="Labels"></asp:Label>
 <%--                   <asp:TextBox runat="server" ID="txtDisplayTitle" Text="Cap Stone Type:" CssClass="stoneTextbox" ReadOnly="True"></asp:TextBox>--%>
 
                      
 
                       <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
 
-                     
-
                       <asp:RangeValidator ID="rgvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Max limit - 30" MaximumValue="30" MinimumValue="1" Type="Integer" Display="None"></asp:RangeValidator>
                     
-                    
-                    
-
-                    <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplay" Display="None" ErrorMessage="Select a stone type" Visible="False"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplayStone" Display="None" ErrorMessage="Select a stone type"></asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" Display="None" ErrorMessage="Enter a quantity"></asp:RequiredFieldValidator>
                     
                     
@@ -405,12 +408,12 @@
                         />
                       <br />
                     
-                    <%--<asp:Label runat="server" ID="lblTotalCost" Visible="True" ></asp:Label>--%>
+                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
                     <asp:Label ID="lblCalculateAnswer" runat="server" CssClass="Labels" ></asp:Label>
                     <br />
                     
 
-                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox"   
+                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
                         ></asp:TextBox>
                     <br />
 
@@ -427,7 +430,7 @@
                     
                     <asp:HiddenField runat="server" ID="DisplayStoneType"/>
                     
-<%--                   <asp:HiddenField runat="server" ID="hfSliderWidth"/>--%>
+                   <asp:HiddenField runat="server" ID="hf_StoneType"/>
 
                     
                     <asp:Label runat="server"></asp:Label>

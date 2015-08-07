@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Net.Mail;
+using System.Text;
+using System.Net;
 
 namespace SetInStone
 {
@@ -60,6 +63,51 @@ namespace SetInStone
         //Add the quote, customer and product to the database
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
+            //create the message
+            MailMessage mail = new MailMessage();
+            //add the email address we will be sending the message to
+            mail.To.Add(txtEmail.Text);
+            //add our email here
+            mail.From = new MailAddress("setinstonequote@gmail.com");
+            //email's subject
+            mail.Subject = "Your quote from SetInStone";
+            //email's body, this is going to be html. note that we attach the image as using cid
+            mail.Body = "Dear " + txtFirstName.Text + Environment.NewLine +
+                        "Your quote price for quote reference: " + lblDisplayQuoteRef.Text + "is €" +
+                        lblDisplayQuote.Text
+                        + Environment.NewLine +
+                        "Please refer to the quote reference if you need to contact us."
+                        + Environment.NewLine +
+                        "Regards" + Environment.NewLine + "The SetInStoneTeam"; 
+            
+            //set email's body to html
+            mail.IsBodyHtml = true;
+
+            ////add our attachment
+            //Attachment imgAtt = new Attachment(Server.MapPath("tmpImage.gif"));
+            ////give it a content id that corresponds to the src we added in the body img tag
+            //imgAtt.ContentId = "tmpImage.gif";
+            ////add the attachment to the email
+            //mail.Attachments.Add(imgAtt);
+
+            //setup our smtp client, these are Gmail specific settings
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true; //ssl must be enabled for Gmail
+            //our Gmail account credentials
+            NetworkCredential credentials = new NetworkCredential("setinstonequote@gmail.com", "project400");
+            //add credentials to our smtp client
+            client.Credentials = credentials;
+
+            try
+            {
+                //try to send the mail message
+                client.Send(mail);
+            }
+            catch
+            {
+                //some feedback if it does not work
+                txtFirstName.Text = "fail";
+            }
             if (Session["quote"] != null)
             {
                 qte = (Quote) Session["quote"];
@@ -73,6 +121,7 @@ namespace SetInStone
                                        First_Name = txtFirstName.Text,
                                        Surname = txtSurname.Text,
                                        Address = txtAddress.Text,
+                                       Email = txtEmail.Text,
                                        Phone = (txtPhoneNo.Text)
 
                                    };

@@ -78,6 +78,18 @@ namespace SetInStone
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
+            lblDisplayTotalCost.Text = ("Total Cost: ");
+
+            lblCapStoneTypeCaption.Text = ("Cap Stone Type: ");
+            
+            lblPillarStoneCaption.Text = ("Pillar Stone Type: ");
+
+            txtDisplayCapStone.Text = hf_DisplayCapType.Value;
+            txtDisplayPillarStone.Text = hf_DisplayPillarType.Value;
+
+            lblCapStoneType.Text = txtDisplayCapStone.Text;
+            lblPillarStone.Text = txtDisplayPillarStone.Text;
+
 
             //variables to hold cost and cutting calculation results
             float quantity = float.Parse(txtQuantity.Text);

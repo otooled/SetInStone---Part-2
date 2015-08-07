@@ -77,8 +77,10 @@ namespace SetInStone
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-
-            ViewState["sTypes"] = txtDisplayStone.Text;
+            lblDisplayTotalCost.Text = ("Total Cost: ");
+            lblStoneTitle.Text = ("Cap Stone Type: ");
+            txtDisplayStone.Text = hf_StoneType.Value;
+            //ViewState["sTypes"] = txtDisplayStone.Text;
             lblDisplayStoneType.Text = txtDisplayStone.Text;
 
             //variables to hold cost and cutting calculation results
@@ -89,6 +91,7 @@ namespace SetInStone
             float total = (pyrSurfaceArea + slabSurfaceCost + cutCost);
 
             //Display final cost of stone work
+            
             lblCalculateAnswer.Text = (total * qauntity).ToString("#.##");
            
         }
