@@ -34,13 +34,8 @@ namespace SetInStone
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (ViewState["sTypes"] != null)
-                lblDisplayStoneType.Text = ViewState["sTypes"].ToString();
-            //else
-            //    lblDisplayStoneType.Text = "Not set yet...";
-
-
+     
+            
                 if (!Page.IsPostBack)
                 {
                     
@@ -52,11 +47,19 @@ namespace SetInStone
                         //Edit mode
                         int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                         Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+
                         SlabWidth.Value = qid.Cap_Width.ToString();
-                        //hfSliderWidth.Value = qid.Cap_Width.ToString();
-                        lblDisplayStoneType.Text = qid.Stone.StoneType.ToString();
                         SlabHeight.Value = qid.Cap_Height.ToString();
+                        SlabLength.Value = qid.Cap_Length.ToString();
                         PryHeight.Value = qid.Cap_Point.ToString();
+
+
+                        lblDisplayTotalCost.Text = ("Total Cost: ");
+                        lblStoneTitle.Text = ("Cap Stone Type: ");
+                        lblDisplayStoneType.Text = qid.Stone.StoneType.ToString();
+                        lblCalculateAnswer.Text = "";
+                        txtDisplayStone.Text = qid.Stone.StoneType;
+                        lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
                         //txtDisplay.Text = qid.Stone.ToString();
 
                     }

@@ -35,27 +35,38 @@ namespace SetInStone
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            //if(!IsPostBack)
+            if (!Page.IsPostBack)
             {
-                if (Session["quote"] != null)
+                if (!String.IsNullOrEmpty(Request["CustomerDetailsID"]))
                 {
-                    qte = (Quote) Session["quote"];
-                    if (qte != null)
-                    {
-                        //Display quote ref generated on product page
-                        //string quoteRef = (string) Session["quoteRef"];
-                        lblDisplayQuoteRef.Text = qte.Quote_Ref;
+                    //Edit mode
+                    int qteID = Convert.ToInt32(Request["CustomerDetailsID"]);
+                    Customer cid = db.Customers.Where(a => a.CustomerID == qteID).FirstOrDefault();// db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    txtFirstName.Text = cid.First_Name.ToString();// qid.Customer.First_Name.ToString();
 
-                        decimal totalQuote = 0;
-                        //Display quote price generated on product page
-                        //string quote = (string) Session["quote"];
-                        foreach (var item in qte.Quote_Details)
-                        {
-                            totalQuote += item.Item_Price;
-                        }
-                        lblDisplayQuote.Text = totalQuote.ToString();
-                    }
                 }
+                //if (Session["quote"] != null)
+                //{
+
+                //    qte = (Quote) Session["quote"];
+                //    if (qte != null)
+                //    {
+                //        //Display quote ref generated on product page
+                //        //string quoteRef = (string) Session["quoteRef"];
+                //        lblDisplayQuoteRef.Text = qte.Quote_Ref;
+
+                //        decimal totalQuote = 0;
+                //        //Display quote price generated on product page
+                //        //string quote = (string) Session["quote"];
+                //        foreach (var item in qte.Quote_Details)
+                //        {
+                //            totalQuote += item.Item_Price;
+                //        }
+                //        lblDisplayQuote.Text = totalQuote.ToString();
+                //    }
+
+                //}
 
             }
         }
