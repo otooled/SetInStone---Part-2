@@ -80,7 +80,6 @@
                 //Display quote for selected customers including api for quote returns
                 function DisplayCustQuotes(custID) {
                     $("#grid_Quotes").kendoGrid({
-
                         dataSource: {
                             transport: {
                                 read: {
@@ -123,8 +122,8 @@
 
                     var accessWindow = $("#window").kendoWindow({
                         actions: [
-                                "Maximize",
-                                "Close"
+                            "Maximize",
+                            "Close"
                         ],
                         draggable: true,
                         height: "250px",
@@ -134,9 +133,8 @@
                         width: "800px",
                         visible: false /*don't show it yet*/
                     }).data("kendoWindow").center().open();
-                    
-                    $("#QuoteDetails").kendoGrid({
 
+                    $("#QuoteDetails").kendoGrid({
                         dataSource: {
                             transport: {
                                 read: {
@@ -158,20 +156,17 @@
                             {
                                 field: "Quantity",
                                 title: "Quantity"
-
                             },
-                             {
-                                 field: "Item_Price",
-                                 title: "Unit Price",
-                                 format: "€{0:n2}"
-
-                             },
-                             {
-                                 field: "Item_Total",
-                                 title: "Total",
-                                 format: "€{0:n2}"
-
-                             },
+                            {
+                                field: "Item_Price",
+                                title: "Unit Price",
+                                format: "€{0:n2}"
+                            },
+                            {
+                                field: "Item_Total",
+                                title: "Total",
+                                format: "€{0:n2}"
+                            },
                             {
                                 command: {
                                     text: "Edit",
@@ -187,6 +182,7 @@
                 function EditDetail(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    
 
                     if (dataItem.ProductOptionID == 1) // pillar cap
                     {
@@ -202,7 +198,7 @@
                     }
                     else if (dataItem.ProductOptionID == 4)//fireplace
                     {
-                        window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID;
+                        window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID ;
                     }
                 }
             </script>

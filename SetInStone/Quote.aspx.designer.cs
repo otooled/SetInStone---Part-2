@@ -31,13 +31,13 @@ namespace SetInStone {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// lblInstuctions control.
+        /// lblQuoteCaption control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblInstuctions;
+        protected global::System.Web.UI.WebControls.Label lblQuoteCaption;
         
         /// <summary>
         /// lblDisplayQuote control.
@@ -49,6 +49,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblDisplayQuote;
         
         /// <summary>
+        /// lblRefCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRefCaption;
+        
+        /// <summary>
         /// lblDisplayQuoteRef control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,15 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblDisplayQuoteRef;
+        
+        /// <summary>
+        /// lblInstuctions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInstuctions;
         
         /// <summary>
         /// txtFirstName control.
@@ -148,13 +166,22 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator regPhone;
         
         /// <summary>
-        /// lblQuoteRef control.
+        /// rfvEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQuoteRef;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
+        
+        /// <summary>
+        /// regEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regEmail;
         
         /// <summary>
         /// btnSubmit control.
@@ -173,5 +200,14 @@ namespace SetInStone {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
+        
+        /// <summary>
+        /// vldSummary control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vldSummary;
     }
 }

@@ -35,40 +35,46 @@ namespace SetInStone
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if(!IsPostBack)
+
             if (!Page.IsPostBack)
             {
-                if (!String.IsNullOrEmpty(Request["CustomerDetailsID"]))
-                {
-                    //Edit mode
-                    int qteID = Convert.ToInt32(Request["CustomerDetailsID"]);
-                    Customer cid = db.Customers.Where(a => a.CustomerID == qteID).FirstOrDefault();// db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
-                    txtFirstName.Text = cid.First_Name.ToString();// qid.Customer.First_Name.ToString();
-
-                }
-                //if (Session["quote"] != null)
+                
+                //if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 //{
+                //    //Edit mode
+                //    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                //    Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
 
-                //    qte = (Quote) Session["quote"];
-                //    if (qte != null)
-                //    {
-                //        //Display quote ref generated on product page
-                //        //string quoteRef = (string) Session["quoteRef"];
-                //        lblDisplayQuoteRef.Text = qte.Quote_Ref;
-
-                //        decimal totalQuote = 0;
-                //        //Display quote price generated on product page
-                //        //string quote = (string) Session["quote"];
-                //        foreach (var item in qte.Quote_Details)
-                //        {
-                //            totalQuote += item.Item_Price;
-                //        }
-                //        lblDisplayQuote.Text = totalQuote.ToString();
-                //    }
-
+                //    txtFirstName.Text = qid.Quote.Customer.First_Name;
+                //    txtSurname.Text = qid.Quote.Customer.Surname;
                 //}
 
+                //The following commented out code will be used
+                //editing a quote
+
+                if (Session["quote"] != null)
+                {
+
+                    qte = (Quote)Session["quote"];
+                    if (qte != null)
+                    {
+                        //Display quote ref generated on product page
+                        lblDisplayQuoteRef.Text = qte.Quote_Ref;
+                        decimal totalQuote = 0;
+
+                        //Display quote price generated on product page
+                        foreach (var item in qte.Quote_Details)
+                        {
+                            totalQuote += item.Item_Price;
+                        }
+                        lblDisplayQuote.Text = totalQuote.ToString();
+                        txtFirstName.Text = qte.Customer.First_Name;
+                    }
+
+                }
+                
             }
+            
         }
 
         //Add the quote, customer and product to the database
@@ -94,13 +100,6 @@ namespace SetInStone
             //set email's body to html
             mail.IsBodyHtml = true;
 
-            ////add our attachment
-            //Attachment imgAtt = new Attachment(Server.MapPath("tmpImage.gif"));
-            ////give it a content id that corresponds to the src we added in the body img tag
-            //imgAtt.ContentId = "tmpImage.gif";
-            ////add the attachment to the email
-            //mail.Attachments.Add(imgAtt);
-
             //setup our smtp client, these are Gmail specific settings
             SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
             client.EnableSsl = true; //ssl must be enabled for Gmail
@@ -119,12 +118,15 @@ namespace SetInStone
                 //some feedback if it does not work
                 txtFirstName.Text = "fail";
             }
+
+
             if (Session["quote"] != null)
             {
                 qte = (Quote) Session["quote"];
                 if (qte != null)
                 {
                     Customer cust = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
+                    
                     if (cust == null)
                     {
                         cust = new Customer
@@ -142,21 +144,10 @@ namespace SetInStone
                     
                     qte.CustomerId = cust.CustomerID;
 
-                    ///////////////////
-                    //decimal totalQuote = 0;
-                    ////Display quote price generated on product page
-                    ////string quote = (string) Session["quote"];
-                    //foreach (var item in qte.Quote_Details)
-                    //{
-                    //    totalQuote += item.Item_Price;
-                    //}
-                    ////lblDisplayQuote.Text = totalQuote.ToString();
-                    //////////////
-
                     qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
-                    
+                    //qte.Quote_Ref = lblQuoteRef.Text;
                     db.Quotes.Add(qte);
-
+                    
                     
                     db.SaveChanges();
 

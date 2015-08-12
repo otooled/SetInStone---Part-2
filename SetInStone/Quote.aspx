@@ -18,47 +18,52 @@
         <label>Set In Stone</label>
     </div>
     <div id="divQuote">
-    <br/>
-        <asp:Label runat="server" ID="lblInstuctions" ForeColor="white" Text="Enter details below and click Save Quote"></asp:Label>
     
         
+    <asp:Label runat="server" ID="lblQuoteCaption" CssClass="Labels" Text="Total: "></asp:Label>
+       
         <asp:Label runat="server" ID="lblDisplayQuote" CssClass="Labels"></asp:Label>
         
         <br />
+         <asp:Label runat="server" ID="lblRefCaption" CssClass="Labels" Text="Quote Ref: "></asp:Label>
         <asp:Label runat="server" ID="lblDisplayQuoteRef" CssClass="Labels"></asp:Label>
         <br/>
-       <%-- <asp:Label ID="lblName" runat="server" Text="First Name"></asp:Label>--%>
+        <br/>
+        <asp:Label runat="server" ID="lblInstuctions" ForeColor="white" Text="Enter details below and click Save Quote"
+            Font-Italic="True"></asp:Label>
+        <br/>
+       <br/>
         <asp:TextBox ID="txtFirstName" runat="server" CssClass="TextBoxes" placeholder="First Name"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName" ErrorMessage="Please enter a first name"></asp:RequiredFieldValidator>
-        <br />
-         <br />
-        <%--<asp:Label ID="lblSurname" runat="server" Text="Surname"></asp:Label>--%>
+        <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName" ErrorMessage="Please enter a first name" Display="None" SetFocusOnError="True"></asp:RequiredFieldValidator>
+        <br/>
+       <br/>
         <asp:TextBox ID="txtSurname" runat="server" CssClass="TextBoxes" placeholder="Surname"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSurname" ErrorMessage="Please enter a surname"></asp:RequiredFieldValidator>
-        <br />
-         <br />
-        <%--<asp:Label ID="lblAddress" runat="server" Text="Address"></asp:Label>--%>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSurname" ErrorMessage="Please enter a surname" Display="None" SetFocusOnError="True"></asp:RequiredFieldValidator>
+      <br/>
+        <br/>
         <asp:TextBox ID="txtAddress" runat="server" CssClass="TextBoxes" placeholder="Address"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address"></asp:RequiredFieldValidator>
+        <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address" Display="None" SetFocusOnError="True"></asp:RequiredFieldValidator>
+        <br/>
+        <br/>
+        <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxes" placeholder="Email" TextMode="Email"></asp:TextBox>
         <br />
-        <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxes" placeholder="Email"></asp:TextBox>
-<%--        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address"></asp:RequiredFieldValidator>--%>
-        <br />
-         <br />
-        <%--<asp:Label ID="lblPhone" runat="server" Text="Phone No."></asp:Label>--%>
+       <br/>
         <asp:TextBox ID="txtPhoneNo" runat="server" CssClass="TextBoxes" placeholder="Phone Number"></asp:TextBox>
-        <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" ErrorMessage="Please enter a contact number"></asp:RequiredFieldValidator>
-        <asp:RegularExpressionValidator ID="regPhone" runat="server" ControlToValidate="txtPhoneNo" ErrorMessage="Numbers only" ValidationExpression="\d+"></asp:RegularExpressionValidator>
+        <asp:RequiredFieldValidator ID="rfvPhoneNo" runat="server" ControlToValidate="txtPhoneNo" ErrorMessage="Please enter a contact number" Display="None" SetFocusOnError="True"></asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="regPhone" runat="server" ControlToValidate="txtPhoneNo" ErrorMessage="Numbers only" ValidationExpression="\d+" Display="None" SetFocusOnError="True"></asp:RegularExpressionValidator>
+        <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="None" ErrorMessage="Please enter an email address" SetFocusOnError="True"></asp:RequiredFieldValidator>
+        <asp:RegularExpressionValidator ID="regEmail" runat="server" ControlToValidate="txtEmail" Display="None" ErrorMessage="Incorrect email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" SetFocusOnError="True"></asp:RegularExpressionValidator>
         <br />
          <br />
-        <asp:Label ID="lblQuoteRef" runat="server" Text=""></asp:Label>
         
-        <br />
+        
+       
         <asp:Button ID="btnSubmit" runat="server" Text="Save Quote" OnClick="btnSubmit_Click" CssClass="Buttons"
              />
         <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False"
             />
         </div>
+          <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
     </form>
 </body>
 </html>

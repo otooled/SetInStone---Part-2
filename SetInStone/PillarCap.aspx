@@ -383,12 +383,15 @@
                     <asp:AsyncPostBackTrigger ControlID="btnCalculate" />
                 </Triggers>
                 <ContentTemplate>
-
+                     
+                   
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" OnClick="btnCalculate_Click"
                         OnClientClick=" DisplayStoneSelection(); " />
 
                     <br />
+                    <asp:Label ID="lblPreviousDetails" runat="server"  CssClass="Labels"></asp:Label>
+                    <br/>
                     <asp:Label ID="lblStoneTitle" runat="server"  CssClass="Labels"></asp:Label>
 <%--                   <asp:TextBox runat="server" ID="txtDisplayTitle" Text="Cap Stone Type:" CssClass="stoneTextbox" ReadOnly="True"></asp:TextBox>--%>
 
@@ -413,15 +416,14 @@
                     <br />
                     
 
-                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
-                        ></asp:TextBox>
-                    <br />
+                   
 
                     <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnBack_Click" CssClass="Buttons"/>
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
                         OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />
-                    
+                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
+                        ></asp:TextBox>
                     <%--Hidden fields for slab and pryamid measurements--%>
                     <asp:HiddenField ID="SlabLength" runat="server" />
                     <asp:HiddenField ID="SlabWidth" runat="server" />

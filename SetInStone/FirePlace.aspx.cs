@@ -27,7 +27,46 @@ namespace SetInStone
             //    Response.Redirect("Login.aspx");
             //}
         }
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.IsPostBack)
+            {
 
+                //The following commented out code will be used
+                //editing a quote
+
+                if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
+                {
+                    //Edit mode
+                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                    Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+
+                    BaseWidth.Value = qid.Fireplace_Base_Width.ToString();
+                    BaseHeight.Value = qid.Fireplace_Base_Height.ToString();
+                    TopHeight.Value = qid.Fireplace_Top_Height.ToString();
+                    TopWidth.Value = qid.Fireplace_Top_Width.ToString();
+                    Depth.Value = qid.Fireplace_Depth.ToString();
+
+                    lblPreviousDetails.Text = ("Existing Quote");
+                    lblDisplayTotalCost.Text = ("Total Cost: ");
+                    lblFireplaceStoneCaption.Text = ("Marble Type: ");
+                    lblFireplaceStone.Text = qid.Stone.StoneType;
+                    lblCalculateAnswer.Text = "";
+                    //txtDisplayStone.Text = "";
+                    txtDisplayStone.Text = qid.Stone.StoneType;
+                    lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
+                }
+                else
+                {
+                    BaseWidth.Value = 400.ToString();
+                    BaseHeight.Value = 250.ToString();
+
+                    TopHeight.Value = 120.ToString();
+                    TopWidth.Value = 400.ToString();
+                    Depth.Value = 60.ToString();
+                }
+            }
+        }
         //Check what stone type is selected for cap
         private int CheckStoneSelection()
         {
@@ -35,13 +74,17 @@ namespace SetInStone
         }
 
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
+            lblPreviousDetails.Text = ("Current Quote:");
+            lblDisplayTotalCost.Text = ("Total Cost: ");
+            lblFireplaceStoneCaption.Text = ("Marble Type: ");
+            txtDisplayStone.Text = hf_StoneType.Value;
+            //ViewState["sTypes"] = txtDisplayStone.Text;
+            lblFireplaceStone.Text = txtDisplayStone.Text;
+
             //variables to hold cost and cutting calculation results
             float qauntity = float.Parse(txtQuantity.Text);
             float slabCost = CustomerFirePlaceMeasurements();
@@ -121,24 +164,24 @@ namespace SetInStone
             if (Page.IsValid)
             {
                 Quote qte;
-                if ((Session["EditMode"] != null) && true)
-                {
-                    if ((Session["quote"] != null))
-                    {
-                        //Quote q = (Quote)Session["quote"];
-                        //q.Product.Width = float.Parse(SlabWidth.Value);
-                        ////q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                        //q.Product.StoneId = sType;
-                        //q.Product.Height = float.Parse(SlabHeight.Value);
-                        //q.Product.Length = float.Parse(SlabLength.Value);
-                        //q.Product.PyrHeight = float.Parse(PryHeight.Value);
-                        //db.SaveChanges();
-                    }
-                }
+                //if ((Session["EditMode"] != null) && true)
+                //{
+                //    if ((Session["quote"] != null))
+                //    {
+                //        //Quote q = (Quote)Session["quote"];
+                //        //q.Product.Width = float.Parse(SlabWidth.Value);
+                //        ////q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
+                //        //q.Product.StoneId = sType;
+                //        //q.Product.Height = float.Parse(SlabHeight.Value);
+                //        //q.Product.Length = float.Parse(SlabLength.Value);
+                //        //q.Product.PyrHeight = float.Parse(PryHeight.Value);
+                //        //db.SaveChanges();
+                //    }
+                //}
 
-                    //This adds product deminsions into session
-                else // not edit mode
-                {
+                //    //This adds product deminsions into session
+                //else // not edit mode
+                //{
                     if ((Session["quote"] != null))
                     {
                         qte = (Quote)Session["quote"];
@@ -193,7 +236,7 @@ namespace SetInStone
                 }
 
             }
-        }
+        
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {

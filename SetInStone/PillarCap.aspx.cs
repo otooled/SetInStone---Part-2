@@ -34,11 +34,9 @@ namespace SetInStone
 
         protected void Page_Load(object sender, EventArgs e)
         {
-     
             
                 if (!Page.IsPostBack)
                 {
-                    
                     //The following commented out code will be used
                     //editing a quote
 
@@ -48,20 +46,26 @@ namespace SetInStone
                         int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                         Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
 
+                       
+
                         SlabWidth.Value = qid.Cap_Width.ToString();
                         SlabHeight.Value = qid.Cap_Height.ToString();
                         SlabLength.Value = qid.Cap_Length.ToString();
                         PryHeight.Value = qid.Cap_Point.ToString();
+                        DisplayStoneType.Value = qid.Stone_ID.ToString();
+                        txtQuantity.Text = qid.Quantity.ToString();
+                        //txtQuantity.Text = qid.Quote.Customer.First_Name;
 
-
+                        lblPreviousDetails.Text = ("Existing Quote");
                         lblDisplayTotalCost.Text = ("Total Cost: ");
                         lblStoneTitle.Text = ("Cap Stone Type: ");
-                        lblDisplayStoneType.Text = qid.Stone.StoneType.ToString();
+                        lblDisplayStoneType.Text = qid.Stone.StoneType;
                         lblCalculateAnswer.Text = "";
+                    
                         txtDisplayStone.Text = qid.Stone.StoneType;
                         lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
-                        //txtDisplay.Text = qid.Stone.ToString();
 
+                       
                     }
                     else
                     {
@@ -70,6 +74,7 @@ namespace SetInStone
                         SlabHeight.Value = 250.ToString();
 
                         PryHeight.Value = 200.ToString();
+                       
                     }
                     
                 }
@@ -80,6 +85,7 @@ namespace SetInStone
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
+            lblPreviousDetails.Text = ("Current Quote:");
             lblDisplayTotalCost.Text = ("Total Cost: ");
             lblStoneTitle.Text = ("Cap Stone Type: ");
             txtDisplayStone.Text = hf_StoneType.Value;
@@ -162,7 +168,7 @@ namespace SetInStone
             if(Page.IsValid)
             {
                 Quote qte;
-               
+          
                     if ((Session["quote"] != null))
                     {
                         qte = (Quote) Session["quote"];
@@ -178,7 +184,6 @@ namespace SetInStone
                                                           Product_Option_ID = 1,
                                                           Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
                                                           Quantity = Convert.ToInt16(txtQuantity.Text)
-
                                                       });
 
                             Session["quote"] = qte;
@@ -191,6 +196,8 @@ namespace SetInStone
                     {
                         qte = new Quote() {Quote_Ref = qRef};
 
+                        //Customer cid = db.Customers.Where(c => c.CustomerID == qte.CustomerId).FirstOrDefault();
+                        
                         qte.Quote_Details.Add(new Quote_Details()
                                                   {
                                                       Cap_Height = float.Parse(SlabHeight.Value),
@@ -201,8 +208,9 @@ namespace SetInStone
                                                       Product_Option_ID = 1,
                                                       Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
                                                       Quantity = Convert.ToInt16(txtQuantity.Text)
+                                                      
                                                   });
-
+                        
                         Session.Add("quote", qte);
 
 
@@ -239,6 +247,7 @@ namespace SetInStone
                                                   Quantity = Convert.ToInt16(txtQuantity.Text)
 
                                               });
+                    
 
                     Session["quote"] = qte;
                 }

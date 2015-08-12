@@ -56,6 +56,8 @@
         
         //max dimensions for caps
         var MIN_CAP_HEIGHT = 30; MAX_CAP_HEIGHT = 150;
+        var Pillar_Stone_Type = 0;
+        var Cap_Stone_Type = 0;
 
     </script>
 
@@ -119,7 +121,8 @@
                         scene.add(pillar, cap);
 
                         //Begin slider 
-                        gui = new dat.GUI();
+                        gui = new dat.GUI({ autoplace: false });
+                        gui.domElement.id = 'gui';
 
                         //Parameters that for pillar demensions
                         parameters =
@@ -167,25 +170,38 @@
                             if (value == "Granite") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Granite Flashing.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                                Pillar_Stone_Type = 1;
+                                PillarStoneType();
                                 //Display selection
-                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
-                                //DisplayStoneSelection();
+                                //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Granite";
+                                //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                                document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Granite";
+                                document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Granite";
 
                             } else if (value == "Sandstone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
+                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Sandstone flashing.jpg") });
 
+                                Pillar_Stone_Type = 2;
+                                PillarStoneType();
                                 //Display selection
-                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Sandstone";
-                            } else if (value == "Limestone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+                                //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Sand Stone";
+                        //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Sandstone";
+                        document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Sandstone";
 
-                                //Display selection
-                                document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
-                                document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Limestone";
-                            } else // (value == "Wireframe")
-                                newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+                    } else if (value == "Limestone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/Limestone flashing.jpg") });
+
+                        Pillar_Stone_Type = 3;
+                        PillarStoneType();
+                        //Display selection
+                        //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Lime Stone";
+                        //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Limestone";
+                        document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Limestone";
+
+                    } else // (value == "Wireframe")
+                        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                             //Apply new textures
                             pillar.material = newMaterial;
@@ -241,29 +257,38 @@
                             if (value == "Granite") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
 
+                                Cap_Stone_Type = 1;
+                                CapStoneType();
                                 //Display selection
-                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
-                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
+                                // document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Granite";
+                               //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                               document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Granite";
+                               document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Granite";
 
+                           } else if (value == "Sandstone") {
+                               newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
 
-                            } else if (value == "Sandstone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
+                               Cap_Stone_Type = 2;
+                               CapStoneType();
+                               //Display selection
+                               //document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Sand Stone";
+                        //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
 
-                                //Display selection
-                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
-                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
+                        document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Sandstone";
+                        document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Sandstone";
 
+                    } else if (value == "Limestone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
 
-                            } else if (value == "Limestone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
-
-                                //Display selection
-                                document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
-                                displayStone = document.getElementById('<%= lblPillarStone.ClientID %>').innerText = "Granite";
-
-
-                            } else
-                                newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+                        Cap_Stone_Type = 3;
+                        CapStoneType();
+                        //Display selection
+                        //document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Lime Stone";
+                        //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                        document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Limestone";
+                        document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Limestone";
+                    } else
+                        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                             //Apply new textures to cap
                             cap.material = newMaterial;
@@ -278,25 +303,14 @@
             }
 
             //Functions to send co-ordinates of pryamid and slab to code behind
-            function DisplayPillarHeight() {
-                var getPillarHeight = Pillar_Height;
-                document.getElementById('<%= PillarHeight.ClientID %>').value = getPillarHeight;
-                    }
+                    function CapStoneType() {
 
-                    function DisplayPillarDiameter() {
-                        var getPillarDiameter = Pillar_Diameter;
-                        document.getElementById('<%= PillarDiameter.ClientID %>').value = getPillarDiameter;
-                    }
+                        document.getElementById('<%= HF_CapStoneType.ClientID %>').value = Cap_Stone_Type;
+            }
+            function PillarStoneType() {
 
-                    function DisplayCapDiameter() {
-                        var getCapDiameter = Cap_Diameter;
-                        document.getElementById('<%=CapDiameter.ClientID %>').value = getCapDiameter;
-                    }
-
-                    function DisplayCapHeight() {
-                        var getCapHeight = Cap_Height;
-                        document.getElementById('<%= CapHeight.ClientID %>').value = getCapHeight;
-                    }
+                document.getElementById('<%= HF_PillarStone.ClientID %>').value = Pillar_Stone_Type;
+            }
 
 
 
@@ -349,38 +363,67 @@
                 </Triggers>
                 <ContentTemplate>
 
-                    <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
-                    <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
-                        OnClientClick="DisplayPillarHeight(); DisplayPillarDiameter(); DisplayCapDiameter();  DisplayCapHeight();" />
-
-                    <br />
-                     <asp:Label ID="lblCapStoneTypeCaption" runat="server" Text="Cap Stone Type" Style="display: none"></asp:Label>
-                        <asp:Label ID="lblCapStoneType" runat="server"  ClientIDMode="Static"></asp:Label>
+                   <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
+                    
+                    <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
+                        OnClientClick=" PillarStoneType(); CapStoneType() ;" CausesValidation="True"/>
+                    <asp:RequiredFieldValidator ID="rfvCapStone" runat="server" ErrorMessage="Select a cap stone type" ControlToValidate="txtDisplayCapStone" Display="None"></asp:RequiredFieldValidator>
+                    
+                    <asp:RequiredFieldValidator ID="rfvPillarStone" runat="server" ErrorMessage="Select a pillar stone type" ControlToValidate="txtDisplayPillarStone" Display="None"></asp:RequiredFieldValidator>
                     <br/>
-                        <asp:Label ID="lblPillarStoneCaption" runat="server" Text="Pillar Stone Type" Style="display: none"></asp:Label>
+                    <asp:Label ID="lblCapStoneTypeCaption" runat="server" CssClass="Labels" ></asp:Label>
+                        <asp:Label ID="lblCapStoneType" runat="server" CssClass="Labels"  ClientIDMode="Static"></asp:Label>
+                    <br/>
+                        <asp:Label ID="lblPillarStoneCaption" runat="server" CssClass="Labels" ></asp:Label>
 
-                        <asp:Label ID="lblPillarStone" runat="server"  ClientIDMode="Static" ></asp:Label>
+                        <asp:Label ID="lblPillarStone" CssClass="Labels" runat="server"  ClientIDMode="Static" ></asp:Label>
+                        <br />
+                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
+                     <<asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
 
-                      <br />
-                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>
+                        <%--<asp:Label runat="server" ID="lblTotalCost" Visible="False"></asp:Label>
+                        <br />--%>
+
+                   <%-- <asp:RegularExpressionValidator ID="RegNumberOnly" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
+                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
+                   --%>
+                    
+                    <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     <br />
 
                     <br />
 
-                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote / Place Order"
+                    <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
                          />
-                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" />
+                    <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />
                     
                     <%--Hidden fields for slab and pillar measurements--%>
                     <asp:HiddenField ID="PillarDiameter" runat="server" />
                     <asp:HiddenField ID="PillarHeight" runat="server" />
                     <asp:HiddenField ID="CapDiameter" runat="server" />
                     <asp:HiddenField ID="CapHeight" runat="server" />
+                    <%--Hidden fields for slab and pryamid measurements--%>
+                   
+                   
+                    <asp:HiddenField runat="server" ID="HF_CapStoneType"/>
+                    <asp:HiddenField runat="server" ID="HF_PillarStone"/>
+                    
+                    <asp:HiddenField runat="server" ID="HF_CapTotal"/>
+                    <asp:HiddenField runat="server" ID="HF_PillarTotal"/>
+                    
+<%--  Hidden values for validation--%>
+                    <asp:HiddenField runat="server" ID="hf_DisplayCapType"/>
+                    <asp:HiddenField runat="server" ID="hf_DisplayPillarType"/>
+
+                    <asp:TextBox runat="server" ID="txtDisplayCapStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
+                        ></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtDisplayPillarStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
+                        ></asp:TextBox>
                     
 <%--                    <asp:HiddenField runat="server" ID="DisplayStoneType"/>--%>
 
-                    <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>
-                    <asp:Label ID="Label1" runat="server"></asp:Label>
+<%--                    <asp:Label runat="server" ID="lblCalculateAnswer" Text="test" CssClass="Labels"></asp:Label>--%>
+            
 
                 </ContentTemplate>
             </asp:UpdatePanel>

@@ -46,7 +46,7 @@
         
         //default size for side slab
         var SIDE_SLAB_WIDTH = 40; SIDE_SLAB_LENGTH = 120; SIDE_SLAB_HEIGHT = 250;
-        FIREPLACE_DEPTH = 60;
+        //FIREPLACE_DEPTH = 60;
         
         //default size for side slab
         //var RIGHT_SIDE_SLAB_WIDTH = 40; RIGHT_SIDE_SLAB_LENGTH = 120; RIGHT_SIDE_SLAB_HEIGHT = 150;
@@ -140,7 +140,8 @@
 
                
 
-                firePlace_gui = new dat.GUI();
+                firePlace_gui = new dat.GUI({ autoplace: false });
+                firePlace_gui.domElement.id = 'gui';
 
                 fireplace_parameters =
                     {
@@ -182,8 +183,11 @@
                         //Display selection
 
                         DisplayMarbleType = 6;
-                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Green Marble";
+                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Green Marble";
+                        
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "Green Marble";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Green Marble";
                         DisplayMarbleSelection();
 
                     } else if (value == "White Marble") {
@@ -191,8 +195,11 @@
                         
                         //Display selection
                         DisplayMarbleType = 9;
-                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "White Marble";
+                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "White Marble";
+                        
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "White Marble";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "White Marble";
                         DisplayMarbleSelection();
                         
                     } else if (value == "Red Marble") {
@@ -200,8 +207,11 @@
                         
                         //Display selection
                         DisplayMarbleType = 4;
-                        document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Red Marble";
+                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
+                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Red Marble";
+                        
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "Red Marble";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Red Marble";
                         DisplayMarbleSelection();
                         
                     } else // (value == "Wireframe")
@@ -328,10 +338,12 @@
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
                         OnClientClick="DisplayMarbleSelection();" OnClick="btnCalculate_Click" />
-
                     <br />
-                     <br/>
-                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" Text="Marble Type:" Style="display: none"
+                    <asp:Label ID="lblPreviousDetails" runat="server"  CssClass="Labels"></asp:Label>
+                    <br/>
+                  
+                     
+                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" 
                             CssClass="Labels"></asp:Label>
 
                         <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>
@@ -339,7 +351,7 @@
                       <%--<br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>--%>
                     <br />
-                    
+                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
                      <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
                     <br />
                     <br />
@@ -349,6 +361,10 @@
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click"
                          />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />
+                    <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
+                        ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplayStone" Display="None" ErrorMessage="Select a marble type"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" Display="None" ErrorMessage="Enter a quantity" SetFocusOnError="True"></asp:RequiredFieldValidator>
                     
                     <%--Hidden fields for slab and pillar measurements--%>
                     <asp:HiddenField ID="TopHeight" runat="server" />
@@ -359,8 +375,10 @@
                     
                     <asp:HiddenField ID="HF_MarbleSelection" runat="server"/>
 
-                   
+                   <asp:HiddenField runat="server" ID="hf_StoneType"/>
                     <asp:Label ID="Label1" runat="server"></asp:Label>
+
+                    <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
 
                 </ContentTemplate>
             </asp:UpdatePanel>

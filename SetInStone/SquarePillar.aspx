@@ -169,8 +169,8 @@
                 scene.add(pillar);
 
                 //Begin slider 
-                gui_deminsions = new dat.GUI();
-
+                gui_deminsions = new dat.GUI({ autoplace: false });
+                gui_deminsions.domElement.id = 'gui';
                 //Parameters that for product demensions
                 parameters =
                     {
@@ -488,6 +488,7 @@
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     
                     <br />
+                     <br />
 <%--                    <asp:Label ID="lblDisplayPillarStone" runat="server"></asp:Label>--%>
 
                     <asp:Button runat="server" ID="btnContinueOrder" Text="Add more products" CssClass="Buttons" OnClick="btnContinueOrder_Click"/>
