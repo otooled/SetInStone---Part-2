@@ -38,23 +38,41 @@ namespace SetInStone
 
             if (!Page.IsPostBack)
             {
-                
-                //if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
-                //{
-                //    //Edit mode
-                //    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
-                //    Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
 
-                //    txtFirstName.Text = qid.Quote.Customer.First_Name;
-                //    txtSurname.Text = qid.Quote.Customer.Surname;
-                //}
-
-                //The following commented out code will be used
-                //editing a quote
-
-                if (Session["quote"] != null)
+                if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
+                    qte = (Quote)Session["quote"];
+                    if (qte != null)
+                    {
+                        //Display quote ref generated on product page
+                        lblDisplayQuoteRef.Text = qte.Quote_Ref;
+                        decimal totalQuote = 0;
 
+                        //Display quote price generated on product page
+                        foreach (var item in qte.Quote_Details)
+                        {
+                            totalQuote += item.Item_Price;
+                        }
+                        
+                        lblDisplayQuote.Text = (totalQuote).ToString();
+                        //txtFirstName.Text = qte.Customer.First_Name;
+                        //txtFirstName.Text = c.First_Name;
+                    }
+                    //Edit mode
+                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                    //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
+
+
+                    lblDisplayQuoteRef.Text = qid.Quote_Ref;
+                    txtFirstName.Text = qid.Customer.First_Name;
+                    txtSurname.Text = qid.Customer.Surname;
+                    txtAddress.Text = qid.Customer.Address;
+                    txtEmail.Text = qid.Customer.Email;
+                    txtPhoneNo.Text = qid.Customer.Phone;
+                }
+                else
+                {
                     qte = (Quote)Session["quote"];
                     if (qte != null)
                     {
@@ -68,10 +86,34 @@ namespace SetInStone
                             totalQuote += item.Item_Price;
                         }
                         lblDisplayQuote.Text = totalQuote.ToString();
-                        txtFirstName.Text = qte.Customer.First_Name;
-                    }
+                        //txtFirstName.Text = qte.QuoteId.ToString();
 
+                        
+                    }
                 }
+                //The following commented out code will be used
+                //editing a quote
+
+                //if (Session["quote"] != null)
+                //{
+
+                //    qte = (Quote)Session["quote"];
+                //    if (qte != null)
+                //    {
+                //        //Display quote ref generated on product page
+                //        lblDisplayQuoteRef.Text = qte.Quote_Ref;
+                //        decimal totalQuote = 0;
+
+                //        //Display quote price generated on product page
+                //        foreach (var item in qte.Quote_Details)
+                //        {
+                //            totalQuote += item.Item_Price;
+                //        }
+                //        lblDisplayQuote.Text = totalQuote.ToString();
+                //        txtFirstName.Text = qte.Customer.First_Name;
+                //    }
+
+                //}
                 
             }
             
@@ -150,7 +192,7 @@ namespace SetInStone
                     
                     
                     db.SaveChanges();
-
+                    Session["quote"] = null;
                     //send user back to landing page after details are saved
                     Response.Write(
                         "<script LANGUAGE='JavaScript' >alert('Quote has been saved.');document.location='" +
@@ -162,6 +204,7 @@ namespace SetInStone
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Session["quote"] = null;
             Response.Redirect("LandingPage.aspx");
         }
     }

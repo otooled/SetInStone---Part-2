@@ -186,9 +186,10 @@ namespace SetInStone
                                                           Quantity = Convert.ToInt16(txtQuantity.Text)
                                                       });
 
+                            //int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+
+                            //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
                             Session["quote"] = qte;
-
-
                             Response.Redirect("Quote.aspx");
                         }
                     }
@@ -213,8 +214,19 @@ namespace SetInStone
                         
                         Session.Add("quote", qte);
 
-
-                        Response.Redirect("Quote.aspx");
+                        int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                        Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                       
+                        if(qid == null)
+                        {
+                            Response.Redirect("Quote.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.Quote_ID);
+                        }
+                        
+                        
                     }
                 }
                 

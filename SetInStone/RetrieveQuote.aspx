@@ -103,6 +103,7 @@
                                 field: "Quote_Date",
                                 title: "Quote Date",
                                 template: "#= kendo.toString(kendo.parseDate(Quote_Date, 'yyyy-MM-dd'), 'dd/MM/yyyy') #"
+                                
                             },
                             {
                                 command: {
