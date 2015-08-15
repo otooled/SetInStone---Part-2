@@ -222,7 +222,6 @@
                             var newMaterial;
                             if (value == "Granite") {
                                 newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
-
                                 
                                 Display_stone = 1;
                                 //Display selection

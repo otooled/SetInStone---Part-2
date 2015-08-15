@@ -32,7 +32,14 @@ namespace SetInStone
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (!Page.IsPostBack)
+            {
+                //The following commented out code will be used
+                //editing a quote
+
+               // int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+
+            }
         }
 
         private void PopulateProductMenu()
@@ -50,16 +57,39 @@ namespace SetInStone
         //Open Retrieve quote page if clicked
         protected void btnRetrieveQuote_Click(object sender, EventArgs e)
         {
+            
             Response.Redirect("RetrieveQuote.aspx");
         }
 
         //Open Product page when option is selected
         protected void ddlProductType_SelectedIndexChanged1(object sender, EventArgs e)
         {
+            Session.Add("productOptionID", ddlProductType.SelectedValue);
             if (ddlProductType.SelectedIndex == 1)
             {
-                Session.Add("productOptionID",ddlProductType.SelectedValue);
-                Response.Redirect("PillarCap.aspx");
+                if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
+                {
+                    //Edit mode
+                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                    //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
+                    Response.Redirect("PillarCap.aspx?QuoteDetailsID=" + qid.QuoteId);
+                    //if (qid == null)
+                    //{
+                    //    Response.Redirect("PillarCap.aspx");
+                    //}
+                    //else
+                    //{
+                    //    Response.Redirect("PillarCap.aspx?QuoteDetailsID=" + qid.QuoteId);
+                    //}
+
+                }
+                else
+                {
+                    Response.Redirect("PillarCap.aspx");
+                }
+                //Session.Add("productOptionID", ddlProductType.SelectedValue);
+               // Response.Redirect("PillarCap.aspx");
             }
             else if (ddlProductType.SelectedIndex == 2)
             {

@@ -45,6 +45,7 @@
         <asp:RequiredFieldValidator ID="rfvAddress" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please enter address" Display="None" SetFocusOnError="True"></asp:RequiredFieldValidator>
         <br/>
         <br/>
+        <asp:TextBox ID="txtDate" runat="server" CssClass="TextBoxes" placeholder="Date"></asp:TextBox>
         <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxes" placeholder="Email" TextMode="Email"></asp:TextBox>
         <br />
        <br/>

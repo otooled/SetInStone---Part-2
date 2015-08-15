@@ -45,37 +45,37 @@ namespace SetInStone
                         //Edit mode
                         int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                         Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                        if (qid != null)//new
+                        {
 
-                       
+                            SlabWidth.Value = qid.Cap_Width.ToString();
+                            SlabHeight.Value = qid.Cap_Height.ToString();
+                            SlabLength.Value = qid.Cap_Length.ToString();
+                            PryHeight.Value = qid.Cap_Point.ToString();
+                            DisplayStoneType.Value = qid.Stone_ID.ToString();
+                            txtQuantity.Text = qid.Quantity.ToString();
+                            //txtQuantity.Text = qid.Quote.Customer.First_Name;
 
-                        SlabWidth.Value = qid.Cap_Width.ToString();
-                        SlabHeight.Value = qid.Cap_Height.ToString();
-                        SlabLength.Value = qid.Cap_Length.ToString();
-                        PryHeight.Value = qid.Cap_Point.ToString();
-                        DisplayStoneType.Value = qid.Stone_ID.ToString();
-                        txtQuantity.Text = qid.Quantity.ToString();
-                        //txtQuantity.Text = qid.Quote.Customer.First_Name;
+                            lblPreviousDetails.Text = ("Existing Quote");
+                            lblDisplayTotalCost.Text = ("Total Cost: ");
+                            lblStoneTitle.Text = ("Cap Stone Type: ");
+                            lblDisplayStoneType.Text = qid.Stone.StoneType;
+                            lblCalculateAnswer.Text = "";
 
-                        lblPreviousDetails.Text = ("Existing Quote");
-                        lblDisplayTotalCost.Text = ("Total Cost: ");
-                        lblStoneTitle.Text = ("Cap Stone Type: ");
-                        lblDisplayStoneType.Text = qid.Stone.StoneType;
-                        lblCalculateAnswer.Text = "";
+                            txtDisplayStone.Text = qid.Stone.StoneType;
+                            lblCalculateAnswer.Text = qid.Item_Price.ToString(); // qid.Quote.Quote_Price.ToString();
+                        }
+                        else
+                        {
+                            SlabWidth.Value = 800.ToString();
+                            SlabLength.Value = 1000.ToString();
+                            SlabHeight.Value = 250.ToString();
+
+                            PryHeight.Value = 200.ToString();
+
+                        }
+                    }
                     
-                        txtDisplayStone.Text = qid.Stone.StoneType;
-                        lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
-
-                       
-                    }
-                    else
-                    {
-                        SlabWidth.Value = 800.ToString();
-                        SlabLength.Value = 1000.ToString();
-                        SlabHeight.Value = 250.ToString();
-
-                        PryHeight.Value = 200.ToString();
-                       
-                    }
                     
                 }
 
@@ -187,10 +187,22 @@ namespace SetInStone
                                                       });
 
                             //int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
-
+                            //Session.Add("quote", qte);
                             //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                            int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                           // Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                            Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
                             Session["quote"] = qte;
-                            Response.Redirect("Quote.aspx");
+                            if (qid != null)
+                            {
+                                Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.QuoteId);
+                                
+                            }
+                            else
+                            {
+                                Response.Redirect("Quote.aspx");
+                            }
+                            //Response.Redirect("Quote.aspx");
                         }
                     }
                     else
@@ -257,7 +269,7 @@ namespace SetInStone
                                                   Product_Option_ID = 1,
                                                   Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
                                                   Quantity = Convert.ToInt16(txtQuantity.Text)
-
+                                                  
                                               });
                     
 
@@ -286,7 +298,10 @@ namespace SetInStone
 
 
             }
-            Response.Redirect("LandingPage.aspx");
+            int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+            Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+            Response.Redirect("LandingPage.aspx?QuoteDetailsID=" + qid.Quote_ID);
+            //Response.Redirect("LandingPage.aspx");
         }
     }
 }

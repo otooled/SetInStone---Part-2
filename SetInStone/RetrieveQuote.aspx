@@ -33,8 +33,7 @@
                 <input id="customers" />
                  
                 <button id="button" type="button">
-                    <span class="k-icon"></span>Cancel
-                </button>
+                    <span class="k-icon"></span>Cancel</button>
                 
                 <%--Cancel button.  Redirects to landing page--%>
                 <script>

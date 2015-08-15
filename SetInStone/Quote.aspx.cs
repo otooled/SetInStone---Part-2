@@ -31,53 +31,67 @@ namespace SetInStone
 
         //create product for session
         public Quote qte = null;
-
+        private DateTime dte = DateTime.Today;
         
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //Edit mode
+            int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+            //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+            Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
             if (!Page.IsPostBack)
             {
 
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
-                    qte = (Quote)Session["quote"];
-                    if (qte != null)
-                    {
-                        //Display quote ref generated on product page
-                        lblDisplayQuoteRef.Text = qte.Quote_Ref;
-                        decimal totalQuote = 0;
+                    //qte = (Quote)Session["quote"];
+                    //if (qte != null)
+                    //{
+                    //    //Display quote ref generated on product page
+                    //    lblDisplayQuoteRef.Text = qte.Quote_Ref;
+                    //    decimal totalQuote = 0;
 
-                        //Display quote price generated on product page
-                        foreach (var item in qte.Quote_Details)
-                        {
-                            totalQuote += item.Item_Price;
-                        }
+                    //    //Display quote price generated on product page
+                    //    foreach (var item in qte.Quote_Details)
+                    //    {
+                    //        totalQuote += item.Item_Price;
+                    //    }
                         
-                        lblDisplayQuote.Text = (totalQuote).ToString();
-                        //txtFirstName.Text = qte.Customer.First_Name;
-                        //txtFirstName.Text = c.First_Name;
-                    }
-                    //Edit mode
-                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
-                    //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
-                    Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
+                    //    lblDisplayQuote.Text = (totalQuote).ToString();
+                    //    //txtFirstName.Text = qte.Customer.First_Name;
+                    //    //txtFirstName.Text = c.First_Name;
+                    //}
 
+                    lblDisplayQuoteRef.Text = qid.Quote_Ref;
+
+                    decimal totalQuote = 0;
+
+                    //Display quote price generated on product page
+                    foreach (var item in qid.Quote_Details)
+                    {
+                        totalQuote += item.Item_Price;
+                    }
+
+                    lblDisplayQuote.Text = (totalQuote).ToString();
 
                     lblDisplayQuoteRef.Text = qid.Quote_Ref;
                     txtFirstName.Text = qid.Customer.First_Name;
                     txtSurname.Text = qid.Customer.Surname;
                     txtAddress.Text = qid.Customer.Address;
+                    txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
                     txtEmail.Text = qid.Customer.Email;
                     txtPhoneNo.Text = qid.Customer.Phone;
                 }
                 else
                 {
+
+
                     qte = (Quote)Session["quote"];
                     if (qte != null)
                     {
                         //Display quote ref generated on product page
                         lblDisplayQuoteRef.Text = qte.Quote_Ref;
+
                         decimal totalQuote = 0;
 
                         //Display quote price generated on product page
@@ -87,9 +101,11 @@ namespace SetInStone
                         }
                         lblDisplayQuote.Text = totalQuote.ToString();
                         //txtFirstName.Text = qte.QuoteId.ToString();
+                        txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
+                      
 
-                        
                     }
+
                 }
                 //The following commented out code will be used
                 //editing a quote
@@ -178,6 +194,7 @@ namespace SetInStone
                                        Address = txtAddress.Text,
                                        Email = txtEmail.Text,
                                        Phone = (txtPhoneNo.Text)
+                                       
 
                                    };
                         db.Customers.Add(cust);
@@ -187,7 +204,7 @@ namespace SetInStone
                     qte.CustomerId = cust.CustomerID;
 
                     qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
-                    //qte.Quote_Ref = lblQuoteRef.Text;
+                    qte.Quote_Date = Convert.ToDateTime(txtDate.Text);
                     db.Quotes.Add(qte);
                     
                     
