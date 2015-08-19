@@ -31,7 +31,7 @@ namespace SetInStone
 
         //create product for session
         public Quote qte = null;
-        private DateTime dte = DateTime.Today;
+        private DateTime dte = DateTime.Now;
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,7 +44,7 @@ namespace SetInStone
 
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
-                    //qte = (Quote)Session["quote"];
+                    qte = (Quote)Session["quote"];
                     //if (qte != null)
                     //{
                     //    //Display quote ref generated on product page
@@ -64,12 +64,23 @@ namespace SetInStone
 
                     lblDisplayQuoteRef.Text = qid.Quote_Ref;
 
+                    decimal prvQuote = 0;
                     decimal totalQuote = 0;
-
                     //Display quote price generated on product page
-                    foreach (var item in qid.Quote_Details)
+
+
+                    foreach (var item in qte.Quote_Details)
                     {
-                        totalQuote += item.Item_Price;
+                        if (qte != null)
+                        {
+                            //prvQuote += item.Item_Price;
+                            //totalQuote = prvQuote + Convert.ToDecimal(item.Quote.Quote_Price);
+                            totalQuote += item.Item_Price;
+                        }
+                        else
+                        {
+                            totalQuote += item.Item_Price;
+                        }
                     }
 
                     lblDisplayQuote.Text = (totalQuote).ToString();
@@ -78,7 +89,7 @@ namespace SetInStone
                     txtFirstName.Text = qid.Customer.First_Name;
                     txtSurname.Text = qid.Customer.Surname;
                     txtAddress.Text = qid.Customer.Address;
-                    txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
+                    txtDate.Text = dte.ToString();
                     txtEmail.Text = qid.Customer.Email;
                     txtPhoneNo.Text = qid.Customer.Phone;
                 }
@@ -101,9 +112,9 @@ namespace SetInStone
                         }
                         lblDisplayQuote.Text = totalQuote.ToString();
                         //txtFirstName.Text = qte.QuoteId.ToString();
-                        txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy");
-                      
+                        //txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
 
+                        txtDate.Text = dte.ToString();
                     }
 
                 }
@@ -173,8 +184,8 @@ namespace SetInStone
             }
             catch
             {
-                //some feedback if it does not work
-                txtFirstName.Text = "fail";
+                Page.ClientScript.RegisterClientScriptBlock(this.GetType(), "Automated email failure", "<script>alert('The automated email service failed.');</script>");
+
             }
 
 

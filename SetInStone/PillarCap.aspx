@@ -1,7 +1,8 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="PillarCap.aspx.cs" Inherits="SetInStone.WebForm1" UnobtrusiveValidationMode="None" %>
 
 <%@ Import Namespace="System.Web.Optimization" %>
-
+<%@Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagPrefix="ajaxToolkit" %>
+<%@ Register assembly="Telerik.Web.UI" namespace="Telerik.Web.UI" tagprefix="telerik" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -55,30 +56,7 @@
     
         
     </script>
-     <script>
-
-        window.onload = function () {
-
-            //alert("page loaded");
-            <%--document.getElementById("<%= SlabHeight.ClientID %>").value = SLAB_HEIGHT;
-            document.getElementById("<%= SlabLength.ClientID %>").value = SLAB_LENGTH;
-            document.getElementById("<%= SlabWidth.ClientID %>").value = SLAB_WIDTH;
-            document.getElementById("<%= PryHeight.ClientID %>").value = PYRAMID_HEIGHT;
-            --%>
-            
-            //default size for new pier cap
-            //var SLAB_WIDTH = 20; SLAB_LENGTH = 80; SLAB_HEIGHT = 20; PYRAMID_HEIGHT = 25;
-            //init();
-
-            
-            
-            //alert(slab.scale.y);
-            
-            //slab.scale.y = 2 / (SLAB_HEIGHT * 10);
-            //alert(slab.scale.y);
-            
-        }
-    </script>
+     
 
     <title>Set In Stone</title>
 </head>
@@ -88,7 +66,8 @@
     <div id="divTitle">
         <label>Set In Stone - Pillar Cap</label>
     </div>
-            <div id='MainGraphic'>
+            
+    <div id='MainGraphic'>
 
                 <script type='text/javascript'>
 
@@ -333,6 +312,7 @@
                         document.getElementById('<%= DisplayStoneType.ClientID %>').value = Display_stone;
                         
                     }
+                    
 
                 </script>
                 
@@ -367,9 +347,36 @@
         }
 
     </script>
-
+    
     <form id="fmControls" runat="server">
+        <asp:Panel runat="server" ID="pnlExistingQuote" Visible="False">
+            <br/>
+            <asp:Label runat="server" ID="lblPanelCaption" Text="Existing Quote" CssClass="panelTitle"></asp:Label>
+            <br/>
+            <br/>
+            <asp:Label runat="server" ID="lblCapHeightCaption" Text="Cap Height: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapHeightPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapWidthCaption" Text="Cap Width: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapWidthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapLengthCaption" Text="Cap Length: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapLengthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapPointCaption" Text="Cap Point: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapPointPanel" CssClass="panellData"></asp:Label>
+            <br/>
+             <asp:Label ID="lblStoneTitle" runat="server" Text="Cap Stone Type: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label ID="lblQuantityCaption" runat="server" Text="Quantity: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblQuantityCaptionPanel" runat="server" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
+            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal"></asp:TextBox>
 
+        </asp:Panel>
 
         <%--Start of Ajax commands--%>
         <asp:ScriptManager ID="MainScriptManager" runat="server" />
@@ -387,42 +394,34 @@
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" OnClick="btnCalculate_Click"
                         OnClientClick=" DisplayStoneSelection(); " />
-
+                     <br/>
+                      <asp:Panel runat="server" ID="pnlQuoteCalc" Visible="False">
+                        <asp:Label runat="server" ID="lblDisplayTotalCost" Text="Total Cost (euros)" ></asp:Label>
+                        <br/>
+                        <asp:Label ID="lblCalculateAnswer" runat="server"  ></asp:Label>
+                        </asp:Panel>
+                     <br />
                     <br />
-                    <asp:Label ID="lblPreviousDetails" runat="server"  CssClass="Labels"></asp:Label>
-                    <br/>
-                    <asp:Label ID="lblStoneTitle" runat="server"  CssClass="Labels"></asp:Label>
+                     <br />
+                   
 <%--                   <asp:TextBox runat="server" ID="txtDisplayTitle" Text="Cap Stone Type:" CssClass="stoneTextbox" ReadOnly="True"></asp:TextBox>--%>
-
-                     
-
-                      <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="Labels"></asp:Label>
-
+                    
                       <asp:RangeValidator ID="rgvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Max limit - 30" MaximumValue="30" MinimumValue="1" Type="Integer" Display="None"></asp:RangeValidator>
                     
                     <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplayStone" Display="None" ErrorMessage="Select a stone type"></asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" Display="None" ErrorMessage="Enter a quantity"></asp:RequiredFieldValidator>
                     
-                    
-                    
 
-                    <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" 
-                        />
-                      <br />
-                    
-                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
-                    <asp:Label ID="lblCalculateAnswer" runat="server" CssClass="Labels" ></asp:Label>
+                    <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     <br />
-                    
 
-                   
-
-                    <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnBack_Click" CssClass="Buttons"/>
+                    <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnBack_Click" CssClass="Buttons" CausesValidation="False"/>
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
                         OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />
                     <asp:TextBox runat="server" ID="txtDisplayStone"  CssClass="stoneTextbox" Visible="True" ReadOnly="True" 
                         ></asp:TextBox>
+                  
                     <%--Hidden fields for slab and pryamid measurements--%>
                     <asp:HiddenField ID="SlabLength" runat="server" />
                     <asp:HiddenField ID="SlabWidth" runat="server" />
@@ -434,8 +433,6 @@
                    <asp:HiddenField runat="server" ID="hf_StoneType"/>
 
                     
-                    <asp:Label runat="server"></asp:Label>
-
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
@@ -443,9 +440,7 @@
         <asp:ValidationSummary ID="vlsCapValidation" runat="server" />
 
     </form>
+    
 
-<script>
-  
-</script>
 </body>
 </html>

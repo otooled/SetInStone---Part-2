@@ -183,8 +183,7 @@
                         //Display selection
 
                         DisplayMarbleType = 6;
-                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Green Marble";
+                       
                         
                         document.getElementById('<%= hf_StoneType.ClientID %>').value = "Green Marble";
                         document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Green Marble";
@@ -195,8 +194,7 @@
                         
                         //Display selection
                         DisplayMarbleType = 9;
-                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "White Marble";
+                        
                         
                         document.getElementById('<%= hf_StoneType.ClientID %>').value = "White Marble";
                         document.getElementById('<%= txtDisplayStone.ClientID %>').value = "White Marble";
@@ -207,8 +205,7 @@
                         
                         //Display selection
                         DisplayMarbleType = 4;
-                        //document.getElementById('<%= lblFireplaceStoneCaption.ClientID %>').style.display = 'inline';
-                        //document.getElementById('<%= lblFireplaceStone.ClientID %>').innerText = "Red Marble";
+                        
                         
                         document.getElementById('<%= hf_StoneType.ClientID %>').value = "Red Marble";
                         document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Red Marble";
@@ -321,7 +318,35 @@
     
     </div>
    <form id="fmControls" runat="server">
-
+       <asp:Panel runat="server" ID="pnlExistingQuote" Visible="False">
+            <br/>
+           <asp:Label runat="server" ID="lblPanelCaption" Text="Existing Quote" CssClass="panelTitle"></asp:Label>
+            <br/>
+            <br/>
+            <asp:Label runat="server" ID="lblBaseHeightCaption" Text="Base Height: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblBaseHeightPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblBaseWidthCaption" Text="Base Width: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblBaseWidthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblDepthCaption" Text="Depth: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblDepthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblTopHeightCaption" Text="Top Height: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblTopHeightPanel" CssClass="panellData"></asp:Label>
+            <br/>
+         <asp:Label runat="server" ID="lblTopWidthCaption" Text="Top Width: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblTopWidthPanel" CssClass="panellData"></asp:Label>
+           <br/>
+           <asp:Label ID="lblFirePQuantityCaption" runat="server" Text="Quantity: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblFirePQuantityPanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+             <asp:Label ID="lblStoneTitle" runat="server" Text="Marble Type: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
+           </asp:Panel>
 
         <%--Start of Ajax commands--%>
         <asp:ScriptManager ID="MainScriptManager" runat="server" />
@@ -338,24 +363,29 @@
                     <asp:TextBox runat="server" ID="txtQuantity" CssClass="TextBoxes" placeholder="Quantity"></asp:TextBox>
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost" 
                         OnClientClick="DisplayMarbleSelection();" OnClick="btnCalculate_Click" />
-                    <br />
-                    <asp:Label ID="lblPreviousDetails" runat="server"  CssClass="Labels"></asp:Label>
                     <br/>
+                      <asp:Panel runat="server" ID="pnlQuoteCalc" Visible="False">
+                        <asp:Label runat="server" ID="lblDisplayTotalCost" Text="Total Cost (euros)" ></asp:Label>
+                        <br/>
+                        <asp:Label ID="lblCalculateAnswer" runat="server"  ></asp:Label>
+                        </asp:Panel>
+                    <br/>
+                    
                   
                      
-                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" 
-                            CssClass="Labels"></asp:Label>
+<%--                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" 
+                            CssClass="Labels"></asp:Label>--%>
 
-                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>
+<%--                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>--%>
 
                       <%--<br />
                     <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>--%>
                     <br />
-                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
-                     <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
+<%--                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>--%>
+<%--                     <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>--%>
                     <br />
                     <br />
-                    <asp:Button runat="server" ID="btnContinue" Text="Add more products" CssClass="Buttons" OnClick="btnContinue_Click"/>
+                    <asp:Button runat="server" ID="btnContinue" Text="Add more products" CssClass="Buttons" OnClick="btnContinue_Click" CausesValidation="False"/>
                    
 
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click"

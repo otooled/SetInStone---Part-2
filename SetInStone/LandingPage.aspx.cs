@@ -74,15 +74,7 @@ namespace SetInStone
                     //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
                     Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
                     Response.Redirect("PillarCap.aspx?QuoteDetailsID=" + qid.QuoteId);
-                    //if (qid == null)
-                    //{
-                    //    Response.Redirect("PillarCap.aspx");
-                    //}
-                    //else
-                    //{
-                    //    Response.Redirect("PillarCap.aspx?QuoteDetailsID=" + qid.QuoteId);
-                    //}
-
+                   
                 }
                 else
                 {
@@ -93,8 +85,21 @@ namespace SetInStone
             }
             else if (ddlProductType.SelectedIndex == 2)
             {
-                Session.Add("productOptionID",ddlProductType.SelectedValue);
-                Response.Redirect("SquarePillar.aspx");
+                if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
+                {
+                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
+               // Response.Redirect("PillarCap.aspx
+                    Session.Add("productOptionID", ddlProductType.SelectedValue);
+                    Response.Redirect("SquarePillar.aspx?QuoteDetailsID=" + qid.QuoteId);
+
+                }
+                else
+                {
+                    Response.Redirect("SquarePillar.aspx");
+                }
+
             }
             else if (ddlProductType.SelectedIndex == 3)
             {
@@ -103,8 +108,22 @@ namespace SetInStone
             }
             else if (ddlProductType.SelectedIndex == 4)
             {
-                Session.Add("productOptionID", ddlProductType.SelectedValue);
-                Response.Redirect("FirePlace.aspx");
+                if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
+                {
+                    int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                    //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
+                    // Response.Redirect("PillarCap.aspx
+                    Session.Add("productOptionID", ddlProductType.SelectedValue);
+                    Response.Redirect("FirePlace.aspx?QuoteDetailsID=" + qid.QuoteId);
+
+                }
+                else
+                {
+                    Response.Redirect("FirePlace.aspx");
+                }
+                
+                //Response.Redirect("FirePlace.aspx");
             }
             
         }

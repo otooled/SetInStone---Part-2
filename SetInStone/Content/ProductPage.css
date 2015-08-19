@@ -6,7 +6,7 @@
 #divTitle {
     margin-left: auto;
     margin-right: auto;
-    width: 500px;
+    width: 520px;
     color: white;
     font-family: Papyrus;
     font-size: 40px;
@@ -96,11 +96,54 @@
 }
 
 .stoneTextbox {
-     background-color: white;
+    background-color: transparent;
     border: none;
     height: 40px;
-    color: black;
+    color: transparent;
     font-size: 15px;
     width: 40px;
     height: 10px
+}
+#pnlExistingQuote {
+    background-color: white;
+    height: 320px;
+    width: 220px;
+    position: absolute;
+    left: 20px;
+    top: 140px;
+    border-radius: 10px;
+    
+}
+
+.panelCaptions {
+    margin-left: 10px;
+    font-family:Book Antiqua;
+    color: darkgray; 
+}
+.panellData {
+  margin-left: 15px;
+    font-family:Book Antiqua;
+    color: darkgray; 
+}
+.panelTitle {
+    margin-top: 5px;
+    margin-left: 50px;
+}
+#pnlQuoteCalc {
+    margin-left: 210px;
+    margin-top: 10px;
+    height: 50px;
+    width: 250px;
+    background-color: lightgoldenrodyellow;
+    position: absolute;
+    border-radius: 6px;
+}
+#lblDisplayTotalCost {
+     font-family:Book Antiqua;
+    color: darkgray;
+    font-size: 15px;
+}
+#lblCalculateAnswer {
+    font-family:Book Antiqua;
+    font-size: 25px;
 }

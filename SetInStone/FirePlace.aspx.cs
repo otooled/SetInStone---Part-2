@@ -22,13 +22,14 @@ namespace SetInStone
         //Check user is logged in
         private void Page_PreInit(object sender, System.EventArgs e)
         {
-            //if ((Session["loginDetails"] == null))
-            //{
-            //    Response.Redirect("Login.aspx");
-            //}
+            if ((Session["loginDetails"] == null))
+            {
+                Response.Redirect("Login.aspx");
+            }
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            btnContinue.Enabled = false;
             if (!Page.IsPostBack)
             {
 
@@ -40,21 +41,54 @@ namespace SetInStone
                     //Edit mode
                     int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                     Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                    if (qid != null)//new
+                    {
+                        pnlExistingQuote.Visible = true;
+                        btnContinue.Enabled = true;
+                        btnSaveConfirm.Enabled = false;
 
-                    BaseWidth.Value = qid.Fireplace_Base_Width.ToString();
-                    BaseHeight.Value = qid.Fireplace_Base_Height.ToString();
-                    TopHeight.Value = qid.Fireplace_Top_Height.ToString();
-                    TopWidth.Value = qid.Fireplace_Top_Width.ToString();
-                    Depth.Value = qid.Fireplace_Depth.ToString();
+                        BaseWidth.Value = qid.Fireplace_Base_Width.ToString();
+                        lblBaseWidthPanel.Text = qid.Fireplace_Base_Width.ToString();
 
-                    lblPreviousDetails.Text = ("Existing Quote");
-                    lblDisplayTotalCost.Text = ("Total Cost: ");
-                    lblFireplaceStoneCaption.Text = ("Marble Type: ");
-                    lblFireplaceStone.Text = qid.Stone.StoneType;
-                    lblCalculateAnswer.Text = "";
-                    //txtDisplayStone.Text = "";
-                    txtDisplayStone.Text = qid.Stone.StoneType;
-                    lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
+                        BaseHeight.Value = qid.Fireplace_Base_Height.ToString();
+                        lblBaseHeightPanel.Text = qid.Fireplace_Base_Height.ToString(); 
+
+
+                        TopHeight.Value = qid.Fireplace_Top_Height.ToString();
+                        lblTopHeightPanel.Text = qid.Fireplace_Top_Height.ToString();
+
+                        TopWidth.Value = qid.Fireplace_Top_Width.ToString();
+                        lblTopWidthPanel.Text = qid.Fireplace_Top_Width.ToString();
+
+                        Depth.Value = qid.Fireplace_Depth.ToString();
+                        lblDepthPanel.Text = qid.Fireplace_Depth.ToString();
+
+                       // hf_StoneType.Value 
+                        HF_MarbleSelection.Value= qid.Stone_ID.ToString();
+
+                        lblFirePQuantityPanel.Text = qid.Quantity.ToString();
+                        lblDisplayStoneType.Text = qid.Stone.StoneType;
+                        lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
+                        
+                        //lblPreviousDetails.Text = ("Existing Quote");
+                        //lblDisplayTotalCost.Text = ("Total Cost: ");
+                        //lblFireplaceStoneCaption.Text = ("Marble Type: ");
+                        //lblFireplaceStone.Text = qid.Stone.StoneType;
+                        lblCalculateAnswer.Text = "";
+                        //txtDisplayStone.Text = "";
+                        txtDisplayStone.Text = qid.Stone.StoneType;
+                        //lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString();
+                    }
+
+                    else
+                    {
+                        BaseWidth.Value = 400.ToString();
+                        BaseHeight.Value = 250.ToString();
+
+                        TopHeight.Value = 120.ToString();
+                        TopWidth.Value = 400.ToString();
+                        Depth.Value = 60.ToString();
+                    }
                 }
                 else
                 {
@@ -78,12 +112,15 @@ namespace SetInStone
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            lblPreviousDetails.Text = ("Current Quote:");
-            lblDisplayTotalCost.Text = ("Total Cost: ");
-            lblFireplaceStoneCaption.Text = ("Marble Type: ");
+            pnlQuoteCalc.Visible = true;
+            btnContinue.Enabled = true;
+            btnSaveConfirm.Enabled = true;
+           // lblPreviousDetails.Text = ("Current Quote:");
+           // lblDisplayTotalCost.Text = ("Total Cost: ");
+           // lblFireplaceStoneCaption.Text = ("Marble Type: ");
             txtDisplayStone.Text = hf_StoneType.Value;
             //ViewState["sTypes"] = txtDisplayStone.Text;
-            lblFireplaceStone.Text = txtDisplayStone.Text;
+           // lblFireplaceStone.Text = txtDisplayStone.Text;
 
             //variables to hold cost and cutting calculation results
             float qauntity = float.Parse(txtQuantity.Text);
@@ -164,49 +201,43 @@ namespace SetInStone
             if (Page.IsValid)
             {
                 Quote qte;
-                //if ((Session["EditMode"] != null) && true)
-                //{
-                //    if ((Session["quote"] != null))
-                //    {
-                //        //Quote q = (Quote)Session["quote"];
-                //        //q.Product.Width = float.Parse(SlabWidth.Value);
-                //        ////q.Product.StoneId = Convert.ToInt32(ddlStoneType.SelectedValue);
-                //        //q.Product.StoneId = sType;
-                //        //q.Product.Height = float.Parse(SlabHeight.Value);
-                //        //q.Product.Length = float.Parse(SlabLength.Value);
-                //        //q.Product.PyrHeight = float.Parse(PryHeight.Value);
-                //        //db.SaveChanges();
-                //    }
-                //}
-
-                //    //This adds product deminsions into session
-                //else // not edit mode
-                //{
+               
                     if ((Session["quote"] != null))
                     {
                         qte = (Quote)Session["quote"];
                         if (qte != null)
                         {
                             qte.Quote_Details.Add(new Quote_Details()
-                            {
-                                Fireplace_Base_Height = float.Parse(BaseHeight.Value),
-                                Fireplace_Base_Width = float.Parse(BaseWidth.Value),
+                                                      {
+                                                          Fireplace_Base_Height = float.Parse(BaseHeight.Value),
+                                                          Fireplace_Base_Width = float.Parse(BaseWidth.Value),
 
-                                Fireplace_Top_Height = float.Parse(TopHeight.Value),
-                                Fireplace_Top_Width = float.Parse(TopWidth.Value),
-                                Stone_ID = Convert.ToInt32(HF_MarbleSelection.Value),
+                                                          Fireplace_Top_Height = float.Parse(TopHeight.Value),
+                                                          Fireplace_Top_Width = float.Parse(TopWidth.Value),
+                                                          Stone_ID = Convert.ToInt32(HF_MarbleSelection.Value),
 
-                                Fireplace_Depth = float.Parse(Depth.Value),
-                                Product_Option_ID = 4,
-                                Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
-                                Quantity = Convert.ToInt16(txtQuantity.Text)
+                                                          Fireplace_Depth = float.Parse(Depth.Value),
+                                                          Product_Option_ID = 4,
+                                                          Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                                                          Quantity = Convert.ToInt16(txtQuantity.Text)
 
-                            });
+                                                      });
 
+                            int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+
+                            Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
                             Session["quote"] = qte;
+                            if (qid != null)
+                            {
+                                Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.QuoteId);
 
+                            }
+                            else
+                            {
+                                Response.Redirect("Quote.aspx");
+                            }
 
-                            Response.Redirect("Quote.aspx");
+                           // Response.Redirect("Quote.aspx");
                         }
                     }
                     else
@@ -229,9 +260,17 @@ namespace SetInStone
                         });
 
                         Session.Add("quote", qte);
-
-
-                        Response.Redirect("Quote.aspx");
+                        int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+                        Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+                        if (qid == null)
+                        {
+                            Response.Redirect("Quote.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.Quote_ID);
+                        }
+                        //Response.Redirect("Quote.aspx");
                     }
                 }
 
@@ -240,6 +279,7 @@ namespace SetInStone
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
+            Session["quote"] = null;
             Response.Redirect("LandingPage.aspx");
         }
 
@@ -287,7 +327,7 @@ namespace SetInStone
                     Stone_ID = Convert.ToInt32(HF_MarbleSelection.Value),
                     Product_Option_ID = 4,
                     Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
-                    Quantity = Convert.ToInt16(txtQuantity.Text)
+                    Quantity = Convert.ToInt16(lblFirePQuantityPanel.Text)//(txtQuantity.Text)
                 });
                
 
@@ -295,7 +335,10 @@ namespace SetInStone
 
 
             }
-            Response.Redirect("LandingPage.aspx");
+            int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
+            Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+            Response.Redirect("LandingPage.aspx?QuoteDetailsID=" + qid.Quote_ID);
+            //Response.Redirect("LandingPage.aspx");
         }
 
 

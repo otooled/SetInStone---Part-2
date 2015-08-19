@@ -22,6 +22,168 @@ namespace SetInStone {
         protected global::System.Web.UI.HtmlControls.HtmlForm fmControls;
         
         /// <summary>
+        /// pnlExistingQuote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlExistingQuote;
+        
+        /// <summary>
+        /// lblPanelCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPanelCaption;
+        
+        /// <summary>
+        /// lblBaseHeightCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBaseHeightCaption;
+        
+        /// <summary>
+        /// lblBaseHeightPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBaseHeightPanel;
+        
+        /// <summary>
+        /// lblBaseWidthCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBaseWidthCaption;
+        
+        /// <summary>
+        /// lblBaseWidthPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBaseWidthPanel;
+        
+        /// <summary>
+        /// lblDepthCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDepthCaption;
+        
+        /// <summary>
+        /// lblDepthPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDepthPanel;
+        
+        /// <summary>
+        /// lblTopHeightCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTopHeightCaption;
+        
+        /// <summary>
+        /// lblTopHeightPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTopHeightPanel;
+        
+        /// <summary>
+        /// lblTopWidthCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTopWidthCaption;
+        
+        /// <summary>
+        /// lblTopWidthPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTopWidthPanel;
+        
+        /// <summary>
+        /// lblFirePQuantityCaption control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFirePQuantityCaption;
+        
+        /// <summary>
+        /// lblFirePQuantityPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFirePQuantityPanel;
+        
+        /// <summary>
+        /// lblStoneTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStoneTitle;
+        
+        /// <summary>
+        /// lblDisplayStoneType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDisplayStoneType;
+        
+        /// <summary>
+        /// lblTotalCostPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotalCostPanel;
+        
+        /// <summary>
+        /// lblExistingTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblExistingTotal;
+        
+        /// <summary>
         /// MainScriptManager control.
         /// </summary>
         /// <remarks>
@@ -58,31 +220,13 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnCalculate;
         
         /// <summary>
-        /// lblPreviousDetails control.
+        /// pnlQuoteCalc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPreviousDetails;
-        
-        /// <summary>
-        /// lblFireplaceStoneCaption control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFireplaceStoneCaption;
-        
-        /// <summary>
-        /// lblFireplaceStone control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFireplaceStone;
+        protected global::System.Web.UI.WebControls.Panel pnlQuoteCalc;
         
         /// <summary>
         /// lblDisplayTotalCost control.

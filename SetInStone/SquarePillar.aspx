@@ -74,7 +74,7 @@
     <br />
     <br />
     <div id="divTitle">
-        <label>Set In Stone</label>
+        <label>Set In Stone - Square Pillar</label>
     </div>
     <div id='MainGraphic'>
 
@@ -228,8 +228,7 @@
                         Cap_Stone_Type = 1;
                         CapStoneType();
                         //Display selection
-                       // document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Granite";
-                        //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                       
                         document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Granite";
                         document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Granite";
 
@@ -239,8 +238,7 @@
                         Cap_Stone_Type = 2;
                         CapStoneType();
                         //Display selection
-                        //document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Sand Stone";
-                        //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                        
                         
                         document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Sandstone";
                         document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Sandstone";
@@ -251,8 +249,7 @@
                         Cap_Stone_Type = 3;
                         CapStoneType();
                         //Display selection
-                        //document.getElementById('<%= lblCapStoneType.ClientID %>').textContent = "Lime Stone";
-                        //document.getElementById('<%= lblCapStoneTypeCaption.ClientID %>').style.display = 'inline';
+                        
                         document.getElementById('<%= hf_DisplayCapType.ClientID %>').value = "Limestone";
                         document.getElementById('<%= txtDisplayCapStone.ClientID %>').value = "Limestone";
                     } else
@@ -446,6 +443,49 @@
 
 
     <form id="frmControls" runat="server">
+        
+          <asp:Panel runat="server" ID="pnlExistingQuote" Visible="False">
+            <br/>
+            <asp:Label runat="server" ID="lblPanelCaption" Text="Existing Quote" CssClass="panelTitle"></asp:Label>
+            <br/>
+            <br/>
+            <asp:Label runat="server" ID="lblCapHeightCaption" Text="Cap Height: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapHeightPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapWidthCaption" Text="Cap Width: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapWidthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapLengthCaption" Text="Cap Length: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapLengthPanel" CssClass="panellData"></asp:Label>
+            <br/>
+            <asp:Label runat="server" ID="lblCapPointCaption" Text="Cap Point: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblCapPointPanel" CssClass="panellData"></asp:Label>
+            <br/>
+              <asp:Label ID="lblCapSelectionCapion" runat="server" Text="Cap Stone Type: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblCapTypePanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+            <br/>
+               <asp:Label ID="lblPillWidthCaption" runat="server" Text="Pillar Width: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblPillarWidthPanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+                <asp:Label ID="lblPillHeightCaption" runat="server" Text="Pillar Height: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblPillHeightPanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+              <asp:Label ID="lblPillLengthCaption" runat="server" Text="Pillar Length: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblPillLengthPanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+             
+              <asp:Label ID="lblPillSelectionCaption" runat="server" Text="Pillar Stone Type: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblPillTypePanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+              <asp:Label ID="lblPillCapQuantityCaption" runat="server" Text="Quantity: "  CssClass="panelCaptions"></asp:Label>
+             <asp:Label ID="lblPillCapQuantityPanel" runat="server" CssClass="panellData"></asp:Label>
+              <br/>
+            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
+
+        </asp:Panel>
+
 
         <%--Start of Ajax commands--%>
         <asp:ScriptManager ID="MainScriptManager" runat="server" />
@@ -464,34 +504,34 @@
                     
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
                         OnClick="btnCalculate_Click" OnClientClick=" PillarStoneType(); CapStoneType() ;" CausesValidation="True"/>
+                    <br/>
+                      <asp:Panel runat="server" ID="pnlQuoteCalc" Visible="False">
+                        <asp:Label runat="server" ID="lblDisplayTotalCost" Text="Total Cost (euros)" ></asp:Label>
+                        <br/>
+                        <asp:Label ID="lblCalculateAnswer" runat="server"  ></asp:Label>
+                        </asp:Panel>
+                     <br />
+                    <br />
+                     
+                    
+
                     <asp:RequiredFieldValidator ID="rfvCapStone" runat="server" ErrorMessage="Select a cap stone type" ControlToValidate="txtDisplayCapStone" Display="None"></asp:RequiredFieldValidator>
                     
                     <asp:RequiredFieldValidator ID="rfvPillarStone" runat="server" ErrorMessage="Select a pillar stone type" ControlToValidate="txtDisplayPillarStone" Display="None"></asp:RequiredFieldValidator>
-                    <br/>
-                    <asp:Label ID="lblCapStoneTypeCaption" runat="server" CssClass="Labels" ></asp:Label>
-                        <asp:Label ID="lblCapStoneType" runat="server" CssClass="Labels"  ClientIDMode="Static"></asp:Label>
-                    <br/>
+                   
                         <asp:Label ID="lblPillarStoneCaption" runat="server" CssClass="Labels" ></asp:Label>
 
                         <asp:Label ID="lblPillarStone" CssClass="Labels" runat="server"  ClientIDMode="Static" ></asp:Label>
-                        <br />
-                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>
-                     <<asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>
+                        
 
-                        <%--<asp:Label runat="server" ID="lblTotalCost" Visible="False"></asp:Label>
-                        <br />--%>
-
-                   <%-- <asp:RegularExpressionValidator ID="RegNumberOnly" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Number only" ValidationExpression="^\d$"></asp:RegularExpressionValidator>
-                    <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Enter a quantity amount"></asp:RequiredFieldValidator>
-                   --%>
+                       
                     
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     
                     <br />
                      <br />
-<%--                    <asp:Label ID="lblDisplayPillarStone" runat="server"></asp:Label>--%>
 
-                    <asp:Button runat="server" ID="btnContinueOrder" Text="Add more products" CssClass="Buttons" OnClick="btnContinueOrder_Click"/>
+                    <asp:Button runat="server" ID="btnContinueOrder" Text="Add more products" CssClass="Buttons" OnClick="btnContinueOrder_Click" CausesValidation="False"/>
 
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click"
                         />
