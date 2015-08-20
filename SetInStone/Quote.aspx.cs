@@ -37,7 +37,6 @@ namespace SetInStone
         {
             //Edit mode
             int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
-            //Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
             Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
             if (!Page.IsPostBack)
             {
@@ -45,42 +44,20 @@ namespace SetInStone
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
                     qte = (Quote)Session["quote"];
-                    //if (qte != null)
-                    //{
-                    //    //Display quote ref generated on product page
-                    //    lblDisplayQuoteRef.Text = qte.Quote_Ref;
-                    //    decimal totalQuote = 0;
 
-                    //    //Display quote price generated on product page
-                    //    foreach (var item in qte.Quote_Details)
-                    //    {
-                    //        totalQuote += item.Item_Price;
-                    //    }
-                        
-                    //    lblDisplayQuote.Text = (totalQuote).ToString();
-                    //    //txtFirstName.Text = qte.Customer.First_Name;
-                    //    //txtFirstName.Text = c.First_Name;
-                    //}
-
+                    //Display quote price generated on product page
                     lblDisplayQuoteRef.Text = qid.Quote_Ref;
 
-                    decimal prvQuote = 0;
                     decimal totalQuote = 0;
-                    //Display quote price generated on product page
 
 
                     foreach (var item in qte.Quote_Details)
                     {
-                        if (qte != null)
-                        {
+                        
                             //prvQuote += item.Item_Price;
                             //totalQuote = prvQuote + Convert.ToDecimal(item.Quote.Quote_Price);
-                            totalQuote += item.Item_Price;
-                        }
-                        else
-                        {
-                            totalQuote += item.Item_Price;
-                        }
+                        totalQuote += item.Item_Price;
+
                     }
 
                     lblDisplayQuote.Text = (totalQuote).ToString();
@@ -118,29 +95,6 @@ namespace SetInStone
                     }
 
                 }
-                //The following commented out code will be used
-                //editing a quote
-
-                //if (Session["quote"] != null)
-                //{
-
-                //    qte = (Quote)Session["quote"];
-                //    if (qte != null)
-                //    {
-                //        //Display quote ref generated on product page
-                //        lblDisplayQuoteRef.Text = qte.Quote_Ref;
-                //        decimal totalQuote = 0;
-
-                //        //Display quote price generated on product page
-                //        foreach (var item in qte.Quote_Details)
-                //        {
-                //            totalQuote += item.Item_Price;
-                //        }
-                //        lblDisplayQuote.Text = totalQuote.ToString();
-                //        txtFirstName.Text = qte.Customer.First_Name;
-                //    }
-
-                //}
                 
             }
             

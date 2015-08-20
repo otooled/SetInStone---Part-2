@@ -66,57 +66,59 @@ namespace SetInStone
 
                             DisplayStoneType.Value = qid.Stone_ID.ToString();
                            lblQuantityCaptionPanel.Text = qid.Quantity.ToString();
-                            //txtQuantity.Text = qid.Quote.Customer.First_Name;
-
-                            //lblPreviousDetails.Text = ("Existing Quote");
-                            //lblDisplayTotalCost.Text = ("Total Cost: ");
-                            //lblStoneTitle.Text = ("Cap Stone Type: ");
+                         
                             lblDisplayStoneType.Text = qid.Stone.StoneType;
+
                             lblExistingTotal.Text = qid.Item_Price.ToString();//qid.Quote.Quote_Price.ToString();
                             txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
 
-                            lblCalculateAnswer.Text = "";
+                            //lblCalculateAnswer.Text = "";
 
-                            txtDisplayStone.Text = qid.Stone.StoneType;
+                            //txtDisplayStone.Text = qid.Stone.StoneType;
                             //lblCalculateAnswer.Text = qid.Item_Price.ToString(); // qid.Quote.Quote_Price.ToString();
+
+
+                            //If this value is null then there is no pllar car quotes in the database.
+                            //This can only happen if the Quote_Details table has been cleared.
+                            //The default values are then applied.
+                            if (SlabHeight.Value == "")
+                            {
+                                DefaultDemensions();
+
+                            }
                         }
                         else
                         {
-                            SlabWidth.Value = 800.ToString();
-                            SlabLength.Value = 1000.ToString();
-                            SlabHeight.Value = 250.ToString();
-
-                            PryHeight.Value = 200.ToString();
-
+                            DefaultDemensions();
                         }
                     }
 
                     else
                     {
-                        SlabWidth.Value = 800.ToString();
-                        SlabLength.Value = 1000.ToString();
-                        SlabHeight.Value = 250.ToString();
-
-                        PryHeight.Value = 200.ToString();
-
+                        DefaultDemensions();
                     }
                 }
 
-
             }
+
+        private void DefaultDemensions()
+        {
+            SlabWidth.Value = 800.ToString();
+            SlabLength.Value = 1000.ToString();
+            SlabHeight.Value = 250.ToString();
+
+            PryHeight.Value = 200.ToString();
+        }
         
 
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-            //lblPreviousDetails.Text = ("Current Quote:");
-            //lblDisplayTotalCost.Text = ("Total Cost: ");
-            //lblDisplayTotalCost.Visible = true;
-            //lblStoneTitle.Text = ("Cap Stone Type: ");
+           
             pnlQuoteCalc.Visible = true;
             btnAddProducts.Enabled = true;
             btnSaveConfirm.Enabled = true;
             txtDisplayStone.Text = hf_StoneType.Value;
-            //ViewState["sTypes"] = txtDisplayStone.Text;
+          
             lblDisplayStoneType.Text = txtDisplayStone.Text;
 
             //variables to hold cost and cutting calculation results
@@ -135,8 +137,7 @@ namespace SetInStone
         private float PyramidSurface()
         {
             //Measurements entered by the user through the slider control
-            //int sType = Convert.ToInt32( ddlStoneType.SelectedValue);
-
+           
             float slabWidth = float.Parse(SlabWidth.Value);
             float slabHeight = float.Parse(SlabHeight.Value);
             float pyramidHeight = float.Parse(PryHeight.Value);
@@ -156,7 +157,7 @@ namespace SetInStone
         private float CustomerSlabDetails()
         {
             //Measurements entered by the user through the slider control
-            //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
+         
             int stoneID = CheckStoneSelection();
            
             float slabWidth = float.Parse(SlabWidth.Value);
@@ -171,11 +172,9 @@ namespace SetInStone
         private float CalculateStraightCuts()
         {
             //Measurements entered by the user through the slider control
-            //int sType = Convert.ToInt32(ddlStoneType.SelectedValue);
-
+           
             CheckStoneSelection();
             
-
             float slabWidth = float.Parse(SlabWidth.Value);
             float slabHeight = float.Parse(SlabHeight.Value);
             float slabLength = float.Parse(SlabLength.Value);
@@ -227,14 +226,11 @@ namespace SetInStone
                             {
                                 Response.Redirect("Quote.aspx");
                             }
-                            //Response.Redirect("Quote.aspx");
                         }
                     }
                     else
                     {
                         qte = new Quote() {Quote_Ref = qRef};
-
-                        //Customer cid = db.Customers.Where(c => c.CustomerID == qte.CustomerId).FirstOrDefault();
                         
                         qte.Quote_Details.Add(new Quote_Details()
                                                   {
@@ -307,7 +303,7 @@ namespace SetInStone
                 string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
                 qte = new Quote() { Quote_Ref = qRef };
 
-                if (txtQuantity.Text == null)
+                if (txtQuantity.Text == "")
                 {
                     qte.Quote_Details.Add(new Quote_Details()
 
@@ -319,7 +315,7 @@ namespace SetInStone
                                                   Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
                                                   Product_Option_ID = 1,
                                                   Item_Price = Convert.ToDecimal(txtInvisibleTotal.Text),
-                                                  Quantity = Convert.ToInt16(txtQuantity.Text) //changing here
+                                                  Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text) //changing here
 
                                               });
 
@@ -328,17 +324,17 @@ namespace SetInStone
                 {
                     qte.Quote_Details.Add(new Quote_Details()
 
-                    {
-                        Cap_Height = float.Parse(SlabHeight.Value),
-                        Cap_Width = float.Parse(SlabWidth.Value),
-                        Cap_Length = float.Parse(SlabLength.Value),
-                        Cap_Point = float.Parse(PryHeight.Value),
-                        Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
-                        Product_Option_ID = 1,
-                        Item_Price = Convert.ToDecimal(txtInvisibleTotal.Text),
-                        Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text) //changing here
+                                              {
+                                                  Cap_Height = float.Parse(SlabHeight.Value),
+                                                  Cap_Width = float.Parse(SlabWidth.Value),
+                                                  Cap_Length = float.Parse(SlabLength.Value),
+                                                  Cap_Point = float.Parse(PryHeight.Value),
+                                                  Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
+                                                  Product_Option_ID = 1,
+                                                  Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
+                                                  Quantity = Convert.ToInt16(txtQuantity.Text) //changing here
 
-                    });
+                                              });
                 }
 
 
@@ -357,8 +353,7 @@ namespace SetInStone
             {
                 Response.Redirect("LandingPage.aspx");
             }
-            //Response.Redirect("LandingPage.aspx?QuoteDetailsID=" + qid.Quote_ID);
-            //Response.Redirect("LandingPage.aspx");
+           
         }
     }
 }

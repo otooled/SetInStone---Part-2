@@ -72,10 +72,7 @@
                     });
                 });
 
-                function ClearSearch(parameters) {
-                    var grid = $("#grid_Quotes").data("kendoGrid");
-                    grid.clearSelection();
-                }
+               
                 //Display quote for selected customers including api for quote returns
                 function DisplayCustQuotes(custID) {
                     $("#grid_Quotes").kendoGrid({
@@ -104,10 +101,16 @@
                                 template: "#= kendo.toString(kendo.parseDate(Quote_Date, 'yyyy-MM-dd'), 'dd/MM/yyyy') #"
                                 
                             },
+                             {
+                                 command: {
+                                     text: "View Details",
+                                     click:showDetails
+                                 }
+                             },
                             {
                                 command: {
-                                    text: "View Details",
-                                    click: showDetails
+                                    text: "Delete",
+                                    click: DeleteDetail
                                 },
                                 title: "Edit ",
                                 width: "130px"
@@ -167,6 +170,7 @@
                                 title: "Total",
                                 format: "€{0:n2}"
                             },
+                           
                             {
                                 command: {
                                     text: "Edit",
@@ -200,6 +204,12 @@
                     {
                         window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID ;
                     }
+                }
+
+                function DeleteDetail(e)  {
+                    e.preventDefault();
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    
                 }
             </script>
 

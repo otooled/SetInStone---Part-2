@@ -106,7 +106,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Start\test2.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -231,17 +230,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CustomersController.cs" />
+    <Compile Include="Api\DeleteQuote.cs" />
     <Compile Include="Api\QuoteDetailsController.cs" />
     <Compile Include="Api\QuotesController.cs" />
     <Content Include="App_Code\HF_StoneType.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\test2.aspx.cs">
-      <DependentUpon>test2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="App_Start\test2.aspx.designer.cs">
-      <DependentUpon>test2.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="CalcClasses\CutCost.cs" />
     <Compile Include="Customer.cs">
