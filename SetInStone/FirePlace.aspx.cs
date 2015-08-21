@@ -87,6 +87,11 @@ namespace SetInStone
                         if (BaseWidth.Value == "")
                         {
                             DefaultDemensions();
+                            lblFirePQuantityPanel.Text = "";
+                            lblDisplayStoneType.Text = "";
+                            //lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
+
+                            txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
                         }
 
 

@@ -205,7 +205,6 @@
     <Content Include="Scripts\physijs_worker.js" />
     <Content Include="Scripts\stats.min.js" />
     <Content Include="Scripts\threex.oimo.js" />
-    <Content Include="Test1.aspx" />
     <Content Include="Scripts\TGALoader.js" />
     <Content Include="Scripts\three.min.js" />
     <Content Include="Scripts\TrackballControls.js" />
@@ -351,13 +350,6 @@
     </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>SetInStone001.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Test1.aspx.cs">
-      <DependentUpon>Test1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test1.aspx.designer.cs">
-      <DependentUpon>Test1.aspx</DependentUpon>
     </Compile>
     <Compile Include="SetInStone.Context.cs">
       <AutoGen>True</AutoGen>

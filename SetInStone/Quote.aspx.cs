@@ -100,7 +100,9 @@ namespace SetInStone
             
         }
 
-        //Add the quote, customer and product to the database
+        //Add the quote, customer and product to the database and send an automated email.
+        //Code found at - http://asp.net-tutorials.com/misc/sending-mails/
+
         protected void btnSubmit_Click(object sender, EventArgs e)
         {
             //create the message

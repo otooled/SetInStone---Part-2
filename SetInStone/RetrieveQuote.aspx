@@ -31,25 +31,26 @@
             <div id="searchCust">
                 <h3>Enter customer name</h3>
                 <input id="customers" />
-                 
+
                 <button id="button" type="button">
                     <span class="k-icon"></span>Cancel</button>
-                
+
                 <%--Cancel button.  Redirects to landing page--%>
                 <script>
                     $("#button").kendoButton({
                         icon: "cancel",
                         click: function (e) {
-                           window.location.href = "LandingPage.aspx";
+                            window.location.href = "LandingPage.aspx";
                         }
-                      //  click: 
+                        //  click: 
                     });
 
                 </script>
             </div>
             <div id="grid_Quotes"></div>
-            
+
             <%--Kendo combo box including api for customer returns--%>
+            <%--            Code was found at:  http://demos.telerik.com/kendo-ui/grid/custom-command--%>
             <script>
                 $(document).ready(function () {
                     $("#customers").kendoComboBox({
@@ -61,7 +62,7 @@
                         minLength: 3,
                         change: function (e) {
                             DisplayCustQuotes(this.value());
-                            
+
                         },
                         dataSource: {
                             type: "json",
@@ -72,7 +73,7 @@
                     });
                 });
 
-               
+
                 //Display quote for selected customers including api for quote returns
                 function DisplayCustQuotes(custID) {
                     $("#grid_Quotes").kendoGrid({
@@ -99,18 +100,19 @@
                                 field: "Quote_Date",
                                 title: "Quote Date",
                                 template: "#= kendo.toString(kendo.parseDate(Quote_Date, 'yyyy-MM-dd'), 'dd/MM/yyyy') #"
-                                
+
                             },
                              {
                                  command: {
                                      text: "View Details",
-                                     click:showDetails
+                                     click: showDetails
                                  }
                              },
                             {
                                 command: {
                                     text: "Delete",
-                                    click: DeleteDetail
+                                    click: DeleteRec,
+                                    type: 'DELETE'
                                 },
                                 title: "Edit ",
                                 width: "130px"
@@ -170,7 +172,7 @@
                                 title: "Total",
                                 format: "€{0:n2}"
                             },
-                           
+
                             {
                                 command: {
                                     text: "Edit",
@@ -182,11 +184,26 @@
                     });
                 }
 
+
+
+                function DeleteRec(e) {
+                    e.preventDefault();
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    if (confirm('Do you really want to this quote?')) {
+                        var dataSource = $("#grid_Quotes").data("kendoGrid").dataSource;
+                        dataSource.remove(dataItem);
+                        
+                        dataSource.sync();
+                    }
+                }
+
+
+
                 //Redirect to product page 
                 function EditDetail(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                    
+
 
                     if (dataItem.ProductOptionID == 1) // pillar cap
                     {
@@ -202,21 +219,21 @@
                     }
                     else if (dataItem.ProductOptionID == 4)//fireplace
                     {
-                        window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID ;
+                        window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID;
                     }
                 }
 
-                function DeleteDetail(e)  {
+                function DeleteDetail(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                    
+
                 }
             </script>
 
-           
+
             <br />
         </div>
-        
+
         <%--Div for quote displays--%>
         <div id="window">
             <div id="QuoteDetails"></div>

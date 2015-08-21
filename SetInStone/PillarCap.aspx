@@ -372,9 +372,9 @@
             <asp:Label ID="lblQuantityCaption" runat="server" Text="Quantity: "  CssClass="panelCaptions"></asp:Label>
              <asp:Label ID="lblQuantityCaptionPanel" runat="server" CssClass="panellData"></asp:Label>
             <br/>
-            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
-            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
-            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal"></asp:TextBox>
+<%--            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>--%>
+<%--            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData" Text='<%#string.Format("{0:n2}",Eval("totalamt")) %>'></asp:Label>--%>
+            <asp:TextBox runat="server" Visible="False" ID="txtInvisibleTotal" ReadOnly="True"></asp:TextBox>
 
         </asp:Panel>
 

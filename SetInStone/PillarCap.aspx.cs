@@ -65,19 +65,13 @@ namespace SetInStone
                             lblCapPointPanel.Text = qid.Cap_Point.ToString();
 
                             DisplayStoneType.Value = qid.Stone_ID.ToString();
-                           lblQuantityCaptionPanel.Text = qid.Quantity.ToString();
+                            lblQuantityCaptionPanel.Text = qid.Quantity.ToString();
                          
                             lblDisplayStoneType.Text = qid.Stone.StoneType;
 
-                            lblExistingTotal.Text = qid.Item_Price.ToString();//qid.Quote.Quote_Price.ToString();
+                            //lblExistingTotal.Text = String.Format("{0:f2}", qid.Item_Price);//qid.Quote.Quote_Price.ToString();
                             txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
-
-                            //lblCalculateAnswer.Text = "";
-
-                            //txtDisplayStone.Text = qid.Stone.StoneType;
-                            //lblCalculateAnswer.Text = qid.Item_Price.ToString(); // qid.Quote.Quote_Price.ToString();
-
-
+                            
                             //If this value is null then there is no pllar car quotes in the database.
                             //This can only happen if the Quote_Details table has been cleared.
                             //The default values are then applied.

@@ -483,7 +483,7 @@
             <br />
             <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: " CssClass="panelCaptions"></asp:Label>
             <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
-            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal"></asp:TextBox>
+            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal" ReadOnly="True" ></asp:TextBox>
 
         </asp:Panel>
 
