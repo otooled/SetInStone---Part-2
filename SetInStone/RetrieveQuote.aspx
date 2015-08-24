@@ -122,7 +122,8 @@
                     });
                 }
 
-
+                //This code doesn't work.  It should delete the 
+                //record from the database but it does not
                 function Delete(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -199,8 +200,8 @@
                     });
                 }
 
-
-
+                //This code only deletes the record from 
+                //the Kendo UI and not the database.
                 function DeleteRec(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -211,8 +212,6 @@
                         dataSource.sync();
                     }
                 }
-
-
 
                 //Redirect to product page 
                 function EditDetail(e) {
@@ -237,12 +236,7 @@
                         window.location.href = "FirePlace.aspx?QuoteDetailsID=" + dataItem.Quote_Details_ID;
                     }
                 }
-
-                function DeleteDetail(e) {
-                    e.preventDefault();
-                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
-                }
+               
             </script>
 
 

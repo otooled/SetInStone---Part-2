@@ -32,8 +32,7 @@ namespace SetInStone
         //Don't have edit and order visible until quote ref has been verified
         protected void Page_Load(object sender, EventArgs e)
         {
-            //btnEditQuote.Visible = false;
-            //btnPlaceOrder.Visible = false;
+           
 
         }
 

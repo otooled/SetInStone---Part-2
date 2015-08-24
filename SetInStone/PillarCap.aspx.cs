@@ -11,10 +11,7 @@ namespace SetInStone
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
-      
-        //product option for session
-        //public Product prt = new Product();
- 
+        
        //database connection
         private SetInStone db = new SetInStone();
 
@@ -34,24 +31,31 @@ namespace SetInStone
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //Disable Add Products button to provent the user
+            //using it while in edit mode.
             btnAddProducts.Enabled = false;
+
                 if (!Page.IsPostBack)
                 {
-                    //The following commented out code will be used
-                    //editing a quote
-                   
+                    
+                   //Check query string status
                     if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                     {
                         //Edit mode
+                        //Get quote details id of quote being edited
                         int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                         Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
-                        if (qid != null)//new
+                        if (qid != null)
                         {
-
+                            //Display existing quote in panel
                             pnlExistingQuote.Visible = true;
+
+                            //Controls set for edit mode
                             btnAddProducts.Enabled = true;
                             btnSaveConfirm.Enabled = false;
 
+                            //Set hidden field values
+                            //Display the dimensions of quote
                             SlabHeight.Value = qid.Cap_Height.ToString();
                             lblCapHeightPanel.Text = qid.Cap_Height.ToString();
 
@@ -69,7 +73,6 @@ namespace SetInStone
                          
                             lblDisplayStoneType.Text = qid.Stone.StoneType;
 
-                            //lblExistingTotal.Text = String.Format("{0:f2}", qid.Item_Price);//qid.Quote.Quote_Price.ToString();
                             txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
                             
                             //If this value is null then there is no pllar car quotes in the database.
@@ -95,6 +98,7 @@ namespace SetInStone
 
             }
 
+        //Default dimensions of cap
         private void DefaultDemensions()
         {
             SlabWidth.Value = 800.ToString();
@@ -104,13 +108,14 @@ namespace SetInStone
             PryHeight.Value = 200.ToString();
         }
         
-
+        //Calculate
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
-           
+           //Display quote cost panel and enable controls
             pnlQuoteCalc.Visible = true;
             btnAddProducts.Enabled = true;
             btnSaveConfirm.Enabled = true;
+
             txtDisplayStone.Text = hf_StoneType.Value;
           
             lblDisplayStoneType.Text = txtDisplayStone.Text;
@@ -142,10 +147,10 @@ namespace SetInStone
             return surface;
         }
 
+        //Remove this when later on
         private int CheckStoneSelection()
         {
             return Convert.ToInt32(DisplayStoneType.Value);
-            
         }
 
         private float CustomerSlabDetails()
@@ -184,7 +189,7 @@ namespace SetInStone
             //generate a random alphanumeric string for Quote Reference
             string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
 
-            //This is for editing a quote 
+            
             if(Page.IsValid)
             {
                 Quote qte;
@@ -194,6 +199,7 @@ namespace SetInStone
                         qte = (Quote) Session["quote"];
                         if (qte != null)
                         {
+                            //Add dimensions of newly added product to session
                             qte.Quote_Details.Add(new Quote_Details()
                                                       {
                                                           Cap_Height = float.Parse(SlabHeight.Value),
@@ -297,6 +303,7 @@ namespace SetInStone
                 string qRef = Guid.NewGuid().ToString("N").Substring(0, 6).ToUpper();
                 qte = new Quote() { Quote_Ref = qRef };
 
+                //Check if quantity as a value.  If not use the value from label.  They're the same
                 if (txtQuantity.Text == "")
                 {
                     qte.Quote_Details.Add(new Quote_Details()
@@ -309,13 +316,14 @@ namespace SetInStone
                                                   Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
                                                   Product_Option_ID = 1,
                                                   Item_Price = Convert.ToDecimal(txtInvisibleTotal.Text),
-                                                  Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text) //changing here
+                                                  Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text) 
 
                                               });
 
                 }
                 else
                 {
+                    //Check if text box quantity as a value. 
                     qte.Quote_Details.Add(new Quote_Details()
 
                                               {
@@ -326,7 +334,7 @@ namespace SetInStone
                                                   Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
                                                   Product_Option_ID = 1,
                                                   Item_Price = Convert.ToDecimal(lblCalculateAnswer.Text),
-                                                  Quantity = Convert.ToInt16(txtQuantity.Text) //changing here
+                                                  Quantity = Convert.ToInt16(txtQuantity.Text)
 
                                               });
                 }
@@ -336,6 +344,9 @@ namespace SetInStone
 
 
             }
+
+            //Send quote id back to landing page.
+            //This is needed so customer info can be used on quote page
             int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
             Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
             if(qid != null)

@@ -256,31 +256,31 @@
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                     //Apply new textures to cap
-            slab.material = newMaterial;
-            pyramid.material = newMaterial;
+                    slab.material = newMaterial;
+                    pyramid.material = newMaterial;
 
-            animate();
-        }
+                    animate();
+                }
 
                 //Manipulate height of slab
                 //This function also controls the position of the pillar and pyramid as the slab moves.
-        slabY.onChange(function (value) {
-            slab.scale.y = value / (SLAB_HEIGHT * 10);
+                slabY.onChange(function(value) {
+                    slab.scale.y = value / (SLAB_HEIGHT * 10);
 
-            //Move the pillar position as the slab moves
-            pillar.position.y = (slab.scale.y * (-1.5 * 6.10)) - 6.5;
+                    //Move the pillar position as the slab moves
+                    pillar.position.y = (slab.scale.y * (-1.5 * 6.10)) - 6.5;
 
-            //Move the pyramid as the slab moves
-            pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
+                    //Move the pyramid as the slab moves
+                    pyramid.position.y = (slab.position.y + SLAB_HEIGHT / 2) + (slab.scale.y * 8) - 8;
 
-            //Put Y scale value in global variable
-            // Slab_Height = slab.scale.y;
-            document.getElementById('<%= SlabHeight.ClientID %>').value = value;
+                    //Put Y scale value in global variable
+                    // Slab_Height = slab.scale.y;
+                    document.getElementById('<%= SlabHeight.ClientID %>').value = value;
                 });
 
 
                 //Manipulate height of pyramid point
-                pyramidY.onChange(function (value) {
+                pyramidY.onChange(function(value) {
                     pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
 
                     //Put pryamid Y scale value in global variable
@@ -302,8 +302,7 @@
                         Pillar_Stone_Type = 1;
                         PillarStoneType();
                         //Display selection
-                        //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Granite";
-                        //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+
                         document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Granite";
                         document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Granite";
 
@@ -313,8 +312,7 @@
                         Pillar_Stone_Type = 2;
                         PillarStoneType();
                         //Display selection
-                        //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Sand Stone";
-                        //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+
                         document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Sandstone";
                         document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Sandstone";
 
@@ -324,8 +322,7 @@
                         Pillar_Stone_Type = 3;
                         PillarStoneType();
                         //Display selection
-                        //document.getElementById('<%= lblPillarStone.ClientID %>').textContent = "Lime Stone";
-                        //document.getElementById('<%= lblPillarStoneCaption.ClientID %>').style.display = 'inline';
+
                         document.getElementById('<%= hf_DisplayPillarType.ClientID %>').value = "Limestone";
                         document.getElementById('<%= txtDisplayPillarStone.ClientID %>').value = "Limestone";
 
@@ -333,32 +330,32 @@
                         newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
 
                     //Apply new textures to pillar
-            pillar.material = newMaterial;
-            animate();
-        }
+                    pillar.material = newMaterial;
+                    animate();
+                }
 
 
                 //Manipulate width of pillar
                 //This function also controls the width and length of the slab and pyramid as the pillar moves.
-        pillarX.onChange(function (value) {
-            pillar.scale.x = value / (PILLAR_WIDTH * 10);
+                pillarX.onChange(function(value) {
+                    pillar.scale.x = value / (PILLAR_WIDTH * 10);
 
-            //Move pyramid width
-            pyramid.scale.x = pillar.scale.x;
+                    //Move pyramid width
+                    pyramid.scale.x = pillar.scale.x;
 
-            //Move slab width
-            slab.scale.x = pillar.scale.x;
+                    //Move slab width
+                    slab.scale.x = pillar.scale.x;
 
-            //Put X scale value in global variable
-            //Pillar_Length = pillar.scale.x;
+                    //Put X scale value in global variable
+                    //Pillar_Length = pillar.scale.x;
 
-            document.getElementById('<%= HF_PillarWidth.ClientID %>').value = value;
+                    document.getElementById('<%= HF_PillarWidth.ClientID %>').value = value;
 
                 });
 
                 //Manipulate height of pillar
                 //This function also controls the position of the slab and pyramid as the pillar moves.
-                pillarY.onChange(function (value) {
+                pillarY.onChange(function(value) {
                     pillar.scale.y = value / (PILLAR_HEIGHT * 10);
 
                     //Move slab position as pillar moves
@@ -395,7 +392,7 @@
 
             }
 
-            //Functions to send co-ordinates of pryamid and slab to code behind
+            //send stone type of cap and pillar to code behind
 
             function CapStoneType() {
 
@@ -413,9 +410,10 @@
 
 
     <script>
-        //init();
+
         animate();
 
+        <%--Script from Three.js for rendering--%>
         function animate() {
             requestAnimationFrame(animate);
             render();
@@ -443,6 +441,8 @@
 
 
     <form id="frmControls" runat="server">
+
+        <%-- Panel will display existing quote dimensions--%>
 
         <asp:Panel runat="server" ID="pnlExistingQuote" Visible="False">
             <br />
@@ -481,9 +481,9 @@
             <asp:Label ID="lblPillCapQuantityCaption" runat="server" Text="Quantity: " CssClass="panelCaptions"></asp:Label>
             <asp:Label ID="lblPillCapQuantityPanel" runat="server" CssClass="panellData"></asp:Label>
             <br />
-          <%--  <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: " CssClass="panelCaptions"></asp:Label>
+            <%--  <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: " CssClass="panelCaptions"></asp:Label>
             <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>--%>
-            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal" ReadOnly="True" ></asp:TextBox>
+            <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal" ReadOnly="True"></asp:TextBox>
 
         </asp:Panel>
 
@@ -506,6 +506,8 @@
                     <asp:Button CssClass="Buttons" runat="server" ID="btnCalculate" Text="Calculate Cost"
                         OnClick="btnCalculate_Click" OnClientClick=" PillarStoneType(); CapStoneType() ;" CausesValidation="True" />
                     <br />
+
+                    <%--Panel to display quote cost--%>
                     <asp:Panel runat="server" ID="pnlQuoteCalc" Visible="False">
                         <asp:Label runat="server" ID="lblDisplayTotalCost" Text="Total Cost (euros)"></asp:Label>
                         <br />
@@ -513,8 +515,6 @@
                     </asp:Panel>
                     <br />
                     <br />
-
-
 
                     <asp:RequiredFieldValidator ID="rfvCapStone" runat="server" ErrorMessage="Select a cap stone type" ControlToValidate="txtDisplayCapStone" Display="None"></asp:RequiredFieldValidator>
 
@@ -524,11 +524,7 @@
 
                     <asp:Label ID="lblPillarStone" CssClass="Labels" runat="server" ClientIDMode="Static"></asp:Label>
 
-
-
-
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
-
                     <br />
                     <br />
 
