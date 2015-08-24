@@ -21,6 +21,7 @@ namespace SetInStone
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             //The system crashes if the user presses back afte logging in.
             //This should prevent that
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -28,10 +29,11 @@ namespace SetInStone
 
             //Highlight username textbox
             txtStaffID.Focus();
-            
 
+          
             if (!IsPostBack)
             {
+                
                 //Create session
                 if (Session["loginDetails"] != null)
                 {
@@ -39,6 +41,8 @@ namespace SetInStone
                     txtStaffID.Text = values.User_ID;
 
                     txtPassword.Text = values.Password;
+
+                   
                 }
             }
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -28,7 +29,7 @@ namespace SetInStone
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         //Encryption for password creation
@@ -52,30 +53,47 @@ namespace SetInStone
         //Add new employee to database
         protected void btnAddEmployee_Click(object sender, EventArgs e)
         {
-            Employee emp = new Employee()
-                               {
-                                   User_ID = txtUserName.Text,
-                                   First_name = txtFirstName.Text,
-                                   Surname = txtSurname.Text,
-                                   Password = GetMd5Hash(txtConfirmPassword.Text),
+            //Check if username is already taken
+            Employee em = db.Employees.Where(a => a.User_ID == txtUserName.Text).FirstOrDefault();
 
-                               };
-            db.Employees.Add(emp);
-            try
+            if (em != null)
             {
-                db.SaveChanges();
+                if (txtUserName.Text == em.User_ID)
+                {
+                    pnlUserName.Visible = true;
+                }
+               
             }
-            catch (Exception)
+            else
             {
+                //Add the employee
+                Employee emp = new Employee()
+                {
+                    User_ID = txtUserName.Text,
+                    First_name = txtFirstName.Text,
+                    Surname = txtSurname.Text,
+                    Password = GetMd5Hash(txtConfirmPassword.Text),
+
+                };
+                db.Employees.Add(emp);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
 
 
-            }
+                }
 
-            finally
-            {
+                finally
+                {
+                    //Display success message
+                    string timeGone =
+                        @"<script type='text/javascript'> if(confirm('You can now log in with your chosen username and password.')) { document.location='LandingPage.aspx?val=true';}</script>";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "timeOut", timeGone, false);
+                }
 
-                string timeGone = @"<script type='text/javascript'> if(confirm('You can now log in with your chosen username and password.')) { document.location='LandingPage.aspx?val=true';}</script>";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "timeOut", timeGone, false);
             }
         }
 
@@ -83,5 +101,9 @@ namespace SetInStone
         {
             Response.Redirect("LandingPage.aspx");
         }
+
+        
+
+       
     }
 }

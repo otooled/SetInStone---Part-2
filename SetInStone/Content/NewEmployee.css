@@ -1,5 +1,5 @@
 ﻿body {
-    background: url("Images/intro-bg.jpg");
+    background: url("Images/back5.JPG");
     background-repeat: no-repeat;
    background-size: 1400px 650px;
 }
@@ -13,10 +13,14 @@
 }
 .Buttons {
     background-color: transparent;
-    border-color: transparent;
+    /*border-color: transparent;*/
     color: white;
     font-family: Book Antiqua;
-    font-size: 30px;
+    font-size: 20px;
+    height: 35px;
+    border-width: 3px;
+    border-radius: 6px;
+    border-color: white;
     
 }
 .TextBoxes {
@@ -40,4 +44,19 @@ input:focus {
     margin-right: auto;
     width: 400px;
     
+}
+#pnlUserName{
+    margin-left: 250px;
+    margin-top: -45px;
+    height: 30px;
+    width: 200px;
+    /*color: black;*/
+    background-color: lightgoldenrodyellow;
+    position: absolute;
+    border-radius: 6px;
+}
+#lblDisplayError {
+    font-family:Book Antiqua;
+    color: darkgray;
+    font-size: 15px;
 }

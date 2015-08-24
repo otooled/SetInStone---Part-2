@@ -156,8 +156,7 @@
 
                 //Slider UI
                 fireplace_deminsions = firePlace_gui.addFolder('Fireplace Dimensions (mm)');
-                //slabX = topSlab_deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                //slabZ = topSlab_deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
+                
                 topSlabY = fireplace_deminsions.add(fireplace_parameters, 'Top_Slab_Height').min(MIN_TOP_SLAB_HEIGHT).max(MAX_TOP_SLAB_HEIGHT).step(1).listen();
                 
                 sideSlabY = fireplace_deminsions.add(fireplace_parameters, 'Base_Height').min(MIN_SIDE_SLAB_HEIGHT).max(MAX_SIDE_SLAB_HEIGHT).step(1).listen();
@@ -344,9 +343,9 @@
              <asp:Label ID="lblStoneTitle" runat="server" Text="Marble Type: "  CssClass="panelCaptions"></asp:Label>
              <asp:Label ID="lblDisplayStoneType" runat="server" CssClass="panellData"></asp:Label>
             <br/>
-            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
-            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
-           <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal"></asp:TextBox>
+           <%-- <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: "  CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>--%>
+           <asp:TextBox runat="server" Visible="False" ID="txtInvisibleTotal"></asp:TextBox>
            </asp:Panel>
 
         <%--Start of Ajax commands--%>
@@ -371,19 +370,7 @@
                         <asp:Label ID="lblCalculateAnswer" runat="server"  ></asp:Label>
                         </asp:Panel>
                     <br/>
-                    
-                  
-                     
-<%--                        <asp:Label ID="lblFireplaceStoneCaption" runat="server" 
-                            CssClass="Labels"></asp:Label>--%>
-
-<%--                        <asp:Label ID="lblFireplaceStone" runat="server"  ClientIDMode="Static" CssClass="Labels" ></asp:Label>--%>
-
-                      <%--<br />
-                    <asp:Label runat="server" ID="lblTotalCost" Visible="True"></asp:Label>--%>
                     <br />
-<%--                    <asp:Label runat="server" ID="lblDisplayTotalCost"  CssClass="Labels" Visible="True" ></asp:Label>--%>
-<%--                     <asp:Label runat="server" ID="lblCalculateAnswer" CssClass="Labels"></asp:Label>--%>
                     <br />
                     <br />
                     <asp:Button runat="server" ID="btnContinue" Text="Add more products" CssClass="Buttons" OnClick="btnContinue_Click" CausesValidation="False"/>
@@ -407,7 +394,7 @@
                     <asp:HiddenField ID="HF_MarbleSelection" runat="server"/>
 
                    <asp:HiddenField runat="server" ID="hf_StoneType"/>
-                    <asp:Label ID="Label1" runat="server"></asp:Label>
+                 
 
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
 

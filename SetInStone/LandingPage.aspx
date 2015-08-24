@@ -17,8 +17,11 @@
     <div id="divTitle">
         <label>Set In Stone</label>
     </div>
+    
+   
     <form id="form1" runat="server">
-
+        <br/>
+         <asp:Label runat="server" ID="lblEditTitle" Text="Edit Quote - Add Product" Visible="False"></asp:Label>
         <%--Dropdownlist for product selection--%>
         <div id="ControlsDivCol1" class="controlsDivCol1">
             <asp:DropDownList ID="ddlProductType" runat="server" data-toggle="dropdown" OnSelectedIndexChanged="ddlProductType_SelectedIndexChanged1"
@@ -42,7 +45,14 @@
             <%--Logout quote button--%>
 
             <asp:Button runat="server" ID="btnLogOut" Text="Logout" OnClick="btnLogOut_Click" CssClass="LoginButtons" />
+            <br/>
+            <br/>
+            <br/>
+                    <asp:Button runat="server" ID="btnCancel" Text="Cancel/Start Again" OnClick="btnCancel_Click" Visible="False"
+                        />
+
         </div>
+       
 
     </form>
 </body>

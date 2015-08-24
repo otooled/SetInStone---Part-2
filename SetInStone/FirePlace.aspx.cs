@@ -72,7 +72,7 @@ namespace SetInStone
 
                         lblFirePQuantityPanel.Text = qid.Quantity.ToString();
                         lblDisplayStoneType.Text = qid.Stone.StoneType;
-                        lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
+                        //lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
 
                         txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
 

@@ -106,17 +106,32 @@
                                  command: {
                                      text: "View Details",
                                      click: showDetails
-                                 }
+                                 },
+                                 title: "Edit ",
+                                 width: "130px"
                              },
                             {
                                 command: {
                                     text: "Delete",
-                                    click: DeleteRec,
+                                    click: Delete,
                                     type: 'DELETE'
                                 },
-                                title: "Edit ",
+                                title: "Delete ",
                                 width: "130px"
                             }]
+                    });
+                }
+
+
+                function Delete(e) {
+                    e.preventDefault();
+                    var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+
+                    $.ajax({
+                        url: "../Api/DeleteQuote/" + dataItem.QuoteId,
+                        type: 'DELETE',
+                        dataType: 'json'
+
                     });
                 }
 
@@ -134,7 +149,7 @@
                         height: "250px",
                         modal: true,
                         resizable: false,
-                        title: "Order Details",
+                        title: "Quote Details",
                         width: "800px",
                         visible: false /*don't show it yet*/
                     }).data("kendoWindow").center().open();
@@ -178,7 +193,7 @@
                                     text: "Edit",
                                     click: EditDetail
                                 },
-                                title: " ",
+                                title: "Edit ",
                                 width: "100px"
                             }]
                     });
@@ -192,7 +207,7 @@
                     if (confirm('Do you really want to this quote?')) {
                         var dataSource = $("#grid_Quotes").data("kendoGrid").dataSource;
                         dataSource.remove(dataItem);
-                        
+
                         dataSource.sync();
                     }
                 }

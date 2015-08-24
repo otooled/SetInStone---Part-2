@@ -481,8 +481,8 @@
             <asp:Label ID="lblPillCapQuantityCaption" runat="server" Text="Quantity: " CssClass="panelCaptions"></asp:Label>
             <asp:Label ID="lblPillCapQuantityPanel" runat="server" CssClass="panellData"></asp:Label>
             <br />
-            <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: " CssClass="panelCaptions"></asp:Label>
-            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>
+          <%--  <asp:Label ID="lblTotalCostPanel" runat="server" Text="Total Cost: " CssClass="panelCaptions"></asp:Label>
+            <asp:Label runat="server" ID="lblExistingTotal" CssClass="panellData"></asp:Label>--%>
             <asp:TextBox runat="server" Visible="True" ID="txtInvisibleTotal" ReadOnly="True" ></asp:TextBox>
 
         </asp:Panel>
@@ -532,7 +532,7 @@
                     <br />
                     <br />
 
-                    <asp:Button runat="server" ID="btnContinueOrder" Text="Add more products" CssClass="Buttons" OnClick="btnContinueOrder_Click" CausesValidation="False" />
+                    <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" CssClass="Buttons" OnClick="btnAddProducts_Click" CausesValidation="False" />
 
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote" OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" CausesValidation="False" OnClick="btnCancel_Click" />

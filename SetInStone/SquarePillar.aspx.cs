@@ -32,7 +32,7 @@ namespace SetInStone
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnContinueOrder.Enabled = false;
+            btnAddProducts.Enabled = false;
             if (!Page.IsPostBack)
             {
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
@@ -45,7 +45,7 @@ namespace SetInStone
                     {
 
                         pnlExistingQuote.Visible = true;
-                        btnContinueOrder.Enabled = true;
+                        btnAddProducts.Enabled = true;
                         btnSaveConfirm.Enabled = false;
                         
                         SlabWidth.Value = q.Cap_Width.ToString();
@@ -75,7 +75,7 @@ namespace SetInStone
 
                         lblPillCapQuantityPanel.Text = qid.Quantity.ToString();
 
-                        lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
+                        //lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
 
                         lblPillTypePanel.Text = qid.Stone.StoneType;
                         lblCapTypePanel.Text = q.Stone.StoneType;
@@ -129,7 +129,7 @@ namespace SetInStone
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
             pnlQuoteCalc.Visible = true;
-            btnContinueOrder.Enabled = true;
+            btnAddProducts.Enabled = true;
             btnSaveConfirm.Enabled = true;
          
             txtDisplayCapStone.Text = hf_DisplayCapType.Value;
@@ -331,7 +331,7 @@ namespace SetInStone
             Response.Redirect("LandingPage.aspx");
         }
 
-        protected void btnContinueOrder_Click(object sender, EventArgs e)
+        protected void btnAddProducts_Click(object sender, EventArgs e)
         {
             Quote qte;
             if ((Session["quote"] != null))
@@ -380,7 +380,7 @@ namespace SetInStone
                                                   Cap_Point = float.Parse(PryHeight.Value),
                                                   Stone_ID = Convert.ToInt32(HF_CapStoneType.Value),
                                                   Product_Option_ID = 1,
-                                                  Item_Price = Convert.ToDecimal(lblExistingTotal.Text),
+                                                  Item_Price = Convert.ToDecimal(txtInvisibleTotal.Text),
                                                   Quantity = Convert.ToInt16(lblPillCapQuantityPanel.Text)
                                               });
                 }

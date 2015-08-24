@@ -27,8 +27,8 @@ namespace SetInStone.Api
                         d.Quote_Details_ID,
                         d.Stone.StoneType,
                         d.Quantity,
-                        d.Item_Price,
-                        Item_Total = d.Quantity * d.Item_Price
+                        Item_Price = d.Item_Price / d.Quantity,
+                        Item_Total = d.Quantity * (d.Item_Price / d.Quantity)
                     }).ToList();
 
             return query;

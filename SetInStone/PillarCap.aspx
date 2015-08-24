@@ -415,7 +415,7 @@
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     <br />
 
-                    <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnBack_Click" CssClass="Buttons" CausesValidation="False"/>
+                    <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnAddProducts_Click" CssClass="Buttons" CausesValidation="False"/>
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
                         OnClick="btnSaveConfirm_Click" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />

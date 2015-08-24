@@ -39,7 +39,7 @@ namespace SetInStone
                 {
                     //The following commented out code will be used
                     //editing a quote
-
+                   
                     if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                     {
                         //Edit mode
@@ -267,7 +267,7 @@ namespace SetInStone
             Response.Redirect("LandingPage.aspx");
         }
 
-        protected void btnBack_Click(object sender, EventArgs e)
+        protected void btnAddProducts_Click(object sender, EventArgs e)
         {
             Quote qte;
             if ((Session["quote"] != null))

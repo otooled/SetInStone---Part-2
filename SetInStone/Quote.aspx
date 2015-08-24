@@ -6,7 +6,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <%: Styles.Render("~/Content/bootstrap.css", "~/Content/Quote.css") %><%: Scripts.Render("~/bundles/jQuery") %>
+    <%: Styles.Render("~/Content/bootstrap.css",  "~/Content/Quote.css") %><%: Scripts.Render("~/bundles/jQuery") %>
     <title>Set In Stone</title>
 </head>
 <body>
@@ -17,8 +17,8 @@
         <div id="divTitle">
         <label>Set In Stone</label>
     </div>
+       
     <div id="divQuote">
-    
         
     <asp:Label runat="server" ID="lblQuoteCaption" CssClass="Labels" Text="Total: "></asp:Label>
        
@@ -56,8 +56,6 @@
         <asp:RegularExpressionValidator ID="regEmail" runat="server" ControlToValidate="txtEmail" Display="None" ErrorMessage="Incorrect email address" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" SetFocusOnError="True"></asp:RegularExpressionValidator>
         <br />
          <br />
-        
-        
        
         <asp:Button ID="btnSubmit" runat="server" Text="Save Quote" OnClick="btnSubmit_Click" CssClass="Buttons"
              />

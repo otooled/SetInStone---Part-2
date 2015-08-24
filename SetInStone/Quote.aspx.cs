@@ -35,18 +35,18 @@ namespace SetInStone
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             //Edit mode
             int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
             Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
             if (!Page.IsPostBack)
             {
-
+                
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
                     qte = (Quote)Session["quote"];
-
                     //Display quote price generated on product page
-                    lblDisplayQuoteRef.Text = qid.Quote_Ref;
+                    lblDisplayQuoteRef.Text = qte.Quote_Ref;
 
                     decimal totalQuote = 0;
 
@@ -72,8 +72,6 @@ namespace SetInStone
                 }
                 else
                 {
-
-
                     qte = (Quote)Session["quote"];
                     if (qte != null)
                     {
@@ -151,7 +149,7 @@ namespace SetInStone
                 if (qte != null)
                 {
                     Customer cust = db.Customers.Where(a => a.First_Name == txtFirstName.Text && a.Surname == txtSurname.Text).FirstOrDefault();
-                    
+
                     if (cust == null)
                     {
                         cust = new Customer
@@ -161,17 +159,19 @@ namespace SetInStone
                                        Address = txtAddress.Text,
                                        Email = txtEmail.Text,
                                        Phone = (txtPhoneNo.Text)
-                                       
+
 
                                    };
                         db.Customers.Add(cust);
+
                         db.SaveChanges();
                     }
-                    
+
                     qte.CustomerId = cust.CustomerID;
 
                     qte.Quote_Price = Convert.ToDecimal(lblDisplayQuote.Text);
                     qte.Quote_Date = Convert.ToDateTime(txtDate.Text);
+                    
                     db.Quotes.Add(qte);
                     
                     

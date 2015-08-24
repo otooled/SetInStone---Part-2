@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Services;
 
 namespace SetInStone.Api
 {
@@ -16,6 +17,26 @@ namespace SetInStone.Api
         {
             db.Dispose();
         }
+
+
+        public class QuoteModel
+        {
+            public string QuoteID { get; set; }
+
+            public string Status { get; set; }
+        }
+
+
+        // DELETE api/values/5
+        [HttpDelete]
+        public HttpResponseMessage DeleteWithRequestBody(int id, [FromBody] QuoteModel model)
+        {
+            model.Status = "Deleted";
+            var response = Request.CreateResponse(HttpStatusCode.OK, model);
+            return response;
+        }
+        
+
         //public IEnumerable<object> Get(int id)
         //{
 
