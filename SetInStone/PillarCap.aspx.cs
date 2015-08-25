@@ -130,7 +130,7 @@ namespace SetInStone
             //Display final cost of stone work
             
             lblCalculateAnswer.Text = (total * qauntity).ToString("#.##");
-            txtInvisibleTotal.Text = lblCalculateAnswer.Text;
+           
         }
 
         private float PyramidSurface()
@@ -217,6 +217,8 @@ namespace SetInStone
                            
                             Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
                             Session["quote"] = qte;
+
+                            //Send qoute id to quote page
                             if (qid != null)
                             {
                                 Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.QuoteId);
@@ -231,7 +233,8 @@ namespace SetInStone
                     else
                     {
                         qte = new Quote() {Quote_Ref = qRef};
-                        
+
+                        //Save dimensions of cap 
                         qte.Quote_Details.Add(new Quote_Details()
                                                   {
                                                       Cap_Height = float.Parse(SlabHeight.Value),
@@ -247,6 +250,7 @@ namespace SetInStone
                         
                         Session.Add("quote", qte);
 
+                        //Get quote details id and send it to quote page
                         int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                         Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
                        
@@ -269,7 +273,7 @@ namespace SetInStone
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Session["quote"] = null;
+            Session["quote"] = null;  //Clear session
             Response.Redirect("LandingPage.aspx");
         }
 
@@ -281,6 +285,7 @@ namespace SetInStone
                 qte = (Quote)Session["quote"];
                 if (qte != null)
                 {
+                    //Add dimensions when quote is edited
                     qte.Quote_Details.Add(new Quote_Details()
                                               {
                                                   Cap_Height = float.Parse(SlabHeight.Value),
@@ -316,7 +321,7 @@ namespace SetInStone
                                                   Stone_ID = Convert.ToInt32(DisplayStoneType.Value),
                                                   Product_Option_ID = 1,
                                                   Item_Price = Convert.ToDecimal(txtInvisibleTotal.Text),
-                                                  Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text) 
+                                                  Quantity = Convert.ToInt16(lblQuantityCaptionPanel.Text)
 
                                               });
 
@@ -339,9 +344,7 @@ namespace SetInStone
                                               });
                 }
 
-
                 Session.Add("quote", qte);
-
 
             }
 
@@ -359,6 +362,11 @@ namespace SetInStone
                 Response.Redirect("LandingPage.aspx");
             }
            
+        }
+
+        protected void csvWireframe_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            
         }
     }
 }

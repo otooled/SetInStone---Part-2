@@ -156,7 +156,7 @@ namespace SetInStone
 
             //Display final cost of stone work
             lblCalculateAnswer.Text = ((totalCap + totalPillar) * quantity).ToString("#.##");
-
+           
         }
 
         private float PyramidSurface()
@@ -469,7 +469,6 @@ namespace SetInStone
             }
        
         }
-
 
     }
 }

@@ -54,8 +54,6 @@ namespace SetInStone
                     foreach (var item in qte.Quote_Details)
                     {
                         
-                            //prvQuote += item.Item_Price;
-                            //totalQuote = prvQuote + Convert.ToDecimal(item.Quote.Quote_Price);
                         totalQuote += item.Item_Price;
 
                     }
@@ -85,7 +83,7 @@ namespace SetInStone
                         {
                             totalQuote += item.Item_Price;
                         }
-                        lblDisplayQuote.Text = totalQuote.ToString();
+                        lblDisplayQuote.Text = totalQuote.ToString("#.##");
                         //txtFirstName.Text = qte.QuoteId.ToString();
                         //txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
 

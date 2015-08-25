@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="http://localhost:55153/code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
 
 
+
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ProductPage.css") %><%: Scripts.Render("~/bundles/jQuery") %>
 
     <script>
@@ -74,166 +75,168 @@
             init();
             alert(document.getElementById("<%= SlabHeight.ClientID %>").value);
 
-                    function init() {
-                        var mainGraphic = document.getElementById('MainGraphic');
+            function init() {
+                var mainGraphic = document.getElementById('MainGraphic');
 
-                        //renderer for scene
+                //renderer for scene
 
-                        renderer = new THREE.WebGLRenderer({ antialias: true });
-                        renderer.setSize(740, 320);
-                        renderer.shadowMapEnabled = true;
-                        renderer.shadowMapSoft = true;
-                        renderer.domElement.style.border = '2px solid white';
+                renderer = new THREE.WebGLRenderer({ antialias: true });
+                renderer.setSize(740, 320);
+                renderer.shadowMapEnabled = true;
+                renderer.shadowMapSoft = true;
+                renderer.domElement.style.border = '2px solid white';
 
-                        mainGraphic.appendChild(renderer.domElement);
+                mainGraphic.appendChild(renderer.domElement);
 
-                        //create the scene
-                        scene = new THREE.Scene();
+                //create the scene
+                scene = new THREE.Scene();
 
-                        //Camera position
-                        camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
-                        camera.position.set(100, 100, 200);
+                //Camera position
+                camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 1000);
+                camera.position.set(100, 100, 200);
 
-                        //Rotation of objects in scene
-                        controls = new THREE.TrackballControls(camera, renderer.domElement);
+                //Rotation of objects in scene
+                controls = new THREE.TrackballControls(camera, renderer.domElement);
 
-                        //Light the scene
-                        light = new THREE.AmbientLight(0xffffff);
-                        scene.add(light);
+                //Light the scene
+                light = new THREE.AmbientLight(0xffffff);
+                scene.add(light);
 
-                        //Create the slab geometry and material
-                        slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH);
-                        slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
+                //Create the slab geometry and material
+                slabGeometry = new THREE.CubeGeometry(SLAB_WIDTH, SLAB_HEIGHT, SLAB_LENGTH);
+                slabMaterial = new THREE.MeshPhongMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
-                        slab = new THREE.Mesh(slabGeometry, slabMaterial);
-                        slab.castShadow = true;
-                        slab.position.set(0, SLAB_HEIGHT / 2, 0);
+                slab = new THREE.Mesh(slabGeometry, slabMaterial);
+                slab.castShadow = true;
+                slab.position.set(0, SLAB_HEIGHT / 2, 0);
 
-                        scene.add(slab);
+                scene.add(slab);
 
 
-                        //Create pyramid shape
-                        var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
-                        var pyramidMaterial = new THREE.MeshLambertMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
+                //Create pyramid shape
+                var pyramidGeom = new THREE.CubeGeometry(10, 10, 10);
+                var pyramidMaterial = new THREE.MeshLambertMaterial({ wireframe: true, side: THREE.DoubleSide, transparent: false, opacity: 100 });
 
-                        //vertex coordinates for pryamid
-                        pyramidGeom.vertices = [
-                            new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / 2),
-                            new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / -2),
-                            new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / -2),
-                            new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / 2),
-                            new THREE.Vector3(0, PYRAMID_HEIGHT, 0)
-                        ];
+                //vertex coordinates for pryamid
+                pyramidGeom.vertices = [
+                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / 2),
+                    new THREE.Vector3(SLAB_WIDTH / 2, 0, SLAB_LENGTH / -2),
+                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / -2),
+                    new THREE.Vector3(SLAB_WIDTH / -2, 0, SLAB_LENGTH / 2),
+                    new THREE.Vector3(0, PYRAMID_HEIGHT, 0)
+                ];
 
-                        //Faces for triangles that make up pryamid
-                        pyramidGeom.faces = [
-                            new THREE.Face3(3, 0, 4), // faces are triangles
-                            new THREE.Face3(0, 1, 4),
-                            new THREE.Face3(1, 2, 4),
-                            new THREE.Face3(2, 3, 4)
-                        ];
+                //Faces for triangles that make up pryamid
+                pyramidGeom.faces = [
+                    new THREE.Face3(3, 0, 4), // faces are triangles
+                    new THREE.Face3(0, 1, 4),
+                    new THREE.Face3(1, 2, 4),
+                    new THREE.Face3(2, 3, 4)
+                ];
 
-                        //Set up pryamid for adding texture
-                        pyramidGeom.dynamic = true;
-                        pyramidGeom.computeFaceNormals();
-                        pyramidGeom.computeVertexNormals();
-                        pyramidGeom.computeBoundingSphere();
+                //Set up pryamid for adding texture
+                pyramidGeom.dynamic = true;
+                pyramidGeom.computeFaceNormals();
+                pyramidGeom.computeVertexNormals();
+                pyramidGeom.computeBoundingSphere();
 
-                        pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
+                pyramid = new THREE.Mesh(pyramidGeom, pyramidMaterial);
 
-                        pyramid.position.set(0, SLAB_HEIGHT, 0);
-                        pyramid.overdraw = true;
-                        pyramid.castShadow = true;
-                        pyramid.receiveShadow = true;
+                pyramid.position.set(0, SLAB_HEIGHT, 0);
+                pyramid.overdraw = true;
+                pyramid.castShadow = true;
+                pyramid.receiveShadow = true;
 
-                        scene.add(pyramid);
-                        scene.add(new THREE.FaceNormalsHelper(pyramid));
+                scene.add(pyramid);
+                scene.add(new THREE.FaceNormalsHelper(pyramid));
 
-                        //Begin slider 
-                        gui = new dat.GUI({ autoplace: false });
-                        gui.domElement.id = 'gui';
+                //Begin slider 
+                gui = new dat.GUI({ autoplace: false });
+                gui.domElement.id = 'gui';
 
-                                                <%--//SLAB_HEIGHT = document.getElementById("<%= SlabHeight.ClientID %>").value;--%>
+                                                                                <%--//SLAB_HEIGHT = document.getElementById("<%= SlabHeight.ClientID %>").value;--%>
 
-                        //Parameters that for product demensions
-                        parameters =
-                            {
-                                Length: (SLAB_LENGTH * 10),
-                                Width: (SLAB_WIDTH * 10),
-                                Slab_Height: (SLAB_HEIGHT * 10),
-                                Point_Height: (PYRAMID_HEIGHT * 10),
-                                stone: "Wireframe",
-                                reset: function () { resetPier() }
-                            };
+                //Parameters that for product demensions
+                parameters =
+                    {
+                        Length: (SLAB_LENGTH * 10),
+                        Width: (SLAB_WIDTH * 10),
+                        Slab_Height: (SLAB_HEIGHT * 10),
+                        Point_Height: (PYRAMID_HEIGHT * 10),
+                        stone: "Wireframe",
+                        reset: function () { resetPier() }
+                    };
 
-                                                <%--//parameters(0).value = (document.getElementById("<%= SlabHeight.ClientID %>").value * 10);
+                                                                                <%--//parameters(0).value = (document.getElementById("<%= SlabHeight.ClientID %>").value * 10);
                         //alert(parameters(0).value);--%>
 
-                        //Slider UI
-                        deminsions = gui.addFolder('Pier Cap Dimensions (mm)');
+                //Slider UI
+                deminsions = gui.addFolder('Pier Cap Dimensions (mm)');
 
-                        //Slab controls
-                        slabX = deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
-                        slabZ = deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
-                        slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
+                //Slab controls
+                slabX = deminsions.add(parameters, 'Width').min(MIN_SLAB_LENGTH).max(MAX_SLAB_LENGTH).step(1).listen();
+                slabZ = deminsions.add(parameters, 'Length').min(MIN_SLAB_WIDTH).max(MAX_SLAB_WIDTH).step(1).listen();
+                slabY = deminsions.add(parameters, 'Slab_Height').min(MIN_SLAB_HEIGHT).max(MAX_SLAB_HEIGHT).step(1).listen();
 
-                        //slab.scale.x = value / (20 * 10);
-
-
-                        //Pyramid controls
-                        pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
-                        deminsions.open();
-
-                        //Stone types selection
-                        var productMaterial = gui.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name('Stone Type').listen();
-
-                        //Call function to update cap and slab textures
-                        productMaterial.onChange(function (value) {
-                            updateSlab();
-                        });
+                //slab.scale.x = value / (20 * 10);
 
 
-                        //Change texture of cap when stone type is changed
-                        //This also puts displays the stone type selected
+                //Pyramid controls
+                pyramidY = deminsions.add(parameters, 'Point_Height').min(MIN_PYRAMID_HEIGHT).max(MAX_PYRAMID_HEIGHT).step(1).listen();
+                deminsions.open();
 
-                        function updateSlab() {
-                            var value = parameters.stone;
-                            var newMaterial;
-                            if (value == "Granite") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
+                //Stone types selection
+                var productMaterial = gui.add(parameters, 'stone', ["Granite", "Sandstone", "Limestone"]).name('Stone Type').listen();
 
-                                Display_stone = 1;
-                                
-                                //Display selection
-                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Granite";
-                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Granite";
-                                DisplayStoneSelection();
-
-                            } else if (value == "Sandstone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
-
-                                Display_stone = 2;
-                                
-                                //Display selection
-                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Sandstone";
-                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Sandstone";
-                                DisplayStoneSelection();
+                //Call function to update cap and slab textures
+                productMaterial.onChange(function (value) {
+                    updateSlab();
+                   disableSaveButton();
+                });
 
 
-                            } else if (value == "Limestone") {
-                                newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+                //Change texture of cap when stone type is changed
+                //This also puts displays the stone type selected
 
-                                Display_stone = 3;
+                function updateSlab() {
+                    var value = parameters.stone;
+                    var newMaterial;
+                    
+                    if (value == "Granite") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/granite2.jpg"), shading: THREE.FlatShading, overdraw: true });
 
-                                document.getElementById('<%= hf_StoneType.ClientID %>').value = "Limestone";
-                                document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Limestone";
-                                DisplayStoneSelection();
-                                //Display selection
+                        Display_stone = 1;
 
-                            } else // (value == "Wireframe")
-                                newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+                        //Display selection
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "Granite";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Granite";
+                        DisplayStoneSelection();
 
-                            //Apply new textures
+                    } else if (value == "Sandstone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/sandstone2.jpg") });
+
+                        Display_stone = 2;
+
+                        //Display selection
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "Sandstone";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Sandstone";
+                        DisplayStoneSelection();
+
+
+                    } else if (value == "Limestone") {
+                        newMaterial = new THREE.MeshLambertMaterial({ map: THREE.ImageUtils.loadTexture("Textures/limestone2.jpg") });
+
+                        Display_stone = 3;
+
+                        document.getElementById('<%= hf_StoneType.ClientID %>').value = "Limestone";
+                        document.getElementById('<%= txtDisplayStone.ClientID %>').value = "Limestone";
+                        DisplayStoneSelection();
+                        //Display selection
+
+                    } else // (value == "Wireframe")
+                        newMaterial = new THREE.MeshBasicMaterial({ wireframe: true });
+
+                    //Apply new textures
                     slab.material = newMaterial;
                     pyramid.material = newMaterial;
 
@@ -241,7 +244,7 @@
                 }
 
 
-                        //functions to alter shape with sliders
+                //functions to alter shape with sliders
                 slabX.onChange(function (value) {
                     slab.scale.x = value / (SLAB_WIDTH * 10);
                     pyramid.scale.x = slab.scale.x;
@@ -249,61 +252,61 @@
                     //Put X scale value in global variable
                     //Slab_Length = slab.scale.x;
                     document.getElementById('<%= SlabWidth.ClientID %>').value = value;
-                            // Slab_Width = slab.scale.x;
+                    // Slab_Width = slab.scale.x;
 
-                        });
+                });
 
-                        //Manipulate height of slab
-                        //This function also controls the position of the slab and pyramid as the slab moves.
-                        slabY.onChange(function (value) {
-                            slab.scale.y = value / (SLAB_HEIGHT * 10);
+                //Manipulate height of slab
+                //This function also controls the position of the slab and pyramid as the slab moves.
+                slabY.onChange(function (value) {
+                    slab.scale.y = value / (SLAB_HEIGHT * 10);
 
-                            //Keep slab position stationary
-                            slab.position.y = (slab.scale.y * 25) / 2;
+                    //Keep slab position stationary
+                    slab.position.y = (slab.scale.y * 25) / 2;
 
-                            //Keep pyramid position stationary
-                            pyramid.position.y = (slab.scale.y * 25);
+                    //Keep pyramid position stationary
+                    pyramid.position.y = (slab.scale.y * 25);
 
-                            //Put Y scale value in global variable
-                            //Slab_Height = slab.scale.y;
-                            document.getElementById('<%= SlabHeight.ClientID %>').value = value;
-                        });
+                    //Put Y scale value in global variable
+                    //Slab_Height = slab.scale.y;
+                    document.getElementById('<%= SlabHeight.ClientID %>').value = value;
+                });
 
-                        //Manipulate length of the slab
-                        //This function also controls the width and length of the slab and pyramid as the slab moves.
-                        slabZ.onChange(function (value) {
+                //Manipulate length of the slab
+                //This function also controls the width and length of the slab and pyramid as the slab moves.
+                slabZ.onChange(function (value) {
 
-                            //Move slab length
-                            slab.scale.z = value / (SLAB_LENGTH * 10);
+                    //Move slab length
+                    slab.scale.z = value / (SLAB_LENGTH * 10);
 
-                            //Move pyramid length
-                            pyramid.scale.z = slab.scale.z;
+                    //Move pyramid length
+                    pyramid.scale.z = slab.scale.z;
 
-                            //Put Z scale value in global variable
-                            //Slab_Width = slab.scale.z;
-                            document.getElementById('<%=SlabLength.ClientID %>').value = value;
-                        });
+                    //Put Z scale value in global variable
+                    //Slab_Width = slab.scale.z;
+                    document.getElementById('<%=SlabLength.ClientID %>').value = value;
+                });
 
-                        //Manipulate height of pyramid point
-                        pyramidY.onChange(function (value) {
-                            pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
+                //Manipulate height of pyramid point
+                pyramidY.onChange(function (value) {
+                    pyramid.scale.y = value / (PYRAMID_HEIGHT * 10);
 
-                            //Put pryamid Y scale value in global variable
-                            //Pyramid_Height = pyramid.scale.y;
-                            document.getElementById('<%= PryHeight.ClientID %>').value = value;
-                        });
+                    //Put pryamid Y scale value in global variable
+                    //Pyramid_Height = pyramid.scale.y;
+                    document.getElementById('<%= PryHeight.ClientID %>').value = value;
+                });
 
-                        function callback() { return; }
+                function callback() { return; }
 
-                        renderers.push({ renderer: renderer, scene: scene, camera: camera, controls: controls, callback: callback });
+                renderers.push({ renderer: renderer, scene: scene, camera: camera, controls: controls, callback: callback });
 
-                    }
+            }
 
-                    // send stone type of pryamid and slab to code behind
-                    function DisplayStoneSelection() {
+            // send stone type of pryamid and slab to code behind
+            function DisplayStoneSelection() {
 
-                        document.getElementById('<%= DisplayStoneType.ClientID %>').value = Display_stone;
-                    }
+                document.getElementById('<%= DisplayStoneType.ClientID %>').value = Display_stone;
+            }
 
 
         </script>
@@ -315,7 +318,7 @@
 
         animate();
 
-        <%--Script from Three.js for rendering--%>
+                        <%--Script from Three.js for rendering--%>
         function animate() {
             requestAnimationFrame(animate);
             render();
@@ -340,9 +343,19 @@
         }
 
     </script>
+    <script>
+       
+        //Disable save button to prevent accidentally saving the wrong quote calculations.
+        //The save button becomes enabled again on the Calculate Cost click event.
+        function disableSaveButton() {
+           var saveButton = document.getElementById('<%= btnSaveConfirm.ClientID %>');
+         saveButton.disabled = true;
+        }
+    </script>
 
-    <%-- Panel will display existing quote dimensions--%>
+  
     <form id="fmControls" runat="server">
+          <%-- Panel will display existing quote dimensions--%>
         <asp:Panel runat="server" ID="pnlExistingQuote" Visible="False">
             <br />
             <asp:Label runat="server" ID="lblPanelCaption" Text="Existing Quote" CssClass="panelTitle"></asp:Label>
@@ -396,25 +409,23 @@
                     <br />
                     <br />
 
-                    <%--                   <asp:TextBox runat="server" ID="txtDisplayTitle" Text="Cap Stone Type:" CssClass="stoneTextbox" ReadOnly="True"></asp:TextBox>--%>
-
                     <asp:RangeValidator ID="rgvQuantity" runat="server" ControlToValidate="txtQuantity" ErrorMessage="Max limit - 30" MaximumValue="30" MinimumValue="1" Type="Integer" Display="None"></asp:RangeValidator>
 
                     <asp:RequiredFieldValidator ID="rfvStoneType" runat="server" ControlToValidate="txtDisplayStone" Display="None" ErrorMessage="Select a stone type"></asp:RequiredFieldValidator>
                     <asp:RequiredFieldValidator ID="rfvQuantity" runat="server" ControlToValidate="txtQuantity" Display="None" ErrorMessage="Enter a quantity"></asp:RequiredFieldValidator>
-
-
+                    
                     <asp:ValidationSummary ID="vldSummary" runat="server" ShowMessageBox="True" ShowSummary="False" />
                     <br />
 
                     <asp:Button runat="server" ID="btnAddProducts" Text="Add more products" OnClick="btnAddProducts_Click" CssClass="Buttons" CausesValidation="False" />
                     <asp:Button runat="server" CssClass="Buttons" ID="btnSaveConfirm" Text="Save Quote"
-                        OnClick="btnSaveConfirm_Click" />
+                        OnClick="btnSaveConfirm_Click" ClientIDMode="Static" />
                     <asp:Button runat="server" ID="btnCancel" Text="Cancel" CssClass="Buttons" OnClick="btnCancel_Click" CausesValidation="False" />
                     <asp:TextBox runat="server" ID="txtDisplayStone" CssClass="stoneTextbox" Visible="True" ReadOnly="True"></asp:TextBox>
-
+                    
                     <%--Hidden fields for slab and pryamid measurements--%>
                     <asp:HiddenField ID="SlabLength" runat="server" />
+                    
                     <asp:HiddenField ID="SlabWidth" runat="server" />
                     <asp:HiddenField ID="PryHeight" runat="server" />
                     <asp:HiddenField ID="SlabHeight" runat="server" />
@@ -427,7 +438,7 @@
             </asp:UpdatePanel>
         </div>
 
-        <asp:ValidationSummary ID="vlsCapValidation" runat="server" />
+        <asp:ValidationSummary ID="vlsCapValidation" runat="server" ShowMessageBox="True" ShowSummary="False" />
 
     </form>
 

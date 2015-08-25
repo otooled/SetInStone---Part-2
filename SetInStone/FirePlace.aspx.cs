@@ -30,27 +30,30 @@ namespace SetInStone
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            btnContinue.Enabled = false;
+            //Disable Add Products button to provent the user
+            //using it while in edit mode.
+            btnAddProducts.Enabled = false;
 
             if (!Page.IsPostBack)
             {
-
-                //The following commented out code will be used
-                //editing a quote
-
+                //Check query string status
                 if (!String.IsNullOrEmpty(Request["QuoteDetailsID"]))
                 {
                     //Edit mode
+                    //Get quote details id of quote being edited
                     int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                     Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
-                    if (qid != null)//new
+                    if (qid != null)
                     {
+                        //Display existing quote in panel
                         pnlExistingQuote.Visible = true;
-                        btnContinue.Enabled = true;
+
+                        //Controls set for edit mode
+                        btnAddProducts.Enabled = true;
                         btnSaveConfirm.Enabled = false;
 
-
+                        //Set hidden field values
+                        //Display the dimensions of quote
                         BaseWidth.Value = qid.Fireplace_Base_Width.ToString();
                         lblBaseWidthPanel.Text = qid.Fireplace_Base_Width.ToString();
 
@@ -67,19 +70,14 @@ namespace SetInStone
                         Depth.Value = qid.Fireplace_Depth.ToString();
                         lblDepthPanel.Text = qid.Fireplace_Depth.ToString();
 
-                        // hf_StoneType.Value 
+                  
                         HF_MarbleSelection.Value = qid.Stone_ID.ToString();
 
                         lblFirePQuantityPanel.Text = qid.Quantity.ToString();
                         lblDisplayStoneType.Text = qid.Stone.StoneType;
-                        //lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
+                       
 
                         txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
-
-                        //lblCalculateAnswer.Text = "";
-
-                        //txtDisplayStone.Text = qid.Stone.StoneType;
-                        //lblCalculateAnswer.Text = qid.Quote.Quote_Price.ToString(); 
 
                         //If this value is null then there is no fireplace quotes in the database.
                         //This can only happen if the Quote_Details table has been cleared.
@@ -87,11 +85,7 @@ namespace SetInStone
                         if (BaseWidth.Value == "")
                         {
                             DefaultDemensions();
-                            lblFirePQuantityPanel.Text = "";
-                            lblDisplayStoneType.Text = "";
-                            //lblExistingTotal.Text = qid.Quote.Quote_Price.ToString();
-
-                            txtInvisibleTotal.Text = qid.Quote.Quote_Price.ToString();
+                           
                         }
 
 
@@ -127,7 +121,7 @@ namespace SetInStone
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
             pnlQuoteCalc.Visible = true;
-            btnContinue.Enabled = true;
+            btnAddProducts.Enabled = true;
             btnSaveConfirm.Enabled = true;
 
             txtDisplayStone.Text = hf_StoneType.Value;
@@ -179,7 +173,6 @@ namespace SetInStone
         {
             //Measurements entered by the user through the slider control
 
-
             int stoneID = CheckStoneSelection();
 
             float topHeight = float.Parse(TopHeight.Value);
@@ -205,6 +198,7 @@ namespace SetInStone
                     qte = (Quote)Session["quote"];
                     if (qte != null)
                     {
+                        //Add dimensions of newly added product to session
                         qte.Quote_Details.Add(new Quote_Details()
                                                   {
                                                       Fireplace_Base_Height = float.Parse(BaseHeight.Value),
@@ -225,6 +219,8 @@ namespace SetInStone
 
                         Quote qid = db.Quotes.Where(a => a.QuoteId == qteID).FirstOrDefault();
                         Session["quote"] = qte;
+
+                        //Send qoute id to landing page
                         if (qid != null)
                         {
                             Response.Redirect("Quote.aspx?QuoteDetailsID=" + qid.QuoteId);
@@ -241,6 +237,7 @@ namespace SetInStone
                 {
                     qte = new Quote() { Quote_Ref = qRef };
 
+                    //Save dimensions 
                     qte.Quote_Details.Add(new Quote_Details()
                                               {
                                                   Fireplace_Base_Height = float.Parse(BaseHeight.Value),
@@ -259,6 +256,8 @@ namespace SetInStone
                     Session.Add("quote", qte);
                     int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
                     Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
+
+                    //Send qoute id to quote page
                     if (qid == null)
                     {
                         Response.Redirect("Quote.aspx");
@@ -280,7 +279,7 @@ namespace SetInStone
             Response.Redirect("LandingPage.aspx");
         }
 
-        protected void btnContinue_Click(object sender, EventArgs e)
+        protected void btnAddProducts_Click(object sender, EventArgs e)
         {
             Quote qte;
             if ((Session["quote"] != null))
@@ -288,6 +287,7 @@ namespace SetInStone
                 qte = (Quote)Session["quote"];
                 if (qte != null)
                 {
+                    //Add dimensions when quote is edited
                     qte.Quote_Details.Add(new Quote_Details()
                                               {
                                                   Fireplace_Base_Height = float.Parse(BaseHeight.Value),
@@ -312,6 +312,7 @@ namespace SetInStone
                 qte = new Quote() { Quote_Ref = qRef };
                 float x = float.Parse(BaseHeight.Value);
 
+                //Check if quantity as a value.  If not use the value from label.  They're the same
                 if (txtQuantity.Text == "")
                 {
                     qte.Quote_Details.Add(new Quote_Details()
@@ -332,6 +333,7 @@ namespace SetInStone
                 }
                 else
                 {
+                    //Check if text box quantity as a value.
                     qte.Quote_Details.Add(new Quote_Details()
                                               {
                                                   Fireplace_Base_Height = float.Parse(BaseHeight.Value),
@@ -352,6 +354,9 @@ namespace SetInStone
 
 
             }
+
+            //Send quote id back to landing page.
+            //This is needed so customer info can be used on quote page
             int qteID = Convert.ToInt32(Request["QuoteDetailsID"]);
             Quote_Details qid = db.Quote_Details.Where(a => a.Quote_Details_ID == qteID).FirstOrDefault();
             if (qid != null)
@@ -365,7 +370,5 @@ namespace SetInStone
             }
 
         }
-
-
     }
 }
