@@ -199,19 +199,27 @@
                 deminsions.open();
 
                 //Stone types selection for cap
-                var capProductMaterial = gui_deminsions.add(parameters, 'stone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name('Cap Stone Type').listen();
+                var capProductMaterial = gui_deminsions.add(parameters, 'stone', ["Granite", "Sandstone", "Limestone"]).name('Cap Stone Type').listen();
 
                 //Call function to update cap and slab textures
                 capProductMaterial.onChange(function (value) {
                     updateCap();
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Stone types selection for pillar
-                var pillarProductMaterial = gui_deminsions.add(parameters, 'pillarStone', ["Wireframe", "Granite", "Sandstone", "Limestone"]).name('Pillar Stone Type').listen();
+                var pillarProductMaterial = gui_deminsions.add(parameters, 'pillarStone', ["Granite", "Sandstone", "Limestone"]).name('Pillar Stone Type').listen();
 
                 //Call function to update pillar texture
                 pillarProductMaterial.onChange(function (value) {
                     updatePillar();
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Change texture of cap when stone type is changed
@@ -276,6 +284,11 @@
                     //Put Y scale value in global variable
                     // Slab_Height = slab.scale.y;
                     document.getElementById('<%= SlabHeight.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
 
@@ -286,6 +299,11 @@
                     //Put pryamid Y scale value in global variable
                     //Pyramid_Height = pyramid.scale.y;
                     document.getElementById('<%= PryHeight.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
 
@@ -351,6 +369,10 @@
 
                     document.getElementById('<%= HF_PillarWidth.ClientID %>').value = value;
 
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Manipulate height of pillar
@@ -368,6 +390,10 @@
                     //Pillar_Height = pillar.scale.y;
                     document.getElementById('<%= HF_PillarHeight.ClientID %>').value = value;
 
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
 
@@ -385,6 +411,11 @@
                     //Put Z scale value in global variable
                     //Pillar_Width = pillar.scale.z;
                     document.getElementById('<%= HF_PillarLength.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
                 function callback() { return; }
 
@@ -402,7 +433,17 @@
 
                 document.getElementById('<%= HF_PillarStone.ClientID %>').value = Pillar_Stone_Type;
             }
-
+            
+            //Disable save button to prevent accidentally saving the wrong quote calculations.
+            //The save button becomes enabled again on the Calculate Cost click event.
+            function disableSaveButton() {
+                var saveButton = document.getElementById('<%= btnSaveConfirm.ClientID %>');
+            saveButton.disabled = true;
+            }
+            function disableAddProductsButton() {
+                var prodButton = document.getElementById('<%= btnAddProducts.ClientID %>');
+                 prodButton.disabled = true;
+             }
 
         </script>
 

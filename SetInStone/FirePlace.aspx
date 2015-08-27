@@ -162,10 +162,14 @@
                 fireplace_depth = fireplace_deminsions.add(fireplace_parameters, 'Fireplace_Depth').min(MIN_FIREPLACE_DEPTH).max(MAX_FIREPLACE_DEPTH).step(1).listen();
                 fireplace_deminsions.open();
 
-                var fireplaceSlabMaterial = firePlace_gui.add(fireplace_parameters, 'baseStone', ["Wireframe", "Green Marble", "White Marble", "Red Marble"]).name('Stone Type').listen();
+                var fireplaceSlabMaterial = firePlace_gui.add(fireplace_parameters, 'baseStone', ["Green Marble", "White Marble", "Red Marble"]).name('Stone Type').listen();
 
                 fireplaceSlabMaterial.onChange(function(value) {
                     updateFireplace();
+
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //change texture of slab when stone type is changed
@@ -226,6 +230,11 @@
                     //Put Y scale value in global variable
                     //Top_Slap_Height = value;//top.scale.y;
                     document.getElementById('<%= TopHeight.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 sideSlabY.onChange(function(value) {
@@ -237,16 +246,25 @@
                     //Put Y scale value in global variable
                     //Side_Slab_Height = sideSlab.scale.y;
                     document.getElementById('<%=BaseHeight.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 sideSlabZ.onChange(function(value) {
                     sideSlab.scale.z = value / (SIDE_SLAB_WIDTH);
                     rightSlab.scale.z = value / (SIDE_SLAB_WIDTH);
 
-
                     //Put Z scale value in global variable
                     //Side_Slab_Width = sideSlabZ.scale.z;
                     document.getElementById('<%= BaseWidth.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 fireplace_depth.onChange(function(value) {
@@ -254,12 +272,15 @@
                     rightSlab.scale.x = value / (FIREPLACE_DEPTH);
                     sideSlab.scale.x = value / (FIREPLACE_DEPTH);
                     topSlab.scale.x = value / (FIREPLACE_DEPTH);
-                    //topSlab.scale.x = value / (SIDE_SLAB_LENGTH);
-
-
+                    
                     //Put X scale value in global variable
                     //Fireplace_Depth = value;// topSlab.scale.x;
                     document.getElementById('<%= Depth.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 function callback() { return; }
@@ -276,6 +297,18 @@
 
             function TopWidth() {
                 document.getElementById('<%= TopWidth.ClientID %>').value = Top_Slab_Width;
+            }
+            
+            //Disable save button to prevent accidentally saving the wrong quote calculations.
+            //The save button becomes enabled again on the Calculate Cost click event.
+            function disableSaveButton() {
+                var saveButton = document.getElementById('<%= btnSaveConfirm.ClientID %>');
+                saveButton.disabled = true;
+            }
+            
+            function disableAddProductsButton() {
+                var prodButton = document.getElementById('<%= btnAddProducts.ClientID %>');
+                prodButton.disabled = true;
             }
         </script>
 

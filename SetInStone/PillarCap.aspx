@@ -191,7 +191,10 @@
                 //Call function to update cap and slab textures
                 productMaterial.onChange(function (value) {
                     updateSlab();
-                   disableSaveButton();
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
 
@@ -252,8 +255,11 @@
                     //Put X scale value in global variable
                     //Slab_Length = slab.scale.x;
                     document.getElementById('<%= SlabWidth.ClientID %>').value = value;
-                    // Slab_Width = slab.scale.x;
-
+                   
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Manipulate height of slab
@@ -270,6 +276,11 @@
                     //Put Y scale value in global variable
                     //Slab_Height = slab.scale.y;
                     document.getElementById('<%= SlabHeight.ClientID %>').value = value;
+
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Manipulate length of the slab
@@ -285,6 +296,11 @@
                     //Put Z scale value in global variable
                     //Slab_Width = slab.scale.z;
                     document.getElementById('<%=SlabLength.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 //Manipulate height of pyramid point
@@ -294,6 +310,11 @@
                     //Put pryamid Y scale value in global variable
                     //Pyramid_Height = pyramid.scale.y;
                     document.getElementById('<%= PryHeight.ClientID %>').value = value;
+                    
+                    //Disable save & add product buttons to prevent saving wrong quote calculation
+                    //if measurments are altered.
+                    disableSaveButton();
+                    disableAddProductsButton();
                 });
 
                 function callback() { return; }
@@ -308,7 +329,17 @@
                 document.getElementById('<%= DisplayStoneType.ClientID %>').value = Display_stone;
             }
 
-
+            //Disable save button to prevent accidentally saving the wrong quote calculations.
+            //The save button becomes enabled again on the Calculate Cost click event.
+            function disableSaveButton() {
+                var saveButton = document.getElementById('<%= btnSaveConfirm.ClientID %>');
+                saveButton.disabled = true;
+            }
+            
+            function disableAddProductsButton() {
+                var prodButton = document.getElementById('<%= btnAddProducts.ClientID %>');
+                 prodButton.disabled = true;
+             }
         </script>
 
     </div>
@@ -345,12 +376,7 @@
     </script>
     <script>
        
-        //Disable save button to prevent accidentally saving the wrong quote calculations.
-        //The save button becomes enabled again on the Calculate Cost click event.
-        function disableSaveButton() {
-           var saveButton = document.getElementById('<%= btnSaveConfirm.ClientID %>');
-         saveButton.disabled = true;
-        }
+       
     </script>
 
   

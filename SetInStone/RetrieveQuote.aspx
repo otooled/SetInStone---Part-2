@@ -77,6 +77,7 @@
                 //Display quote for selected customers including api for quote returns
                 function DisplayCustQuotes(custID) {
                     $("#grid_Quotes").kendoGrid({
+                        sortable:true,
                         dataSource: {
                             transport: {
                                 read: {
@@ -84,6 +85,8 @@
                                     dataType: "json"
                                 }
                             },
+                            
+                        
                             pageSize: 5
                         },
                         columns: [
@@ -113,7 +116,7 @@
                             {
                                 command: {
                                     text: "Delete",
-                                    click: Delete,
+                                   // click: delete,
                                     type: 'DELETE'
                                 },
                                 title: "Delete ",
@@ -163,6 +166,8 @@
                                     dataType: "json"
                                 }
                             },
+                            
+                            
                             pageSize: 5
                         },
                         columns: [
@@ -196,7 +201,16 @@
                                 },
                                 title: "Edit ",
                                 width: "100px"
-                            }]
+                            },
+                         {
+                             command: {
+                                 text: "Delete",
+                                 click: Delete,
+                                 type: 'DELETE'
+                             },
+                             title: "Delete ",
+                             width: "130px"
+                         }]
                     });
                 }
 

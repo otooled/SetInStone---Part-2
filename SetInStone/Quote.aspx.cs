@@ -84,9 +84,7 @@ namespace SetInStone
                             totalQuote += item.Item_Price;
                         }
                         lblDisplayQuote.Text = totalQuote.ToString("#.##");
-                        //txtFirstName.Text = qte.QuoteId.ToString();
-                        //txtDate.Text = DateTime.Today.ToString("dd/MM/yyyy HH:mm");
-
+                       
                         txtDate.Text = dte.ToString();
                     }
 

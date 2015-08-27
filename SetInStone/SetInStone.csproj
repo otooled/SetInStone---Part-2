@@ -229,7 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CustomersController.cs" />
-    <Compile Include="Api\DeleteQuote.cs" />
+    <Compile Include="Api\DeleteQuoteController.cs" />
     <Compile Include="Api\QuoteDetailsController.cs" />
     <Compile Include="Api\QuotesController.cs" />
     <Content Include="App_Code\HF_StoneType.cs" />
