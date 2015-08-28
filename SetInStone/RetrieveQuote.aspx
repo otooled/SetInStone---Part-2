@@ -9,13 +9,13 @@
     <%--Bundles & Scripts--%>
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/RetrieveQuote.css") %>
     <%: Scripts.Render("~/bundles/jQuery") %>
-    <title>Set In Stone</title>
+    <title>Set In Stone - Retrieve Quote</title>
 
     <%--Stylesheet & script for kendo ui--%>
     <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="http://cdn.kendostatic.com/2015.2.624/styles/kendo.material.min.css" />
     <script src="http://cdn.kendostatic.com/2015.2.624/js/kendo.all.min.js"></script>
-
+      <link rel="icon" type="image/jpg" href="Content/Images/sisIcon.png"/>
 </head>
 <body>
     <form id="frmRetrieve" runat="server">

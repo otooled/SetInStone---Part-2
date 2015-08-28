@@ -292,6 +292,15 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Label lblCalculateAnswer;
         
         /// <summary>
+        /// rfvQuantity control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvQuantity;
+        
+        /// <summary>
         /// rfvCapStone control.
         /// </summary>
         /// <remarks>

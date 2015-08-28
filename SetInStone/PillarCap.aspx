@@ -13,7 +13,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <link rel="stylesheet" href="/resources/demos/style.css" />
     <link rel="stylesheet" href="http://localhost:55153/code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
-
+      <link rel="icon" type="image/jpg" href="Content/Images/sisIcon.png"/>
 
 
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ProductPage.css") %><%: Scripts.Render("~/bundles/jQuery") %>
@@ -59,7 +59,7 @@
     </script>
 
 
-    <title>Set In Stone</title>
+    <title>Set In Stone - Pillar Cap</title>
 </head>
 <body>
     <br />

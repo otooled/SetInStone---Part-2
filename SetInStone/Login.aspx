@@ -8,10 +8,9 @@
 <head runat="server">
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/Login.css") %>
     <%: Scripts.Render("~/bundles/jQuery") %>
-    <title>Set In Stone</title>
-    <script language="JavaScript">
-        javascript: window.history.forward(1);
-    </script>
+    <link rel="icon" type="image/jpg" href="Content/Images/sisIcon.png"/>
+    <title>Set In Stone - Login</title>
+   
 
 </head>
 

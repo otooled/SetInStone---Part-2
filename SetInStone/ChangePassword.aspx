@@ -6,6 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/ChangeLoginDetails.css") %>    <%: Scripts.Render("~/bundles/jQuery") %>
+    <link rel="icon" type="image/jpg" href="Content/Images/sisIcon.png"/>
     <title>Set In Stone - Edit Login Details</title>
 </head>
 <body>

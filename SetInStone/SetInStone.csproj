@@ -115,6 +115,8 @@
     <Content Include="Content\Images\drop2.png" />
     <Content Include="Content\Images\drop3.png" />
     <Content Include="Content\Images\drop4.png" />
+    <Content Include="Content\Images\favicon.png" />
+    <Content Include="Content\Images\sisIcon.png" />
     <Content Include="Content\LandingPage.css" />
     <Content Include="Content\ChangeLoginDetails.css" />
     <Content Include="Content\LandingPage\css\bootstrap.css" />
@@ -137,7 +139,6 @@
     <Content Include="Quote.aspx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="RetrieveQuote.aspx" />
-    <Content Include="RoundCap.aspx" />
     <Content Include="Scripts\ammo.js" />
     <Content Include="Scripts\csg.js" />
     <Content Include="Scripts\grayscale.js" />
@@ -328,13 +329,6 @@
     </Compile>
     <Compile Include="RetrieveQuote.aspx.designer.cs">
       <DependentUpon>RetrieveQuote.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RoundCap.aspx.cs">
-      <DependentUpon>RoundCap.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RoundCap.aspx.designer.cs">
-      <DependentUpon>RoundCap.aspx</DependentUpon>
     </Compile>
     <Compile Include="SetInStone001.Context.cs">
       <AutoGen>True</AutoGen>

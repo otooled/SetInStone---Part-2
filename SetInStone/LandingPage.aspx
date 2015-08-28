@@ -9,7 +9,8 @@
     <%--Bundles & Scripts--%>
     <%: Styles.Render("~/Content/bootstrap.css", "~/Content/LandingPage.css") %>
     <%: Scripts.Render("~/bundles/jQuery") %>
-    <title>Set In Stone</title>
+    <link rel="icon" type="image/jpg" href="Content/Images/sisIcon.png"/>
+    <title>Set In Stone - Landing Page</title>
 </head>
 <body>
     <br />
@@ -17,8 +18,6 @@
     <div id="divTitle">
         <label>Set In Stone</label>
     </div>
-    
-   
     <form id="form1" runat="server">
         <br/>
          <asp:Label runat="server" ID="lblEditTitle" Text="Edit Quote - Add Product" Visible="False"></asp:Label>
