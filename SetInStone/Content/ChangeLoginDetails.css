@@ -4,36 +4,21 @@
    background-size: 1400px 650px;
 }
 .TextBoxes {
-    border: none;
+     border: white;
     height: 40px;
     font-size: 30px;
     color: white;
     background-color: transparent;
     font-family: Book Antiqua;
+   
+}
+input:focus {
+    outline: none
 }
 ::-webkit-input-placeholder {
     color: white;
     font-family: Book Antiqua;
     font-size: 30px;
-}
-input:focus {
-    outline: none
-}
-
-.bars {
-    background-color: white;
-    width: 300px;
-    color: white;
-    height: 2px;
-    font-size: 4px;
-}
-.LoginButtons {
-    background-color: transparent;
-    border-color: transparent;
-    color: white;
-    font-family: Book Antiqua;
-    font-size: 30px;
-    
 }
 #divTitle {
     margin-left: auto;
@@ -43,39 +28,52 @@ input:focus {
     font-family: Papyrus;
     font-size: 50px;
 }
-#LoginDiv {
+#forgotUserName {
     margin-left: auto;
     margin-right: auto;
 
-    margin-top: 7%;
+    margin-top: 4%;
     /*margin-bottom: auto;*/
     width: 370px;
     /*position: fixed;*/
 }
-#divNewEmployee {
-     right: 100px;
-    top: 30%;
-    width: 300px;
-    position: fixed;
-}
 .Labels {
     height: 40px;
-    font-size: 20px;
+    font-size: 16px;
     color: white;
     background-color: transparent;
     font-family: Book Antiqua;
     /*margin-left: 100px;*/
    
 }
-.Links {
-     height: 40px;
-    font-size: 20px;
-    color: lightblue;
-    background-color: transparent;
+.Buttons {
+   background-color: transparent;
+    /*border-color: transparent;*/
+    color: white;
     font-family: Book Antiqua;
+    font-size: 20px;
+    height: 35px;
+    border-width: 3px;
+    border-radius: 6px;
+    border-color: white;
+    
 }
-a:hover {
-    color: lightblue;
+#changePassword {
+     margin-left: auto;
+    margin-right: auto;
 
+    margin-top: 4%;
+    /*margin-bottom: auto;*/
+    width: 370px;
+    /*position: fixed;*/
 }
-
+#lblTitle {
+      margin-top: 5%;
+    margin-left: 500px;
+    margin-right: auto;
+    /*width: 350px;*/
+    color: white;
+    font-family: Papyrus;
+    font-size: 30px;
+    top: 80%;
+}

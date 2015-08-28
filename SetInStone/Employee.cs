@@ -24,6 +24,7 @@ namespace SetInStone
         public string First_name { get; set; }
         public string Surname { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
     
         public virtual ICollection<Quote> Quotes { get; set; }
     }

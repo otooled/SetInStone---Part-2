@@ -13,11 +13,6 @@ namespace SetInStone
     {
         private SetInStone db = new SetInStone();
 
-        protected void Dispose(bool disposing)
-        {
-            db.Dispose();
-        }
-
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -95,6 +90,10 @@ namespace SetInStone
             return output;
         }
 
-        
+        //Dispose database connection
+        protected void Dispose(bool disposing)
+        {
+            db.Dispose();
+        }
     }
 }

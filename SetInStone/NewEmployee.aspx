@@ -40,6 +40,17 @@
         <asp:RequiredFieldValidator ID="rvfSurname" runat="server" ControlToValidate="txtSurname" ErrorMessage="Surname required" Display="None"></asp:RequiredFieldValidator>
         <br />
          <br />
+             <asp:TextBox ID="txtEmail" runat="server" CssClass="TextBoxes" placeholder="Email"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Email Required" SetFocusOnError="True" CssClass="texVal"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="rxvEmail" runat="server" ControlToValidate="txtEmail" Display="Dynamic" ErrorMessage="Not a valid email address" SetFocusOnError="True" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="texVal"></asp:RegularExpressionValidator>
+           <br/>
+        <br />
+            <asp:TextBox ID="txtConfirmEmail" runat="server" CssClass="TextBoxes" placeholder="Confirm Email"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvConEmail" runat="server" ControlToValidate="txtConfirmEmail" Display="Dynamic" ErrorMessage="Email confirmation required" CssClass="texVal" Enabled="False"></asp:RequiredFieldValidator>
+            <asp:CompareValidator ID="cpvConEmail" runat="server" ControlToCompare="txtEmail" ControlToValidate="txtConfirmEmail" Display="Dynamic" ErrorMessage="Email addresses must match" SetFocusOnError="True" CssClass="texVal"></asp:CompareValidator>
+            <asp:RegularExpressionValidator ID="rgvEmailCon" runat="server" ControlToValidate="txtConfirmEmail" Display="Dynamic" ErrorMessage="Not a valid email address" SetFocusOnError="True" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" CssClass="texVal"></asp:RegularExpressionValidator>
+             <br/>
+        <br /> 
         <asp:TextBox ID="txtPassword" runat="server" CssClass="TextBoxes" placeholder="Password" TextMode="Password"></asp:TextBox>
         <asp:RequiredFieldValidator ID="rvfPassword" runat="server" ControlToValidate="txtPassword" ErrorMessage="Password required" Display="None"></asp:RequiredFieldValidator>
         <asp:CompareValidator ID="cpvPassword" runat="server" ControlToCompare="txtPassword" ControlToValidate="txtConfirmPassword" ErrorMessage="Passwords must match" Display="None"></asp:CompareValidator>

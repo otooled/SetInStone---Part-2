@@ -72,7 +72,8 @@ namespace SetInStone
                     User_ID = txtUserName.Text,
                     First_name = txtFirstName.Text,
                     Surname = txtSurname.Text,
-                    Password = GetMd5Hash(txtConfirmPassword.Text),
+                    Email = txtEmail.Text,
+                    Password = GetMd5Hash(txtConfirmPassword.Text)
 
                 };
                 db.Employees.Add(emp);

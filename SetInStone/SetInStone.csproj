@@ -116,6 +116,7 @@
     <Content Include="Content\Images\drop3.png" />
     <Content Include="Content\Images\drop4.png" />
     <Content Include="Content\LandingPage.css" />
+    <Content Include="Content\ChangeLoginDetails.css" />
     <Content Include="Content\LandingPage\css\bootstrap.css" />
     <Content Include="Content\LandingPage\css\bootstrap.min.css" />
     <Content Include="Content\LandingPage\css\grayscale.css" />
@@ -134,6 +135,7 @@
     <Content Include="Content\test.css" />
     <Content Include="FirePlace.aspx" />
     <Content Include="Quote.aspx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="RetrieveQuote.aspx" />
     <Content Include="RoundCap.aspx" />
     <Content Include="Scripts\ammo.js" />
@@ -313,6 +315,13 @@
     <Compile Include="Quote_Details.cs">
       <DependentUpon>SetInStone001.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RetrieveQuote.aspx.cs">
       <DependentUpon>RetrieveQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -432,6 +441,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Registration\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

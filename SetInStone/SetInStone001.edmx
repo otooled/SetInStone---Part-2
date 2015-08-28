@@ -61,9 +61,10 @@
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="User_ID" Type="nchar" MaxLength="20" />
+          <Property Name="User_ID" Type="nvarchar" MaxLength="20" />
           <Property Name="First_name" Type="nvarchar" MaxLength="20" />
           <Property Name="Surname" Type="nvarchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Order">
@@ -101,7 +102,7 @@
           <Property Name="CustomerId" Type="int" />
           <Property Name="Quote_Price" Type="decimal" Precision="14" Scale="2" />
           <Property Name="EmployeeId" Type="int" />
-          <Property Name="Quote_Date" Type="date" Nullable="false" />
+          <Property Name="Quote_Date" Type="date" />
         </EntityType>
         <EntityType Name="Quote_Details">
           <Key>
@@ -170,7 +171,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Quote_Customer">
-          <End Role="Customer" Type="SetInStone2Model.Store.Customer" Multiplicity="0..1" />
+          <End Role="Customer" Type="SetInStone2Model.Store.Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Quote" Type="SetInStone2Model.Store.Quote" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
@@ -194,7 +197,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Quote_Details_Quote">
-          <End Role="Quote" Type="SetInStone2Model.Store.Quote" Multiplicity="1" />
+          <End Role="Quote" Type="SetInStone2Model.Store.Quote" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Quote_Details" Type="SetInStone2Model.Store.Quote_Details" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Quote">
@@ -305,11 +310,12 @@
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="User_ID" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="User_ID" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="First_name" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="Surname" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
           <Property Name="Password" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Quotes" Relationship="SetInStone2Model.FK_Quote_Employee" FromRole="Employee" ToRole="Quote" />
+          <Property Type="String" Name="Email" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -451,7 +457,7 @@
           <Property Type="Int32" Name="CustomerId" />
           <Property Type="Decimal" Name="Quote_Price" Precision="14" Scale="2" />
           <Property Type="Int32" Name="EmployeeId" />
-          <Property Type="DateTime" Name="Quote_Date" Nullable="false" Precision="0" />
+          <Property Type="DateTime" Name="Quote_Date" Precision="0" />
           <NavigationProperty Name="Customer" Relationship="SetInStone2Model.FK_Quote_Customer" FromRole="Quote" ToRole="Customer" />
           <NavigationProperty Name="Employee" Relationship="SetInStone2Model.FK_Quote_Employee" FromRole="Quote" ToRole="Employee" />
           <NavigationProperty Name="Orders" Relationship="SetInStone2Model.FK_Order_Quote" FromRole="Quote" ToRole="Order" />
@@ -526,6 +532,7 @@
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="SetInStone2Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="First_name" ColumnName="First_name" />

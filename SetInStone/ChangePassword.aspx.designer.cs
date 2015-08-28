@@ -10,97 +10,43 @@
 namespace SetInStone {
     
     
-    public partial class NewEmployee {
+    public partial class ChangePassword {
         
         /// <summary>
-        /// form1 control.
+        /// frmChangeDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm frmChangeDetails;
         
         /// <summary>
-        /// ScriptManagerTest control.
+        /// lblTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManagerTest;
+        protected global::System.Web.UI.WebControls.Label lblTitle;
         
         /// <summary>
-        /// txtUserName control.
+        /// forgotUserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl forgotUserName;
         
         /// <summary>
-        /// pnlUserName control.
+        /// lblEmailHeadInstruction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlUserName;
-        
-        /// <summary>
-        /// lblDisplayError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDisplayError;
-        
-        /// <summary>
-        /// rfvUserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUserName;
-        
-        /// <summary>
-        /// txtFirstName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
-        /// <summary>
-        /// rvfFirstName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvfFirstName;
-        
-        /// <summary>
-        /// txtSurname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSurname;
-        
-        /// <summary>
-        /// rvfSurname control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvfSurname;
+        protected global::System.Web.UI.WebControls.Label lblEmailHeadInstruction;
         
         /// <summary>
         /// txtEmail control.
@@ -121,112 +67,112 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
         
         /// <summary>
-        /// rxvEmail control.
+        /// regEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator rxvEmail;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regEmail;
         
         /// <summary>
-        /// txtConfirmEmail control.
+        /// btnSendEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmEmail;
+        protected global::System.Web.UI.WebControls.Button btnSendEmail;
         
         /// <summary>
-        /// rfvConEmail control.
+        /// btnCancelUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConEmail;
+        protected global::System.Web.UI.WebControls.Button btnCancelUser;
         
         /// <summary>
-        /// cpvConEmail control.
+        /// changePassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cpvConEmail;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl changePassword;
         
         /// <summary>
-        /// rgvEmailCon control.
+        /// lblPasswordHeadInstruction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator rgvEmailCon;
+        protected global::System.Web.UI.WebControls.Label lblPasswordHeadInstruction;
         
         /// <summary>
-        /// txtPassword control.
+        /// txtFirstPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtFirstPassword;
         
         /// <summary>
-        /// rvfPassword control.
+        /// rfvPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvfPassword;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
         
         /// <summary>
-        /// cpvPassword control.
+        /// txtSecondPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cpvPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtSecondPassword;
         
         /// <summary>
-        /// txtConfirmPassword control.
+        /// rfvConfirmPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmPassword;
         
         /// <summary>
-        /// rvfConfirmPassword control.
+        /// cmpPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rvfConfirmPassword;
+        protected global::System.Web.UI.WebControls.CompareValidator cmpPassword;
         
         /// <summary>
-        /// btnAddEmployee control.
+        /// btnChangePassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddEmployee;
+        protected global::System.Web.UI.WebControls.Button btnChangePassword;
         
         /// <summary>
-        /// btnCancel control.
+        /// btnCancelPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
+        protected global::System.Web.UI.WebControls.Button btnCancelPassword;
         
         /// <summary>
         /// vldSummary control.

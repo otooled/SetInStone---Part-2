@@ -58,6 +58,24 @@ namespace SetInStone {
         protected global::System.Web.UI.WebControls.Button btnLogin;
         
         /// <summary>
+        /// hypUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hypUser;
+        
+        /// <summary>
+        /// hypPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink hypPassword;
+        
+        /// <summary>
         /// vldLoginSummary control.
         /// </summary>
         /// <remarks>

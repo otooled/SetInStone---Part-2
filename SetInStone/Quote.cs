@@ -25,7 +25,7 @@ namespace SetInStone
         public Nullable<int> CustomerId { get; set; }
         public Nullable<decimal> Quote_Price { get; set; }
         public Nullable<int> EmployeeId { get; set; }
-        public System.DateTime Quote_Date { get; set; }
+        public Nullable<System.DateTime> Quote_Date { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }
