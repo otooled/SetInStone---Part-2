@@ -80,6 +80,7 @@ namespace SetInStone
                 try
                 {
                     db.SaveChanges();
+                   
                 }
                 catch (Exception)
                 {
@@ -89,9 +90,10 @@ namespace SetInStone
 
                 finally
                 {
+                    Session["loginDetails"] = null;
                     //Display success message
                     string timeGone =
-                        @"<script type='text/javascript'> if(confirm('You can now log in with your chosen username and password.')) { document.location='LandingPage.aspx?val=true';}</script>";
+                        @"<script type='text/javascript'> if(confirm('You can now log in with your chosen username and password.')) { document.location='Login.aspx?val=true';}</script>";
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "timeOut", timeGone, false);
                 }
 

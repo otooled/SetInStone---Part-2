@@ -12,8 +12,7 @@ namespace SetInStone
     public partial class Login : System.Web.UI.Page
     {
         private SetInStone db = new SetInStone();
-
-        
+         
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -34,11 +33,9 @@ namespace SetInStone
                 {
                     Employee values = (Employee)Session["userDetails"];
                     txtStaffID.Text = values.User_ID;
-
                     txtPassword.Text = values.Password;
-
-                   
                 }
+                
             }
         }
 

@@ -130,13 +130,14 @@
                 function Delete(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
+                    
                     $.ajax({
-                        url: "../Api/DeleteQuote/" + dataItem.QuoteId,
+                        url: "../Api/DeleteQuote/" + dataItem.Quote_Details_ID,
                         type: 'DELETE',
                         dataType: 'json'
 
                     });
+                   
                 }
 
                 //Show details of quotes selected including api for quote detail returns
@@ -164,9 +165,11 @@
                                 read: {
                                     url: "../Api/QuoteDetails/" + dataItem.QuoteId,
                                     dataType: "json"
+                                },
+                                destroy: {
+                                    url: "../Api/DeleteQuote/" + dataItem.QuoteId,
                                 }
                             },
-                            
                             
                             pageSize: 5
                         },
@@ -208,6 +211,7 @@
                                  click: Delete,
                                  type: 'DELETE'
                              },
+                             
                              title: "Delete ",
                              width: "130px"
                          }]
@@ -231,7 +235,6 @@
                 function EditDetail(e) {
                     e.preventDefault();
                     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-
 
                     if (dataItem.ProductOptionID == 1) // pillar cap
                     {

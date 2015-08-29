@@ -19,7 +19,7 @@
     <form id="form1" runat="server">
         <asp:ScriptManager runat="server" ID="ScriptManagerTest" EnablePageMethods="True"></asp:ScriptManager>
         <div id="divEmp">
-            <br />
+            
             <br />
             <asp:Label runat="server" Text="Enter employee details below and click Add Employee"></asp:Label>
             <br />
